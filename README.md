@@ -3,6 +3,31 @@
 - Download tick data from [Dukascopy](https://www.dukascopy.com/swiss/english/marketwatch/historical/) 
 - Convert source tick data to CSV/HST/FXT
 
+### 1.1 Building
+
+To build, you need to install go (https://golang.org/) and glide (https://github.com/Masterminds/glide) 
+
+To build:
+
+```
+glide install
+go build
+```
+
+### 1.2 Running
+Get January (2019) data for EURUSD and convert to FXT/MT4
+
+```
+./go-duka -symbol EURUSD -format fxt -start "2018-01-01" -end "2008-01-31"
+```
+
+Get 2018 data for XAUUSD and convert to FXT, and then to HST
+
+```
+./go-duka -symbol EURUSD -format fxt -start "2018-01-01" -end "2008-12-31"
+./go-duka -symbol EURUSD -format hst -start "2018-01-01" -end "2008-12-31"
+```
+
 
 ## 2 CSV Format
 
@@ -175,3 +200,4 @@ type FXTHeader struct {
 	_                 [240]byte //  		488      240     unused
 }
 ```
+
