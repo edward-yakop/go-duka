@@ -65,7 +65,7 @@ func main() {
 		"timeframe values: M1, M5, M15, M30, H1, H4, D1, W1, MN (Comma separated list)")
 	flag.StringVar(&args.Symbol,
 		"symbol", "",
-		"symbol list using format, like: EURUSD EURGBP")
+		"symbol list using format, like: EURUSD EURGBP (*required)")
 	flag.StringVar(&args.Start,
 		"start", start,
 		"start date format YYYY-MM-DD")
@@ -83,7 +83,7 @@ func main() {
 		"one of the model values: 0, 1, 2")
 	flag.StringVar(&args.Format,
 		"format", "",
-		"output file format, supported csv/hst/fxt")
+		"output file format, supported csv/hst/fxt (*required)")
 	flag.BoolVar(&args.Header,
 		"header", false,
 		"save csv with header")
@@ -118,7 +118,11 @@ func main() {
 
 	opt, err := ParseOption(args)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("--------------------------------------------")
+		fmt.Printf("Error: %s\n", err)
+		fmt.Println("--------------------------------------------\n")
+		fmt.Println("Usage:")
+		flag.PrintDefaults()
 		return
 	}
 
