@@ -8,7 +8,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/adyzng/go-duka/core"
+	"../core"
 )
 
 func TestFxtFile(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/adyzng/go-duka/fxt4"
+	"./fxt4"
 	"github.com/go-clog/clog"
 )
 

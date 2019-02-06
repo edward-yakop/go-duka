@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/adyzng/go-duka/bi5"
+	"../bi5"
 )
 
 func TestCloseChan(t *testing.T) {

@@ -5,7 +5,7 @@ import (
 	"time"
 	"log"
 
-	"github.com/adyzng/go-duka/misc"
+	"../misc"
 )
 
 var (

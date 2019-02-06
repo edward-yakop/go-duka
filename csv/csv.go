@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/adyzng/go-duka/core"
-	"github.com/adyzng/go-duka/misc"
+	"../core"
+	"../misc"
 )
 
 var (

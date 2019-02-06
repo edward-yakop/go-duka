@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/adyzng/go-duka/core"
-	"github.com/adyzng/go-duka/misc"
+	"../core"
+	"../misc"
 	"github.com/kjk/lzma"
 )
 
@@ -87,7 +87,7 @@ func (b *Bi5) Save(data []byte) error {
 		return nil
 	}
 
-	if err := os.MkdirAll(b.dest, 666); err != nil {
+	if err := os.MkdirAll(b.dest, 0755); err != nil {
 		log.Error("Create folder (%s) failed: %v.", b.dest, err)
 		return err
 	}
@@ -95,7 +95,7 @@ func (b *Bi5) Save(data []byte) error {
 	fname := fmt.Sprintf("%02dh.%s", b.dayH.Hour(), ext)
 	fpath := filepath.Join(b.dest, fname)
 
-	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 666)
+	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
 	if err != nil {
 		log.Error("Create file %s failed: %v.", fpath, err)
 		return err
@@ -118,7 +118,7 @@ func (b *Bi5) Load() ([]byte, error) {
 	fname := fmt.Sprintf("%02dh.%s", b.dayH.Hour(), ext)
 	fpath := filepath.Join(b.dest, fname)
 
-	f, err := os.OpenFile(fpath, os.O_RDONLY, 666)
+	f, err := os.OpenFile(fpath, os.O_RDONLY, 0666)
 	if err != nil {
 		if os.IsNotExist(err) {
 			log.Trace("Bi5 (%s) not exist, try to download from dukascopy", fpath)

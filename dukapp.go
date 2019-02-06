@@ -10,12 +10,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/adyzng/go-duka/bi5"
-	"github.com/adyzng/go-duka/core"
-	"github.com/adyzng/go-duka/csv"
-	"github.com/adyzng/go-duka/fxt4"
-	"github.com/adyzng/go-duka/hst"
-	"github.com/adyzng/go-duka/misc"
+	"./bi5"
+	"./core"
+	"./csv"
+	"./fxt4"
+	"./hst"
+	"./misc"
 )
 
 var (

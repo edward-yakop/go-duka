@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/adyzng/go-duka/core"
-	"github.com/adyzng/go-duka/misc"
+	"../core"
+	"../misc"
 )
 
 var (

@@ -11,7 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/iizotop/go-duka/core"
+	"../core"
 	//"github.com/iizotop/go-duka/misc"
 )
 
