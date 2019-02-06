@@ -169,6 +169,7 @@ func (app *DukaApp) Execute() error {
 
 	//
 	// 创建输出目录
+	// Create an output directory
 	//
 	if _, err := os.Stat(opt.Folder); os.IsNotExist(err) {
 		if err = os.MkdirAll(opt.Folder, 666); err != nil {
@@ -179,10 +180,12 @@ func (app *DukaApp) Execute() error {
 
 	//
 	// 按天下载，每天24小时的数据由24个goroutine并行下载
+	// Download by day, 24 hours a day data is downloaded in parallel by 24 goroutines
 	//
 	for day := opt.Start; day.Unix() < opt.End.Unix(); day = day.Add(24 * time.Hour) {
 		//
 		//  周六没数据，跳过
+		// No data on Saturday, skip
 		//
 		if day.Weekday() == time.Saturday {
 			log.Warn("Skip Saturday %s.", day.Format("2006-01-02"))
@@ -190,6 +193,7 @@ func (app *DukaApp) Execute() error {
 		}
 		//
 		// 下载，解析，存储
+		// Download, parse, store
 		//
 		if err = app.saveData(day, app.fetchDay(day)); err != nil {
 			break
@@ -217,7 +221,9 @@ func (app *DukaApp) Execute() error {
 
 // fetchDay 现在一天24小时的tick数据，24个goroutine并行下载，返回数据并不一定按时间顺序排序
 // 转换端需要按天对tick数据排序。
-//
+// fetchDay now 24 hours a day tick data, 24 goroutine downloads in parallel, return data is not necessarily sorted in chronological order
+// The conversion side needs to sort the tick data by day.
+
 func (app *DukaApp) fetchDay(day time.Time) <-chan *hReader {
 	ch := make(chan *hReader, 24)
 	opt := app.option
@@ -268,6 +274,7 @@ func (app *DukaApp) fetchDay(day time.Time) <-chan *hReader {
 }
 
 // sortAndOutput 按时间戳，从前到后排序当天tick数据
+// Sort the tick data of the day from front to back by timestamp
 //
 func (app *DukaApp) sortAndOutput(day time.Time, ticks []*core.TickData) error {
 	if len(ticks) == 0 {
@@ -307,12 +314,14 @@ func (app *DukaApp) saveData(day time.Time, chData <-chan *hReader) error {
 		var ticks []*core.TickData
 
 		// 解析 bi5 成 TickData 数据
+		// Parsing bi5 into TickData data
 		if ticks, err = bi5File.Decode(data.Data[:]); err != nil {
 			log.Error("Decode bi5 %s: %s failed: %v.", opt.Symbol, data.DayH.Format("2006-01-02:15H"), err)
 			continue
 		}
 
 		// 保留 bi5 数据
+		// Keep bi5 data
 		if err := bi5File.Save(data.Data[:]); err != nil {
 			log.Error("Save Bi5 %s: %s failed: %v.", opt.Symbol, data.DayH.Format("2006-01-02:15H"), err)
 			continue

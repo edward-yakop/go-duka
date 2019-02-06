@@ -7,7 +7,7 @@ import (
 )
 
 func TestLoadBi5(t *testing.T) {
-	//fname := `F:\00\EURUSD\2017\01\01\22h.bi5`
+	//fname := `F:\00\EURUSD\2017\01\01\22h_ticks.bi5`
 	dest := `F:\00`
 
 	day, err := time.ParseInLocation("2006-01-02 15", "2017-01-01 22", time.UTC)
@@ -32,7 +32,7 @@ func TestLoadBi5(t *testing.T) {
 }
 
 func TestDownloadBi5(t *testing.T) {
-	//fname := `F:\00\EURUSD\2017\01\01\22h.bi5`
+	//fname := `F:\00\EURUSD\2017\01\01\22h_ticks.bi5`
 	dest := `F:\test01`
 
 	day, err := time.ParseInLocation("2006-01-02 15", "2017-01-01 22", time.UTC)

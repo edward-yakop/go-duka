@@ -39,7 +39,7 @@ type Bi5 struct {
 // New create an bi5 saver
 func New(day time.Time, symbol, dest string) *Bi5 {
 	y, m, d := day.Date()
-	dir := fmt.Sprintf("%s/%04d/%02d/%02d", symbol, y, m, d)
+	dir := fmt.Sprintf("%s/%04d/%02d/%02d", symbol, y, m-1, d)
 
 	return &Bi5{
 		dest:   filepath.Join(dest, dir),
@@ -92,7 +92,7 @@ func (b *Bi5) Save(data []byte) error {
 		return err
 	}
 
-	fname := fmt.Sprintf("%02dh.%s", b.dayH.Hour(), ext)
+	fname := fmt.Sprintf("%02dh_ticks.%s", b.dayH.Hour(), ext)
 	fpath := filepath.Join(b.dest, fname)
 
 	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
@@ -115,7 +115,7 @@ func (b *Bi5) Save(data []byte) error {
 //
 func (b *Bi5) Load() ([]byte, error) {
 
-	fname := fmt.Sprintf("%02dh.%s", b.dayH.Hour(), ext)
+	fname := fmt.Sprintf("%02dh_ticks.%s", b.dayH.Hour(), ext)
 	fpath := filepath.Join(b.dest, fname)
 
 	f, err := os.OpenFile(fpath, os.O_RDONLY, 0666)

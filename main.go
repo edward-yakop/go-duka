@@ -62,7 +62,7 @@ func main() {
 		"dump given file format")
 	flag.StringVar(&args.Period,
 		"timeframe", "M1",
-		"timeframe values: M1, M5, M15, M30, H1, H4, D1, W1, MN")
+		"timeframe values: M1, M5, M15, M30, H1, H4, D1, W1, MN (Comma separated list)")
 	flag.StringVar(&args.Symbol,
 		"symbol", "",
 		"symbol list using format, like: EURUSD EURGBP")
@@ -88,7 +88,7 @@ func main() {
 		"header", false,
 		"save csv with header")
 	flag.BoolVar(&args.Local,
-		"local", false,
+		"local", true, // Always use local data if available
 		"convert to given format with local data instead of downloading from dukascopy")
 	flag.BoolVar(&args.Verbose,
 		"verbose", false,
