@@ -13,7 +13,8 @@ import (
 
 	"ed-fx/go-duka/core"
 	"ed-fx/go-duka/misc"
-	"github.com/kjk/lzma"
+	//"github.com/kjk/lzma"
+	"github.com/ulikunitz/xz/lzma"
 )
 
 var (
@@ -51,8 +52,12 @@ func New(day time.Time, symbol, dest string) *Bi5 {
 // Decode bi5 to tick data array
 //
 func (b *Bi5) Decode(data []byte) ([]*core.TickData, error) {
-	dec := lzma.NewReader(bytes.NewBuffer(data[:]))
-	defer dec.Close()
+	dec, err := lzma.NewReader(bytes.NewBuffer(data[:]))
+	if err != nil {
+		log.Error("Failed to create a lzma reader", err)
+		return nil, err
+	}
+	//defer dec.Close()
 
 	ticksArr := make([]*core.TickData, 0)
 	bytesArr := make([]byte, TICK_BYTES)
