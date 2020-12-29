@@ -40,7 +40,7 @@ type Bi5 struct {
 // New create an bi5 saver
 func New(day time.Time, symbol, dest string) *Bi5 {
 	y, m, d := day.Date()
-	dir := fmt.Sprintf("%s/%04d/%02d/%02d", symbol, y, m, d)
+	dir := fmt.Sprintf("download/%s/%04d/%02d/%02d", symbol, y, m, d)
 
 	return &Bi5{
 		dest:   filepath.Join(dest, dir),
