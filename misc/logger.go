@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	log "github.com/go-clog/clog"
+	log "unknwon.dev/clog/v2"
 )
 
 // Logger interface
@@ -57,12 +57,12 @@ func (l *logPrefix) Error(format string, v ...interface{}) {
 	if l.prefix != "" {
 		format = fmt.Sprintf("[%s] %s", l.prefix, format)
 	}
-	log.Error(l.skip, format, v...)
+	log.ErrorDepth(l.skip, format, v...)
 }
 
 func (l *logPrefix) Fatal(format string, v ...interface{}) {
 	if l.prefix != "" {
 		format = fmt.Sprintf("[%s] %s", l.prefix, format)
 	}
-	log.Fatal(l.skip, format, v...)
+	log.FatalDepth(l.skip, format, v...)
 }

@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"ed-fx/go-duka/fxt4"
-	"github.com/go-clog/clog"
+	"unknwon.dev/clog/v2"
 )
 
 func init() {
@@ -82,14 +82,12 @@ func main() {
 	flag.Parse()
 
 	if args.Verbose {
-		clog.New(clog.CONSOLE, clog.ConsoleConfig{
-			Level:      clog.TRACE,
-			BufferSize: 100,
+		clog.NewConsole(0, clog.ConsoleConfig{
+			Level: clog.LevelTrace,
 		})
 	} else {
-		clog.New(clog.CONSOLE, clog.ConsoleConfig{
-			Level:      clog.INFO,
-			BufferSize: 100,
+		clog.NewConsole(0, clog.ConsoleConfig{
+			Level: clog.LevelInfo,
 		})
 	}
 
@@ -123,7 +121,7 @@ func main() {
 	fmt.Printf(" StartDate: %s\n", opt.Start.Format("2006-01-02:15H"))
 	fmt.Printf("   EndDate: %s\n", opt.End.Format("2006-01-02:15H"))
 
-	defer clog.Shutdown()
+	defer clog.Stop()
 	app := app.NewApp(opt)
 	app.Execute()
 }
