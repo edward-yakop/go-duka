@@ -2,6 +2,7 @@ package bi5
 
 import (
 	"bytes"
+	"ed-fx/go-duka/api/instrument"
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -13,16 +14,14 @@ import (
 
 	"ed-fx/go-duka/internal/core"
 	"ed-fx/go-duka/internal/misc"
-	//"github.com/kjk/lzma"
 	"github.com/ulikunitz/xz/lzma"
 )
 
 var (
-	ext         = "bi5"
-	log         = misc.NewLogger("Bi5", 3)
-	normSymbols = []string{"USDRUB", "XAGUSD", "XAUUSD"}
-	httpDownld  = core.NewDownloader()
-	emptBytes   = make([]byte, 0)
+	ext        = "bi5"
+	log        = misc.NewLogger("Bi5", 3)
+	httpDownld = core.NewDownloader()
+	emptBytes  = make([]byte, 0)
 )
 
 const (
@@ -31,10 +30,11 @@ const (
 
 // Bi5 from dukascopy
 type Bi5 struct {
-	dayH   time.Time
-	symbol string
-	dest   string
-	save   bool
+	dayH     time.Time
+	symbol   string
+	metadata *instrument.Metadata
+	dest     string
+	save     bool
 }
 
 // New create an bi5 saver
@@ -42,10 +42,13 @@ func New(day time.Time, symbol, dest string) *Bi5 {
 	y, m, d := day.Date()
 	dir := fmt.Sprintf("download/%s/%04d/%02d/%02d", symbol, y, m, d)
 
+	metadata := instrument.GetMetadata(symbol)
+
 	return &Bi5{
-		dest:   filepath.Join(dest, dir),
-		dayH:   day,
-		symbol: symbol,
+		dest:     filepath.Join(dest, dir),
+		dayH:     day,
+		symbol:   symbol,
+		metadata: metadata,
 	}
 }
 
@@ -188,14 +191,7 @@ func (b *Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*core
 		return nil, err
 	}
 
-	var point float64 = 100000
-	for _, sym := range normSymbols {
-		if symbol == sym {
-			point = 1000
-			break
-		}
-	}
-
+	var point = b.metadata.DecimalFactor()
 	t := core.TickData{
 		Symbol:    symbol,
 		Timestamp: timeH.Unix()*1000 + int64(raw.TimeMs), //timeH.Add(time.Duration(raw.TimeMs) * time.Millisecond),
