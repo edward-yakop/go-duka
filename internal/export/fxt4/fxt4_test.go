@@ -8,7 +8,7 @@ import (
 	"os"
 	"testing"
 
-	"ed-fx/go-duka/core"
+	"ed-fx/go-duka/internal/core"
 )
 
 func TestFxtFile(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"ed-fx/go-duka/misc"
+	"ed-fx/go-duka/internal/misc"
 )
 
 const (

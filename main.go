@@ -1,13 +1,13 @@
 package main
 
 import (
-	"ed-fx/go-duka/app"
+	"ed-fx/go-duka/internal/app"
 	"flag"
 	"fmt"
 	"path/filepath"
 	"time"
 
-	"ed-fx/go-duka/fxt4"
+	"ed-fx/go-duka/internal/export/fxt4"
 	"unknwon.dev/clog/v2"
 )
 

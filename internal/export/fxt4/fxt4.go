@@ -3,7 +3,7 @@ package fxt4
 import (
 	"bufio"
 	"bytes"
-	"ed-fx/go-duka/misc"
+	"ed-fx/go-duka/internal/misc"
 	"encoding/binary"
 	"fmt"
 	"io"
@@ -11,7 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"ed-fx/go-duka/core"
+	"ed-fx/go-duka/internal/core"
 )
 
 var (

@@ -18,8 +18,10 @@ type TickData struct {
 
 // UTC convert timestamp to UTC time
 //
+const timeMillisecond int64 = int64(time.Millisecond)
+
 func (t *TickData) UTC() time.Time {
-	tm := time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*int64(time.Millisecond))
+	tm := time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond)
 	return tm.UTC()
 }
 

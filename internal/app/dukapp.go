@@ -10,12 +10,12 @@ import (
 	"sync"
 	"time"
 
-	"ed-fx/go-duka/bi5"
-	"ed-fx/go-duka/core"
-	"ed-fx/go-duka/csv"
-	"ed-fx/go-duka/fxt4"
-	"ed-fx/go-duka/hst"
-	"ed-fx/go-duka/misc"
+	"ed-fx/go-duka/internal/bi5"
+	"ed-fx/go-duka/internal/core"
+	"ed-fx/go-duka/internal/export/csv"
+	"ed-fx/go-duka/internal/export/fxt4"
+	"ed-fx/go-duka/internal/export/hst"
+	"ed-fx/go-duka/internal/misc"
 )
 
 var (

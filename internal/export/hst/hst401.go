@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"ed-fx/go-duka/core"
-	"ed-fx/go-duka/misc"
+	"ed-fx/go-duka/internal/core"
+	"ed-fx/go-duka/internal/misc"
 )
 
 var (
