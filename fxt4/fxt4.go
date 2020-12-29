@@ -3,21 +3,20 @@ package fxt4
 import (
 	"bufio"
 	"bytes"
+	"ed-fx/go-duka/misc"
 	"encoding/binary"
 	"fmt"
 	"io"
-	"log"
 	"math"
 	"os"
 	"path/filepath"
 
-	"../core"
-	//"github.com/iizotop/go-duka/misc"
+	"ed-fx/go-duka/core"
 )
 
-//var (
-//	log = misc.NewLogger("FXT", 3)
-//)
+var (
+	log = misc.NewLogger("FXT", 3)
+)
 
 // FxtFile define fxt file format
 //
@@ -64,12 +63,12 @@ func NewFxtFile(timeframe, spread, model uint32, dest, symbol string) *FxtFile {
 func (f *FxtFile) worker() error {
 	defer func() {
 		close(f.chClose)
-		log.Printf("M%d Saved Bar: %d, Ticks: %d.", f.timeframe, f.barCount, f.tickCount)
+		log.Info("M%d Saved Bar: %d, Ticks: %d.", f.timeframe, f.barCount, f.tickCount)
 	}()
 
 	fxt, err := os.OpenFile(f.fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
 	if err != nil {
-		log.Printf("Create file %s failed: %v.", f.fpath, err)
+		log.Error("Create file %s failed: %v.", f.fpath, err)
 		return err
 	}
 
@@ -80,19 +79,19 @@ func (f *FxtFile) worker() error {
 	// convert FXT header
 	//
 	if err = binary.Write(bu, binary.LittleEndian, f.header); err != nil {
-		log.Printf("Convert FXT header failed: %v.", err)
+		log.Error("Convert FXT header failed: %v.", err)
 		return err
 	}
 	// write FXT file
 	if _, err := fxt.Write(bu.Bytes()); err != nil {
-		log.Printf("Write FXT header failed: %v.", err)
+		log.Error("Write FXT header failed: %v.", err)
 		return err
 	}
 
 	for tick := range f.chTicks {
 
 		if tick.BarTimestamp > uint64(tick.TickTimestamp) {
-			log.Printf("Tick(%v)", tick)
+			log.Info("Tick(%v)", tick)
 		}
 
 		bu.Reset()
@@ -100,11 +99,11 @@ func (f *FxtFile) worker() error {
 		//  write tick data
 		//
 		if err = binary.Write(bu, binary.LittleEndian, tick); err != nil {
-			log.Printf("Pack tick failed: %v.", err)
+			log.Error("Pack tick failed: %v.", err)
 			break
 		}
 		if _, err = fxt.Write(bu.Bytes()); err != nil {
-			log.Printf("Write fxt tick (%x) failed: %v.", bu.Bytes(), err)
+			log.Error("Write fxt tick (%x) failed: %v.", bu.Bytes(), err)
 			break
 		}
 
@@ -159,7 +158,7 @@ func (f *FxtFile) adjustHeader() error {
 
 	fxt, err := os.OpenFile(f.fpath, os.O_RDWR, 0666)
 	if err != nil {
-		log.Printf("Open file %s failed: %v.", f.fpath, err)
+		log.Error("Open file %s failed: %v.", f.fpath, err)
 		return err
 	}
 	defer fxt.Close()
@@ -181,11 +180,11 @@ func (f *FxtFile) adjustHeader() error {
 			_, err = fxt.Write(bu.Bytes())
 		}
 		if err != nil {
-			log.Printf("Adjust FXT header 1 failed: %v.", err)
+			log.Error("Adjust FXT header 1 failed: %v.", err)
 			return err
 		}
 	} else {
-		log.Printf("File seek 1 failed: %v.", err)
+		log.Error("File seek 1 failed: %v.", err)
 		return err
 	}
 
@@ -203,11 +202,11 @@ func (f *FxtFile) adjustHeader() error {
 			_, err = fxt.Write(bu.Bytes())
 		}
 		if err != nil {
-			log.Printf("Adjust FXT header 2 failed: %v.", err)
+			log.Error("Adjust FXT header 2 failed: %v.", err)
 			return err
 		}
 	} else {
-		log.Printf("File seek 2 failed: %v.", err)
+		log.Error("File seek 2 failed: %v.", err)
 		return err
 	}
 
@@ -225,7 +224,7 @@ func (f *FxtFile) Finish() error {
 func DumpFile(fname string, header bool, w io.Writer) {
 	fh, err := os.OpenFile(fname, os.O_RDONLY, 0666)
 	if err != nil {
-		log.Printf("Open fxt file failed: %v.", err)
+		log.Error("Open fxt file failed: %v.", err)
 		return
 	}
 	defer fh.Close()
@@ -233,14 +232,14 @@ func DumpFile(fname string, header bool, w io.Writer) {
 	bs := make([]byte, headerSize)
 	n, err := fh.Read(bs[:])
 	if err != nil || n != headerSize {
-		log.Printf("Read fxt header failed: %v.", err)
+		log.Error("Read fxt header failed: %v.", err)
 		return
 	}
 
 	var h FXTHeader
 	err = binary.Read(bytes.NewBuffer(bs[:]), binary.LittleEndian, &h)
 	if err != nil {
-		log.Printf("Decode fxt header failed: %v.", err)
+		log.Error("Decode fxt header failed: %v.", err)
 		return
 	}
 
@@ -264,14 +263,14 @@ func DumpFile(fname string, header bool, w io.Writer) {
 		}
 
 		if n != tickSize || err != nil {
-			log.Printf("Read tick data failed: %v.", err)
+			log.Error("Read tick data failed: %v.", err)
 			break
 		}
 
 		var tick FxtTick
 		err = binary.Read(bytes.NewBuffer(tickBs[:]), binary.LittleEndian, &tick)
 		if err != nil {
-			log.Printf("Decode tick data failed: %v.", err)
+			log.Error("Decode tick data failed: %v.", err)
 			break
 		}
 

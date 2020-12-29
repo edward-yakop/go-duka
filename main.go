@@ -1,12 +1,13 @@
 package main
 
 import (
+	"ed-fx/go-duka/app"
 	"flag"
 	"fmt"
 	"path/filepath"
 	"time"
 
-	"./fxt4"
+	"ed-fx/go-duka/fxt4"
 	"github.com/go-clog/clog"
 )
 
@@ -38,23 +39,8 @@ func init() {
 	*/
 }
 
-type argsList struct {
-	Verbose bool
-	Header  bool
-	Local   bool
-	Spread  uint
-	Model   uint
-	Dump    string
-	Symbol  string
-	Output  string
-	Format  string
-	Period  string
-	Start   string
-	End     string
-}
-
 func main() {
-	args := argsList{}
+	args := app.ArgsList{}
 	start := time.Now().Format("2006-01-02")
 	end := time.Now().Add(24 * time.Hour).Format("2006-01-02")
 	flag.StringVar(&args.Dump,
@@ -116,7 +102,7 @@ func main() {
 		return
 	}
 
-	opt, err := ParseOption(args)
+	opt, err := app.ParseOption(args)
 	if err != nil {
 		fmt.Println("--------------------------------------------")
 		fmt.Printf("Error: %s\n", err)
@@ -138,6 +124,6 @@ func main() {
 	fmt.Printf("   EndDate: %s\n", opt.End.Format("2006-01-02:15H"))
 
 	defer clog.Shutdown()
-	app := NewApp(opt)
+	app := app.NewApp(opt)
 	app.Execute()
 }

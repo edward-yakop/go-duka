@@ -7,8 +7,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"../core"
-	"../misc"
+	"ed-fx/go-duka/core"
+	"ed-fx/go-duka/misc"
 )
 
 var (
@@ -76,7 +76,7 @@ func (c *CsvDump) worker() error {
 		ext)
 
 	fpath := filepath.Join(c.dest, fname)
-	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 666)
+	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
 	if err != nil {
 		log.Error("Failed to create file %s, error %v.", fpath, err)
 		return err

@@ -18,14 +18,14 @@ go build
 Get January (2019) data for EURUSD and convert to FXT/MT4
 
 ```
-./go-duka -symbol EURUSD -format fxt -start "2018-01-01" -end "2008-01-31"
+./go-duka -symbol EURUSD -format fxt -start "2018-01-01" -end "2018-01-31"
 ```
 
 Get 2018 data for XAUUSD and convert to FXT, and then to HST
 
 ```
-./go-duka -symbol EURUSD -format fxt -start "2018-01-01" -end "2008-12-31"
-./go-duka -symbol EURUSD -format hst -start "2018-01-01" -end "2008-12-31"
+./go-duka -symbol EURUSD -format fxt -start "2018-01-01" -end "2018-12-31"
+./go-duka -symbol EURUSD -format hst -start "2018-01-01" -end "2018-12-31"
 ```
 
 

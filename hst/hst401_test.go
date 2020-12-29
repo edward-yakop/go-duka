@@ -34,7 +34,7 @@ func TestLoadHst(t *testing.T) {
 	fname := `F:\201710\EURUSD1.hst`
 	//fname := "C:\\Users\\huan\\AppData\\Roaming\\MetaQuotes\\Terminal\\1DAFD9A7C67DC84FE37EAA1FC1E5CF75\\history\\ICMarkets-Demo01\\00\\EURUSD30.hst"
 
-	f, err := os.OpenFile(fname, os.O_RDONLY, 666)
+	f, err := os.OpenFile(fname, os.O_RDONLY, 0666)
 	if err != nil {
 		t.Fatalf("Open file error: %v.\n", err)
 	}
@@ -57,7 +57,7 @@ func TestLoadHst(t *testing.T) {
 	t.Logf("Copyright: %s, Symbol: %s\n", string(h.Copyright[:]), string(h.Symbol[:]))
 
 	// open csv
-	fc, err := os.OpenFile(fcsv, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 666)
+	fc, err := os.OpenFile(fcsv, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
 	if err != nil {
 		t.Errorf("Failed to create file %s, error %v.\n", fcsv, err)
 	}

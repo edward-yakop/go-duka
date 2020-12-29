@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"../misc"
+	"ed-fx/go-duka/misc"
 )
 
 const (

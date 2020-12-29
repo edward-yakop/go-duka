@@ -3,9 +3,8 @@ package fxt4
 import (
 	"fmt"
 	"time"
-	"log"
 
-	"../misc"
+	"ed-fx/go-duka/misc"
 )
 
 var (
@@ -175,7 +174,7 @@ func NewHeader(version uint32, symbol string, timeframe, spread, model uint32) *
 func (h *FXTHeader) ToBytes() ([]byte, error) {
 	bs, err := misc.PackLittleEndian(headerSize, h)
 	if err != nil {
-		log.Printf("Failed to convert FXT header to bytes array. Error %v.", err)
+		log.Error("Failed to convert FXT header to bytes array. Error %v.", err)
 		return make([]byte, 0), err
 	}
 	return bs, err
@@ -184,7 +183,7 @@ func (h *FXTHeader) ToBytes() ([]byte, error) {
 func (t *FxtTick) ToBytes() ([]byte, error) {
 	bs, err := misc.PackLittleEndian(tickSize, t)
 	if err != nil {
-		log.Printf("Failed to convert FXT tick to bytes array. Error %v.", err)
+		log.Error("Failed to convert FXT tick to bytes array. Error %v.", err)
 		return make([]byte, 0), err
 	}
 	return bs, err

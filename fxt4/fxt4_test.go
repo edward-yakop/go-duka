@@ -8,7 +8,7 @@ import (
 	"os"
 	"testing"
 
-	"../core"
+	"ed-fx/go-duka/core"
 )
 
 func TestFxtFile(t *testing.T) {
@@ -24,7 +24,7 @@ func TestHeader(t *testing.T) {
 	//fname := `F:\201710\EURUSD1.fxt`
 	//fname := `C:\Users\huan\AppData\Roaming\MetaQuotes\Terminal\1DAFD9A7C67DC84FE37EAA1FC1E5CF75\tester\history\org\EURUSD15_0.fxt`
 
-	fh, err := os.OpenFile(fname, os.O_RDONLY, 666)
+	fh, err := os.OpenFile(fname, os.O_RDONLY, 0666)
 	if err != nil {
 		t.Fatalf("Open fxt file failed: %v.\n", err)
 	}

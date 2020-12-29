@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"../core"
-	"../misc"
+	"ed-fx/go-duka/core"
+	"ed-fx/go-duka/misc"
 )
 
 var (
@@ -50,7 +50,7 @@ func (h *HST401) worker() error {
 	fname := fmt.Sprintf("%s%d.hst", h.symbol, h.timefame)
 	fpath := filepath.Join(h.dest, fname)
 
-	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 666)
+	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
 	if err != nil {
 		log.Error("Failed to create file %s, error %v.", fpath, err)
 		return err

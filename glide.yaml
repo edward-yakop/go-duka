@@ -1,4 +1,4 @@
-package: github.com/leifcr/go-duka
+package: github.com/ed-fx/go-duka
 import:
 - package: github.com/go-clog/clog
   version: ^1.1.1

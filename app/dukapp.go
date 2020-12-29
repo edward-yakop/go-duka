@@ -1,8 +1,8 @@
-package main
+package app
 
 import (
-	"errors"
 	"fmt"
+	"github.com/pkg/errors"
 	"os"
 	"path/filepath"
 	"sort"
@@ -10,18 +10,33 @@ import (
 	"sync"
 	"time"
 
-	"./bi5"
-	"./core"
-	"./csv"
-	"./fxt4"
-	"./hst"
-	"./misc"
+	"ed-fx/go-duka/bi5"
+	"ed-fx/go-duka/core"
+	"ed-fx/go-duka/csv"
+	"ed-fx/go-duka/fxt4"
+	"ed-fx/go-duka/hst"
+	"ed-fx/go-duka/misc"
 )
 
 var (
 	log             = misc.NewLogger("App", 2)
 	supportsFormats = []string{"csv", "fxt", "hst"}
 )
+
+type ArgsList struct {
+	Verbose bool
+	Header  bool
+	Local   bool
+	Spread  uint
+	Model   uint
+	Dump    string
+	Symbol  string
+	Output  string
+	Format  string
+	Period  string
+	Start   string
+	End     string
+}
 
 // DukaApp used to download source tick data
 //
@@ -47,7 +62,7 @@ type AppOption struct {
 
 // ParseOption parse input command line
 //
-func ParseOption(args argsList) (*AppOption, error) {
+func ParseOption(args ArgsList) (*AppOption, error) {
 	var err error
 	opt := AppOption{
 		CsvHeader: args.Header,
@@ -77,16 +92,7 @@ func ParseOption(args argsList) (*AppOption, error) {
 		}
 		opt.Format = format
 	}
-	if opt.Start, err = time.ParseInLocation("2006-01-02", args.Start, time.UTC); err != nil {
-		err = fmt.Errorf("invalid start parameter")
-		return nil, err
-	}
-	if opt.End, err = time.ParseInLocation("2006-01-02", args.End, time.UTC); err != nil {
-		err = fmt.Errorf("invalid end parameter")
-		return nil, nil
-	}
-	if opt.End.Unix() <= opt.Start.Unix() {
-		err = fmt.Errorf("invalid end parameter which shouldn't early then start")
+	if err = handleTimeArguments(args, &opt); err != nil {
 		return nil, err
 	}
 	if opt.Folder, err = filepath.Abs(args.Output); err != nil {
@@ -108,6 +114,22 @@ func ParseOption(args argsList) (*AppOption, error) {
 	}
 
 	return &opt, nil
+}
+
+func handleTimeArguments(args ArgsList, opt *AppOption) (err error) {
+	if opt.Start, err = time.ParseInLocation("2006-01-02", args.Start, time.UTC); err != nil {
+		err = errors.Wrap(err, "invalid start parameter")
+		return
+	}
+	if opt.End, err = time.ParseInLocation("2006-01-02", args.End, time.UTC); err != nil {
+		err = fmt.Errorf("invalid end parameter")
+		return
+	}
+	if opt.End.Before(opt.Start) || opt.End.Equal(opt.Start) {
+		err = fmt.Errorf("invalid end parameter which shouldn't early then start")
+		return
+	}
+	return
 }
 
 // NewOutputs create timeframe instance
@@ -172,7 +194,7 @@ func (app *DukaApp) Execute() error {
 	// Create an output directory
 	//
 	if _, err := os.Stat(opt.Folder); os.IsNotExist(err) {
-		if err = os.MkdirAll(opt.Folder, 666); err != nil {
+		if err = os.MkdirAll(opt.Folder, 0770); err != nil {
 			log.Error("Create folder (%s) failed: %v.", opt.Folder, err)
 			return err
 		}

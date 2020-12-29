@@ -11,8 +11,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"../core"
-	"../misc"
+	"ed-fx/go-duka/core"
+	"ed-fx/go-duka/misc"
 	"github.com/kjk/lzma"
 )
 
@@ -39,7 +39,7 @@ type Bi5 struct {
 // New create an bi5 saver
 func New(day time.Time, symbol, dest string) *Bi5 {
 	y, m, d := day.Date()
-	dir := fmt.Sprintf("%s/%04d/%02d/%02d", symbol, y, m-1, d)
+	dir := fmt.Sprintf("%s/%04d/%02d/%02d", symbol, y, m, d)
 
 	return &Bi5{
 		dest:   filepath.Join(dest, dir),
@@ -142,7 +142,7 @@ func (b *Bi5) Download() ([]byte, error) {
 
 	year, month, day := b.dayH.Date()
 	// !! 注意: month - 1
-	link := fmt.Sprintf(core.DukaTmplURL, b.symbol, year, month-1, day, b.dayH.Hour())
+	link := fmt.Sprintf(core.DukaTmplURL, b.symbol, year, month, day, b.dayH.Hour())
 
 	if data, err = httpDownld.Download(link); err != nil {
 		log.Error("%s %s download failed: %v.", b.symbol, b.dayH.Format("2006-01-02:15H"), err)
