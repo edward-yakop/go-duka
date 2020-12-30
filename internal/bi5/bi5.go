@@ -3,6 +3,7 @@ package bi5
 import (
 	"bytes"
 	"ed-fx/go-duka/api/instrument"
+	"ed-fx/go-duka/api/tickdata"
 	"encoding/binary"
 	"errors"
 	"fmt"
@@ -54,7 +55,7 @@ func New(day time.Time, symbol, dest string) *Bi5 {
 
 // Decode bi5 to tick data array
 //
-func (b *Bi5) Decode(data []byte) ([]*core.TickData, error) {
+func (b *Bi5) Decode(data []byte) ([]*tickdata.TickData, error) {
 	dec, err := lzma.NewReader(bytes.NewBuffer(data[:]))
 	if err != nil {
 		log.Error("Failed to create a lzma reader", err)
@@ -62,7 +63,7 @@ func (b *Bi5) Decode(data []byte) ([]*core.TickData, error) {
 	}
 	//defer dec.Close()
 
-	ticksArr := make([]*core.TickData, 0)
+	ticksArr := make([]*tickdata.TickData, 0)
 	bytesArr := make([]byte, TICK_BYTES)
 
 	for {
@@ -173,7 +174,7 @@ func (b *Bi5) Download() ([]byte, error) {
 //  struck.unpack(!IIIff)
 //  date, ask / point, bid / point, round(volume_ask * 100000), round(volume_bid * 100000)
 //
-func (b *Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*core.TickData, error) {
+func (b *Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*tickdata.TickData, error) {
 	raw := struct {
 		TimeMs    int32 // millisecond offset of current hour
 		Ask       int32
@@ -192,7 +193,7 @@ func (b *Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*core
 	}
 
 	var point = b.metadata.DecimalFactor()
-	t := core.TickData{
+	t := tickdata.TickData{
 		Symbol:    symbol,
 		Timestamp: timeH.Unix()*1000 + int64(raw.TimeMs), //timeH.Add(time.Duration(raw.TimeMs) * time.Millisecond),
 		Ask:       float64(raw.Ask) / point,

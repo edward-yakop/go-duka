@@ -1,6 +1,7 @@
 package app
 
 import (
+	"ed-fx/go-duka/api/tickdata"
 	"fmt"
 	"github.com/pkg/errors"
 	"os"
@@ -298,7 +299,7 @@ func (app *DukaApp) fetchDay(day time.Time) <-chan *hReader {
 // sortAndOutput 按时间戳，从前到后排序当天tick数据
 // Sort the tick data of the day from front to back by timestamp
 //
-func (app *DukaApp) sortAndOutput(day time.Time, ticks []*core.TickData) error {
+func (app *DukaApp) sortAndOutput(day time.Time, ticks []*tickdata.TickData) error {
 	if len(ticks) == 0 {
 		return nil
 	}
@@ -328,12 +329,12 @@ func (app *DukaApp) saveData(day time.Time, chData <-chan *hReader) error {
 	)
 
 	nDay := -1
-	dayTicks := make([]*core.TickData, 0, 2048)
+	dayTicks := make([]*tickdata.TickData, 0, 2048)
 
 	for data := range chData {
 		// save bi5 by hour
 		bi5File := data.Bi5
-		var ticks []*core.TickData
+		var ticks []*tickdata.TickData
 
 		// 解析 bi5 成 TickData 数据
 		// Parsing bi5 into TickData data

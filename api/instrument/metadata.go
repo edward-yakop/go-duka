@@ -1,6 +1,11 @@
 package instrument
 
-import "strings"
+import (
+	"fmt"
+	"math"
+	"strconv"
+	"strings"
+)
 
 // This file is a port of https://github.com/Leo4815162342/dukascopy-tools/blob/master/packages/dukascopy-node/src/config/instruments-metadata.ts
 
@@ -13,6 +18,8 @@ type Metadata struct {
 	decimalFactor     float64
 	minStartDateDaily string
 	group             string
+
+	priceFormat string
 }
 
 func (m Metadata) Code() string {
@@ -41,6 +48,13 @@ func (m Metadata) MinStartDateDaily() string {
 
 func (m Metadata) Group() string {
 	return m.group
+}
+
+func (m *Metadata) PriceToString(price float64) string {
+	if len(m.priceFormat) == 0 {
+		m.priceFormat = "%." + strconv.Itoa(int(math.Log10(m.decimalFactor))) + "f"
+	}
+	return fmt.Sprintf(m.priceFormat, price)
 }
 
 // Returns instrument with requested code.

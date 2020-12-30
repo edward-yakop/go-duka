@@ -1,4 +1,4 @@
-package core
+package tickdata
 
 import (
 	"fmt"
@@ -23,18 +23,6 @@ const timeMillisecond int64 = int64(time.Millisecond)
 func (t *TickData) UTC() time.Time {
 	tm := time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond)
 	return tm.UTC()
-}
-
-// Strings used to format into csv row
-//
-func (t *TickData) Strings() []string {
-	return []string{
-		t.UTC().Format("2006-01-02 15:04:05.000"),
-		fmt.Sprintf("%.5f", t.Ask),
-		fmt.Sprintf("%.5f", t.Bid),
-		fmt.Sprintf("%.2f", t.VolumeAsk),
-		fmt.Sprintf("%.2f", t.VolumeBid),
-	}
 }
 
 func (t *TickData) String() string {

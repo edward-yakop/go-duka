@@ -3,6 +3,7 @@ package fxt4
 import (
 	"bufio"
 	"bytes"
+	"ed-fx/go-duka/api/tickdata"
 	"ed-fx/go-duka/internal/misc"
 	"encoding/binary"
 	"fmt"
@@ -10,8 +11,6 @@ import (
 	"math"
 	"os"
 	"path/filepath"
-
-	"ed-fx/go-duka/internal/core"
 )
 
 var (
@@ -115,7 +114,7 @@ func (f *FxtFile) worker() error {
 	return err
 }
 
-func (f *FxtFile) PackTicks(barTimestemp uint32, ticks []*core.TickData) error {
+func (f *FxtFile) PackTicks(barTimestemp uint32, ticks []*tickdata.TickData) error {
 
 	if len(ticks) == 0 {
 		return nil

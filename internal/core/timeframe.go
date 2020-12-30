@@ -1,6 +1,7 @@
 package core
 
 import (
+	"ed-fx/go-duka/api/tickdata"
 	"regexp"
 	"strconv"
 )
@@ -26,7 +27,7 @@ type Timeframe struct {
 	period         string // M1, M5, M15, M30, H1, H4, D1, W1, MN
 	symbol         string
 
-	chTicks chan *TickData
+	chTicks chan *tickdata.TickData
 	close   chan struct{}
 	out     Converter
 }
@@ -55,7 +56,7 @@ func NewTimeframe(period, symbol string, out Converter) Converter {
 		period:         str,
 		symbol:         symbol,
 		out:            out,
-		chTicks:        make(chan *TickData, 1024),
+		chTicks:        make(chan *tickdata.TickData, 1024),
 		close:          make(chan struct{}, 1),
 	}
 
@@ -64,7 +65,7 @@ func NewTimeframe(period, symbol string, out Converter) Converter {
 }
 
 // PackTicks receive original tick data
-func (tf *Timeframe) PackTicks(barTimestamp uint32, ticks []*TickData) error {
+func (tf *Timeframe) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) error {
 	for _, tick := range ticks {
 		select {
 		case tf.chTicks <- tick:
@@ -84,7 +85,7 @@ func (tf *Timeframe) Finish() error {
 // worker thread
 func (tf *Timeframe) worker() error {
 	maxCap := 1024
-	barTicks := make([]*TickData, 0, maxCap)
+	barTicks := make([]*tickdata.TickData, 0, maxCap)
 
 	defer func() {
 		log.Info("%s %s convert completed.", tf.symbol, tf.period)

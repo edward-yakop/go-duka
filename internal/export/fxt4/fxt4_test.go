@@ -2,13 +2,12 @@ package fxt4
 
 import (
 	"bytes"
+	"ed-fx/go-duka/api/tickdata"
 	"encoding/binary"
 	"fmt"
 	"io"
 	"os"
 	"testing"
-
-	"ed-fx/go-duka/internal/core"
 )
 
 func TestFxtFile(t *testing.T) {
@@ -16,7 +15,7 @@ func TestFxtFile(t *testing.T) {
 	fmt.Println(fn)
 
 	fxt := NewFxtFile(1, 20, 0, "D:\\Data", "EURUSD")
-	fxt.PackTicks(0, []*core.TickData{&core.TickData{}})
+	fxt.PackTicks(0, []*tickdata.TickData{&tickdata.TickData{}})
 }
 
 func TestHeader(t *testing.T) {

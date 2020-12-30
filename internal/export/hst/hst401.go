@@ -1,12 +1,12 @@
 package hst
 
 import (
+	"ed-fx/go-duka/api/tickdata"
 	"fmt"
 	"math"
 	"os"
 	"path/filepath"
 
-	"ed-fx/go-duka/internal/core"
 	"ed-fx/go-duka/internal/misc"
 )
 
@@ -93,7 +93,7 @@ func (h *HST401) worker() error {
 
 // PackTicks aggregate ticks with timeframe
 //
-func (h *HST401) PackTicks(barTimestamp uint32, ticks []*core.TickData) error {
+func (h *HST401) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) error {
 	// Transform universal bar list to binary bar data (60 Bytes per bar)
 	if len(ticks) == 0 {
 		return nil

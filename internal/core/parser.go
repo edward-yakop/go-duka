@@ -1,6 +1,7 @@
 package core
 
 import (
+	"ed-fx/go-duka/api/tickdata"
 	"io"
 )
 
@@ -20,7 +21,7 @@ type Converter interface {
 	// PackTicks by timeframe M1,M5...
 	// `barTimestamp` is the timeframe in seconds
 	// `ticks` is all the ticks data within timeframe
-	PackTicks(barTimestamp uint32, ticks []*TickData) error
+	PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) error
 	// Finish current timeframe
 	Finish() error
 }

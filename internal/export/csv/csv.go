@@ -1,13 +1,14 @@
 package csv
 
 import (
+	"ed-fx/go-duka/api/instrument"
+	"ed-fx/go-duka/api/tickdata"
 	"encoding/csv"
 	"fmt"
 	"os"
 	"path/filepath"
 	"time"
 
-	"ed-fx/go-duka/internal/core"
 	"ed-fx/go-duka/internal/misc"
 )
 
@@ -26,7 +27,7 @@ type CsvDump struct {
 	header    bool
 	tickCount int64
 	chClose   chan struct{}
-	chTicks   chan *core.TickData
+	chTicks   chan *tickdata.TickData
 }
 
 // New Csv file
@@ -38,7 +39,7 @@ func New(start, end time.Time, header bool, symbol, dest string) *CsvDump {
 		symbol:  symbol,
 		header:  header,
 		chClose: make(chan struct{}, 1),
-		chTicks: make(chan *core.TickData, 1024),
+		chTicks: make(chan *tickdata.TickData, 1024),
 	}
 
 	go csv.worker()
@@ -55,7 +56,7 @@ func (c *CsvDump) Finish() error {
 
 // PackTicks handle ticks data
 //
-func (c *CsvDump) PackTicks(barTimestamp uint32, ticks []*core.TickData) error {
+func (c *CsvDump) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) error {
 	for _, tick := range ticks {
 		select {
 		case c.chTicks <- tick:
@@ -96,13 +97,25 @@ func (c *CsvDump) worker() error {
 		csv.Write(csvHeader)
 	}
 
+	m := instrument.GetMetadata(c.symbol)
 	// write tick one by one
 	for tick := range c.chTicks {
-		if err = csv.Write(tick.Strings()); err != nil {
+		row := c.toRow(m, tick)
+		if err = csv.Write(row); err != nil {
 			log.Error("Write csv %s failed: %v.", fpath, err)
 			break
 		}
 	}
 
 	return err
+}
+
+func (c CsvDump) toRow(m *instrument.Metadata, t *tickdata.TickData) []string {
+	return []string{
+		t.UTC().Format("2006-01-02 15:04:05.000"),
+		m.PriceToString(t.Ask),
+		m.PriceToString(t.Bid),
+		fmt.Sprintf("%.2f", t.VolumeAsk),
+		fmt.Sprintf("%.2f", t.VolumeBid),
+	}
 }
