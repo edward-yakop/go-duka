@@ -5,25 +5,22 @@ import (
 	"ed-fx/go-duka/api/instrument"
 	"ed-fx/go-duka/api/tickdata"
 	"encoding/binary"
-	"errors"
 	"fmt"
+	"github.com/pkg/errors"
 	"io"
-	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 	"time"
 
 	"ed-fx/go-duka/internal/core"
-	"ed-fx/go-duka/internal/misc"
 	"github.com/ulikunitz/xz/lzma"
 )
 
-var (
-	ext        = "bi5"
-	log        = misc.NewLogger("Bi5", 3)
-	httpDownld = core.NewDownloader()
-	emptBytes  = make([]byte, 0)
-)
+const ext = "bi5"
+
+var httpDownload = core.NewDownloader()
 
 const (
 	TICK_BYTES = 20
@@ -31,141 +28,89 @@ const (
 
 // Bi5 from dukascopy
 type Bi5 struct {
-	dayH     time.Time
-	symbol   string
-	metadata *instrument.Metadata
-	dest     string
-	save     bool
+	dayHour        time.Time
+	symbol         string
+	metadata       *instrument.Metadata
+	targetFilePath string
+	save           bool
+}
+
+func (b Bi5) DayHour() time.Time {
+	return b.dayHour
+}
+
+func (b Bi5) Symbol() string {
+	return b.symbol
 }
 
 // New create an bi5 saver
 func New(day time.Time, symbol, dest string) *Bi5 {
 	y, m, d := day.Date()
-	dir := fmt.Sprintf("download/%s/%04d/%02d/%02d", symbol, y, m, d)
 
+	biFilePath := filepath.FromSlash(fmt.Sprintf("%s/download/%s/%04d/%02d/%02d/%02dh_ticks.%s", dest, symbol, y, m, d, day.Hour(), ext))
 	metadata := instrument.GetMetadata(symbol)
 
 	return &Bi5{
-		dest:     filepath.Join(dest, dir),
-		dayH:     day,
-		symbol:   symbol,
-		metadata: metadata,
+		targetFilePath: biFilePath,
+		dayHour:        day,
+		symbol:         symbol,
+		metadata:       metadata,
 	}
 }
 
-// Decode bi5 to tick data array
-//
-func (b *Bi5) Decode(data []byte) ([]*tickdata.TickData, error) {
-	dec, err := lzma.NewReader(bytes.NewBuffer(data[:]))
+type TickDataResult struct {
+	Tick  *tickdata.TickData
+	Error error
+}
+
+func (b Bi5) Ticks() ([]*tickdata.TickData, error) {
+	ticksArr := make([]*tickdata.TickData, 0)
+	if !b.isFileExists(b.targetFilePath) {
+		return ticksArr, nil
+	}
+
+	f, err := os.OpenFile(b.targetFilePath, os.O_RDONLY, 0666)
 	if err != nil {
-		log.Error("Failed to create a lzma reader", err)
+		err = errors.Wrap(err, "Failed to open "+b.targetFilePath+"]")
 		return nil, err
 	}
-	//defer dec.Close()
 
-	ticksArr := make([]*tickdata.TickData, 0)
+	defer f.Close()
+
+	reader, err := lzma.NewReader(f)
+	if err != nil {
+		err = errors.Wrap(err, "Failed to create file reader")
+		return nil, err
+	}
+
 	bytesArr := make([]byte, TICK_BYTES)
-
+	var bytesCount = 0
+	var tick *tickdata.TickData
 	for {
-		n, err := dec.Read(bytesArr[:])
+		tick = nil
+		bytesCount, err = reader.Read(bytesArr[:])
 		if err == io.EOF {
 			err = nil
 			break
 		}
-		if n != TICK_BYTES || err != nil {
-			log.Error("LZMA decode failed: %d: %v.", n, err)
-			break
+
+		if bytesCount != TICK_BYTES || err != nil {
+			err = errors.Wrap(err, "LZMA decode failed: ["+strconv.Itoa(bytesCount)+"] for file ["+b.targetFilePath+"]")
+		} else {
+			tick, err = b.decodeTickData(bytesArr[:], b.symbol, b.dayHour)
+			if err != nil {
+				err = errors.Wrap(err, "Decode tick data failed for file ["+b.targetFilePath+"]")
+			}
 		}
 
-		t, err := b.decodeTickData(bytesArr[:], b.symbol, b.dayH)
+		// Stop streaming if error found
 		if err != nil {
-			log.Error("Decode tick data failed: %v.", err)
-			break
+			return nil, err
 		}
-
-		ticksArr = append(ticksArr, t)
+		ticksArr = append(ticksArr, tick)
 	}
 
 	return ticksArr, nil
-}
-
-// Save bi5 data to file
-//
-func (b *Bi5) Save(data []byte) error {
-	if len(data) == 0 || !b.save {
-		return nil
-	}
-
-	if err := os.MkdirAll(b.dest, 0755); err != nil {
-		log.Error("Create folder (%s) failed: %v.", b.dest, err)
-		return err
-	}
-
-	fname := fmt.Sprintf("%02dh_ticks.%s", b.dayH.Hour(), ext)
-	fpath := filepath.Join(b.dest, fname)
-
-	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
-	if err != nil {
-		log.Error("Create file %s failed: %v.", fpath, err)
-		return err
-	}
-
-	defer f.Close()
-	len, err := f.Write(data[:])
-	if err == nil {
-		log.Trace("Saved file %s => %d.", fpath, len)
-	} else {
-		log.Error("Write file %s failed: %v.", fpath, err)
-	}
-	return err
-}
-
-// Load bi5 data from file content
-//
-func (b *Bi5) Load() ([]byte, error) {
-
-	fname := fmt.Sprintf("%02dh_ticks.%s", b.dayH.Hour(), ext)
-	fpath := filepath.Join(b.dest, fname)
-
-	f, err := os.OpenFile(fpath, os.O_RDONLY, 0666)
-	if err != nil {
-		if os.IsNotExist(err) {
-			log.Trace("Bi5 (%s) not exist, try to download from dukascopy", fpath)
-			return b.Download()
-		}
-		log.Error("Open file %s failed: %v.", fpath, err)
-		return nil, err
-	}
-
-	defer f.Close()
-	return ioutil.ReadAll(f)
-}
-
-// Download from dukascopy
-//
-func (b *Bi5) Download() ([]byte, error) {
-	var (
-		err  error
-		data []byte
-	)
-
-	year, month, day := b.dayH.Date()
-	// !! 注意: month - 1
-	link := fmt.Sprintf(core.DukaTmplURL, b.symbol, year, month, day, b.dayH.Hour())
-
-	if data, err = httpDownld.Download(link); err != nil {
-		log.Error("%s %s download failed: %v.", b.symbol, b.dayH.Format("2006-01-02:15H"), err)
-		return emptBytes, err
-	}
-
-	if len(data) > 0 {
-		log.Trace("%s %s downloaded.", b.symbol, b.dayH.Format("2006-01-02:15H"))
-		b.save = true
-		return data, err
-	}
-
-	log.Warn("%s %s empty.", b.symbol, b.dayH.Format("2006-01-02:15H"))
-	return emptBytes, nil
 }
 
 // decodeTickData from input data bytes array.
@@ -174,7 +119,7 @@ func (b *Bi5) Download() ([]byte, error) {
 //  struck.unpack(!IIIff)
 //  date, ask / point, bid / point, round(volume_ask * 100000), round(volume_bid * 100000)
 //
-func (b *Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*tickdata.TickData, error) {
+func (b Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*tickdata.TickData, error) {
 	raw := struct {
 		TimeMs    int32 // millisecond offset of current hour
 		Ask       int32
@@ -203,4 +148,61 @@ func (b *Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*tick
 	}
 
 	return &t, nil
+}
+
+// Download from dukascopy
+func (b Bi5) Download() error {
+	if b.isDownloaded() {
+		return nil
+	}
+
+	year, month, day := b.dayHour.Date()
+	link := fmt.Sprintf(core.DukaTmplURL, b.symbol, year, month-1, day, b.dayHour.Hour())
+
+	var httpStatusCode int
+	httpStatusCode, filesize, err := httpDownload.Download(link, b.targetFilePath)
+	if err != nil {
+		return errors.Wrap(err, "Failed to download tick data for ["+b.symbolAndTime()+"]")
+	}
+
+	if httpStatusCode == http.StatusNotFound {
+		notFound := b.targetFilePath + ".notFound"
+		err = b.createFile(notFound)
+		if err != nil {
+			err = errors.Wrap(err, "Failed to create tick data ["+b.symbolAndTime()+"] not found file")
+			return err
+		}
+	}
+
+	if filesize == 0 {
+		err = os.Rename(b.targetFilePath, b.targetFilePath+".empty")
+		if err != nil {
+			return errors.Wrap(err, "Failed to create tick data ["+b.symbolAndTime()+"] empty file")
+		}
+	}
+
+	return nil
+}
+
+func (b Bi5) isDownloaded() bool {
+	return b.isFileExists(b.targetFilePath) ||
+		b.isFileExists(b.targetFilePath+".empty") ||
+		b.isFileExists(b.targetFilePath+".notFound")
+}
+
+func (b Bi5) isFileExists(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil || os.IsExist(err)
+}
+
+func (b Bi5) symbolAndTime() string {
+	return b.symbol + ": " + b.dayHour.Format("2006-01-02:15H")
+}
+
+func (b Bi5) createFile(path string) error {
+	emptyFile, err := os.Create(path)
+	if err == nil {
+		defer emptyFile.Close()
+	}
+	return err
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/pkg/errors"
 	"os"
 	"path/filepath"
-	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -19,6 +18,8 @@ import (
 	"ed-fx/go-duka/internal/misc"
 )
 
+const noParallelDownloads = 3
+
 var (
 	log             = misc.NewLogger("App", 2)
 	supportsFormats = []string{"csv", "fxt", "hst"}
@@ -27,7 +28,6 @@ var (
 type ArgsList struct {
 	Verbose bool
 	Header  bool
-	Local   bool
 	Spread  uint
 	Model   uint
 	Dump    string
@@ -57,7 +57,6 @@ type AppOption struct {
 	Periods   string
 	Spread    uint32
 	Mode      uint32
-	Local     bool
 	CsvHeader bool
 }
 
@@ -67,7 +66,6 @@ func ParseOption(args ArgsList) (*AppOption, error) {
 	var err error
 	opt := AppOption{
 		CsvHeader: args.Header,
-		Local:     args.Local,
 		Format:    args.Format,
 		Symbol:    strings.ToUpper(args.Symbol),
 		Spread:    uint32(args.Spread),
@@ -170,17 +168,10 @@ func NewApp(opt *AppOption) *DukaApp {
 	}
 }
 
-type hReader struct {
-	Bi5  *bi5.Bi5
-	DayH time.Time
-	Data []byte
-}
-
 // Execute download source bi5 tick data from dukascopy
 //
 func (app *DukaApp) Execute() error {
 	var (
-		err       error
 		opt       = app.option
 		startTime = time.Now()
 	)
@@ -190,10 +181,7 @@ func (app *DukaApp) Execute() error {
 		return errors.New("no valid output format")
 	}
 
-	//
-	// 创建输出目录
 	// Create an output directory
-	//
 	if _, err := os.Stat(opt.Folder); os.IsNotExist(err) {
 		if err = os.MkdirAll(opt.Folder, 0770); err != nil {
 			log.Error("Create folder (%s) failed: %v.", opt.Folder, err)
@@ -201,33 +189,18 @@ func (app *DukaApp) Execute() error {
 		}
 	}
 
-	//
-	// 按天下载，每天24小时的数据由24个goroutine并行下载
 	// Download by day, 24 hours a day data is downloaded in parallel by 24 goroutines
-	//
 	for day := opt.Start; day.Unix() < opt.End.Unix(); day = day.Add(24 * time.Hour) {
-		//
-		//  周六没数据，跳过
-		// No data on Saturday, skip
-		//
-		if day.Weekday() == time.Saturday {
-			log.Warn("Skip Saturday %s.", day.Format("2006-01-02"))
-			continue
-		}
-		//
-		// 下载，解析，存储
 		// Download, parse, store
-		//
-		if err = app.saveData(day, app.fetchDay(day)); err != nil {
-			break
+		if td, err := app.fetchDay(day); err != nil {
+			err = errors.Wrap(err, "Failed to fetch ["+day.Format("2006-01-02")+"]")
+			return err
+		} else if err = app.export(td); err != nil {
+			err = errors.Wrap(err, "Failed to export ["+day.Format("2006-01-02")+"]")
 		}
-
-		log.Info("%s %s finished.", opt.Symbol, day.Format("2006-01-02"))
 	}
 
-	//
 	//  flush all output file
-	//
 	var wg sync.WaitGroup
 	for _, output := range app.outputs {
 		wg.Add(1)
@@ -239,131 +212,66 @@ func (app *DukaApp) Execute() error {
 
 	wg.Wait()
 	log.Info("Time cost: %v.", time.Since(startTime))
-	return err
-}
-
-// fetchDay 现在一天24小时的tick数据，24个goroutine并行下载，返回数据并不一定按时间顺序排序
-// 转换端需要按天对tick数据排序。
-// fetchDay now 24 hours a day tick data, 24 goroutine downloads in parallel, return data is not necessarily sorted in chronological order
-// The conversion side needs to sort the tick data by day.
-
-func (app *DukaApp) fetchDay(day time.Time) <-chan *hReader {
-	ch := make(chan *hReader, 24)
-	opt := app.option
-
-	go func() {
-		defer close(ch)
-		var wg sync.WaitGroup
-
-		for hour := 0; hour < 24; hour++ {
-			wg.Add(1)
-			go func(h int) {
-				defer wg.Done()
-				dayH := day.Add(time.Duration(h) * time.Hour)
-				bi5File := bi5.New(dayH, opt.Symbol, opt.Folder)
-
-				var (
-					str  string
-					err  error
-					data []byte
-				)
-				if opt.Local {
-					str = "Load Bi5"
-					data, err = bi5File.Load()
-				} else {
-					str = "Download Bi5"
-					data, err = bi5File.Download()
-				}
-
-				if err != nil {
-					log.Error("%s, %s failed: %v.", str, dayH.Format("2006-01-02:15H"), err)
-					return
-				}
-				if len(data) > 0 {
-					select {
-					case ch <- &hReader{Data: data[:], DayH: dayH, Bi5: bi5File}:
-						//log.Trace("%s %s", str, dayH.Format("2006-01-02:15H"))
-						break
-					}
-				}
-			}(hour)
-		}
-
-		wg.Wait()
-		log.Trace("%s %s loaded.", opt.Symbol, day.Format("2006-01-02"))
-	}()
-
-	return ch
-}
-
-// sortAndOutput 按时间戳，从前到后排序当天tick数据
-// Sort the tick data of the day from front to back by timestamp
-//
-func (app *DukaApp) sortAndOutput(day time.Time, ticks []*tickdata.TickData) error {
-	if len(ticks) == 0 {
-		return nil
-	}
-
-	// sort
-	sort.Slice(ticks, func(i, j int) bool {
-		return ticks[i].Timestamp < ticks[j].Timestamp
-	})
-
-	// 输出到文件
-	for _, out := range app.outputs {
-		timestamp := uint32(day.Unix())
-		out.PackTicks(timestamp, ticks[:])
-	}
-
-	//firstTick := ticks[0].Timestamp
-	//tm := time.Unix(firstTick/1000, 0).UTC()
-	//log.Trace("%s sort and output day %v.", app.option.Format, tm)
 	return nil
 }
 
-// saveData
-func (app *DukaApp) saveData(day time.Time, chData <-chan *hReader) error {
-	var (
-		err error
-		opt = app.option
-	)
+// Fetch a day
+func (app *DukaApp) fetchDay(day time.Time) (result tickdata.Day, err error) {
+	// Worker s get url from this channel
+	hours := make(chan int)
 
-	nDay := -1
+	go func() {
+		for i := 0; i < 24; i++ {
+			hours <- i
+		}
+		close(hours)
+	}()
+
+	var wg sync.WaitGroup
+	opt := app.option
+	td := newDay(opt.Symbol, day)
+	for i := 0; i < noParallelDownloads; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for hour := range hours {
+				dayHour := day.Add(time.Duration(hour) * time.Hour)
+				bi := bi5.New(dayHour, opt.Symbol, opt.Folder)
+				derr := bi.Download()
+				if derr != nil {
+					derr = errors.Wrap(err, "Download Bi5 ["+dayHour.Format("2006-01-02 15")+"] failed")
+				}
+				td.append(dayHour, bi, derr)
+			}
+		}()
+	}
+
+	wg.Wait()
+	td.postConstruct()
+
+	result = td
+	return
+}
+
+// export
+func (app *DukaApp) export(td tickdata.Day) error {
+	day := td.Time()
 	dayTicks := make([]*tickdata.TickData, 0, 2048)
-
-	for data := range chData {
-		// save bi5 by hour
-		bi5File := data.Bi5
-		var ticks []*tickdata.TickData
-
-		// 解析 bi5 成 TickData 数据
-		// Parsing bi5 into TickData data
-		if ticks, err = bi5File.Decode(data.Data[:]); err != nil {
-			log.Error("Decode bi5 %s: %s failed: %v.", opt.Symbol, data.DayH.Format("2006-01-02:15H"), err)
-			continue
+	td.Each(func(ticks []*tickdata.TickData, err error) {
+		if err != nil {
+			log.Error("Decode bi5 %s: %s failed: %v.", td.Symbol(), day.Format("2006-01-02:15H"), err)
+			return
 		}
-
-		// 保留 bi5 数据
-		// Keep bi5 data
-		if err := bi5File.Save(data.Data[:]); err != nil {
-			log.Error("Save Bi5 %s: %s failed: %v.", opt.Symbol, data.DayH.Format("2006-01-02:15H"), err)
-			continue
-		}
-
-		// 新的一天开始
-		if nDay != day.Day() {
-			app.sortAndOutput(day, dayTicks[:])
-			dayTicks = dayTicks[:0]
-			nDay = day.Day()
-		}
-
 		dayTicks = append(dayTicks, ticks...)
+	})
+
+	timestamp := uint32(day.Unix())
+	for _, out := range app.outputs {
+		err := out.PackTicks(timestamp, dayTicks[:])
+		if err != nil {
+			return errors.Wrap(err, "Generating output ["+day.Format("2006-01-02:15H")+"]")
+		}
 	}
 
-	if len(dayTicks) > 0 {
-		app.sortAndOutput(day, dayTicks[:])
-	}
-
-	log.Trace("%s %s converted.", opt.Symbol, day.Format("2006-01-02"))
-	return err
+	return nil
 }

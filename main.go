@@ -73,9 +73,6 @@ func main() {
 	flag.BoolVar(&args.Header,
 		"header", false,
 		"save csv with header")
-	flag.BoolVar(&args.Local,
-		"local", true, // Always use local data if available
-		"convert to given format with local data instead of downloading from dukascopy")
 	flag.BoolVar(&args.Verbose,
 		"verbose", false,
 		"verbose output trace log")
@@ -117,7 +114,6 @@ func main() {
 	fmt.Printf(" Timeframe: %s\n", opt.Periods)
 	fmt.Printf("    Format: %s\n", opt.Format)
 	fmt.Printf(" CsvHeader: %t\n", opt.CsvHeader)
-	fmt.Printf(" LocalData: %t\n", opt.Local)
 	fmt.Printf(" StartDate: %s\n", opt.Start.Format("2006-01-02:15H"))
 	fmt.Printf("   EndDate: %s\n", opt.End.Format("2006-01-02:15H"))
 

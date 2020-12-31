@@ -18,16 +18,25 @@ type TickData struct {
 
 // UTC convert timestamp to UTC time
 //
-const timeMillisecond int64 = int64(time.Millisecond)
+const timeMillisecond = int64(time.Millisecond)
 
-func (t *TickData) UTC() time.Time {
-	tm := time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond)
-	return tm.UTC()
+func (t TickData) UTC() time.Time {
+	return time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond).UTC()
 }
 
-func (t *TickData) String() string {
+func (t TickData) String() string {
 	return fmt.Sprintf("%s %.5f %.5f %.2f %.2f",
 		t.UTC().Format("2006-01-02 15:04:06.000"),
+		t.Ask,
+		t.Bid,
+		t.VolumeAsk,
+		t.VolumeBid,
+	)
+}
+
+func (t TickData) StringUnix() string {
+	return fmt.Sprintf("%v %.5f %.5f %.2f %.2f",
+		t.Timestamp,
 		t.Ask,
 		t.Bid,
 		t.VolumeAsk,

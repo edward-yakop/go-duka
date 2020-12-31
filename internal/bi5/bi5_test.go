@@ -2,59 +2,45 @@ package bi5
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"io/ioutil"
+	"os"
 	"testing"
 	"time"
 )
 
-func TestLoadBi5(t *testing.T) {
-	//fname := `F:\00\EURUSD\2017\01\01\22h_ticks.bi5`
-	dest := `F:\00`
+func TestBi5DownloadAndStream(t *testing.T) {
+	dateHour := time.Date(2017, time.January, 10, 22, 0, 0, 0, time.UTC)
+	testDownloadAndStream(t, dateHour, "1484085600088 1.05549 1.05548 0.75 0.75")
+}
 
-	day, err := time.ParseInLocation("2006-01-02 15", "2017-01-01 22", time.UTC)
-	if err != nil {
-		t.Fatalf("Invalid date format\n")
-	}
+func testDownloadAndStream(t *testing.T, dateHour time.Time, firstTickDataString string) {
+	dir := createEmptyDir(t)
+	bi := New(dateHour, "EURUSD", dir)
+	err := bi.Download()
+	assert.NoError(t, err)
 
-	fb := New(day, "EURUSD", dest)
-	bs, err := fb.Load()
-	if err != nil {
-		t.Fatalf("Load bi5 failed: %v.\n", err)
-	}
-
-	ticks, err := fb.Decode(bs[:])
-	if err != nil {
-		t.Fatalf("Decode bi5 failed: %v.\n", err)
-	}
-
-	for idx, tick := range ticks {
-		fmt.Printf("%d:  %v\n", idx, tick)
+	var isFirst = true
+	ticks, err := bi.Ticks()
+	if assert.NoError(t, err) {
+		for _, tick := range ticks {
+			tickDataString := tick.StringUnix()
+			if isFirst {
+				assert.Equal(t, firstTickDataString, tickDataString)
+				isFirst = false
+			}
+			fmt.Printf("%v\n", tickDataString)
+		}
+	} else {
+		t.Fail()
 	}
 }
 
-func TestDownloadBi5(t *testing.T) {
-	//fname := `F:\00\EURUSD\2017\01\01\22h_ticks.bi5`
-	dest := `F:\test01`
-
-	day, err := time.ParseInLocation("2006-01-02 15", "2017-01-01 22", time.UTC)
-	if err != nil {
-		t.Fatalf("Invalid date format\n")
-	}
-
-	fb := New(day, "EURUSD", dest)
-	bs, err := fb.Download()
-	if err != nil {
-		t.Fatalf("Load bi5 failed: %v.\n", err)
-	}
-
-	defer fb.Save(bs[:])
-
-	ticks, err := fb.Decode(bs[:])
-	if err != nil {
-		t.Fatalf("Decode bi5 failed: %v.\n", err)
-	}
-
-	for idx, tick := range ticks {
-		fmt.Printf("%d:  %v\n", idx, tick)
-	}
-
+func createEmptyDir(t *testing.T) string {
+	dir, err := ioutil.TempDir(".", "test")
+	assert.NoError(t, err)
+	t.Cleanup(func() {
+		os.RemoveAll(dir)
+	})
+	return dir
 }

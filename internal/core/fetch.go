@@ -2,8 +2,11 @@ package core
 
 import (
 	"fmt"
-	"io/ioutil"
+	"github.com/pkg/errors"
+	"io"
 	"net/http"
+	"os"
+	"path/filepath"
 	"time"
 
 	"ed-fx/go-duka/internal/misc"
@@ -25,35 +28,67 @@ type HTTPDownload struct {
 
 func NewDownloader() Downloader {
 	return &HTTPDownload{
-		client: &http.Client{
-			Timeout: 5 * time.Minute,
-		},
+		client: &http.Client{Timeout: 5 * time.Minute},
 	}
 }
 
-func (h *HTTPDownload) Download(URL string) ([]byte, error) {
-	var err error
+func (h HTTPDownload) Download(URL string, toFilePath string) (httpStatusCode int, filesize int64, err error) {
+	var resp *http.Response
 	for retry := 0; retry < retryTimes; retry++ {
-		var resp *http.Response
 		resp, err = h.client.Get(URL)
 		if err != nil {
 			log.Error("[%d] Download %s failed: %v.", retry, URL, err)
+			h.delay()
+
 			continue
 		}
 		defer resp.Body.Close()
 
-		if resp.StatusCode != http.StatusOK {
-			log.Warn("[%d] Download %s failed %d:%s.", retry, URL, resp.StatusCode, resp.Status)
-			if resp.StatusCode == http.StatusNotFound {
+		httpStatusCode = resp.StatusCode
+		if httpStatusCode != http.StatusOK {
+			log.Warn("[%d] Download %s failed %d:%s.", retry, URL, httpStatusCode, resp.Status)
+			if httpStatusCode == http.StatusNotFound {
 				// 404
 				break
 			}
+
 			err = fmt.Errorf("http error %d:%s", resp.StatusCode, resp.Status)
+			h.delay()
 			continue
 		}
 
-		data, err := ioutil.ReadAll(resp.Body)
-		return data, err
+		filesize, err = h.saveBodyToDisk(resp.Body, toFilePath)
+		return
 	}
-	return nil, err
+
+	return
+}
+
+func (h HTTPDownload) delay() {
+	time.Sleep(5 * time.Second)
+}
+
+func (h HTTPDownload) saveBodyToDisk(body io.ReadCloser, path string) (filesize int64, err error) {
+	// Create dir if not exists
+	dir := filepath.Dir(path)
+	err = os.MkdirAll(dir, 0755)
+	if err != nil {
+		err = errors.Wrap(err, "Create folder ["+dir+"] failed")
+		return
+	}
+
+	f, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
+	if err != nil {
+		err = errors.Wrap(err, "Create file ["+path+"] failed")
+		return
+	}
+
+	defer f.Close()
+	filesize, err = io.Copy(f, body)
+	if err != nil {
+		err = errors.Wrap(err, "Saving tick data ["+path+"] failed")
+		return
+	}
+
+	return
 }
