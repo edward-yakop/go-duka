@@ -13,7 +13,7 @@ import (
 func TestStream_EachTick_AlwaysContinue(t *testing.T) {
 	start := time.Date(2017, time.January, 10, 22, 0, 0, 0, time.UTC)
 	end := start.Add(1 * time.Hour)
-	stream := NewStream("GBPJPY", start, end, createEmptyDir(t))
+	stream := New("GBPJPY", start, end, createEmptyDir(t))
 	isRun := false
 
 	stream.EachTick(func(time time.Time, tick *tickdata.TickData, err error) bool {
@@ -56,7 +56,7 @@ func TestStream_EachTick_OnlyContinueTwice(t *testing.T) {
 
 	start := time.Date(2017, time.January, 10, 22, 0, 0, 0, location)
 	end := start.Add(4 * 24 * time.Hour)
-	stream := NewStream("GBPJPY", start, end, createEmptyDir(t))
+	stream := New("GBPJPY", start, end, createEmptyDir(t))
 
 	isRun := false
 	tickCount := 0

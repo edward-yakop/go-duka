@@ -63,7 +63,7 @@ func downloadEnd(end time.Time) time.Time {
 var isLogSetup = false
 
 // time are in UTC
-func NewStream(symbol string, start time.Time, end time.Time, downloadFolderPath string) *Stream {
+func New(symbol string, start time.Time, end time.Time, downloadFolderPath string) *Stream {
 	if !isLogSetup {
 		isLogSetup = true
 		clog.NewConsole(0, clog.ConsoleConfig{

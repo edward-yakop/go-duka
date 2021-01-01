@@ -5,12 +5,10 @@
 
 ### 1.1 Building
 
-To build, you need to install go (https://golang.org/) and glide (https://github.com/Masterminds/glide) 
+To build, you need to install go (https://golang.org/)
 
 To build:
-
 ```
-glide install
 go build
 ```
 
@@ -199,5 +197,27 @@ type FXTHeader struct {
 	ModelErrors       uint32    //  		484        4     number of errors during model generation (FIX ERRORS SHOWING UP HERE BEFORE TESTING
 	_                 [240]byte //  		488      240     unused
 }
+```
+
+## 4 Streaming API
+
+Stream tick data given the start and end time boundary.
+
+``` Golang
+location, _ := time.LoadLocation("America/New_York")
+start := time.Date(2017, time.January, 10, 22, 0, 0, 0, location)
+end := start.Add(4 * 24 * time.Hour)
+
+// Create new stream that each tick will only be called withing start and end boundary
+stream := stream.New("GBPJPY", start, end, createEmptyDir(t)) 
+
+// Stream ticks with the requested parameter
+stream.EachTick(func(time time.Time, tick *tickdata.TickData, err error) bool {
+    // time: Tick data time in new_york time zone
+    // tick: The tick data containg symbol, time (UTC), ask, bid, volume's ask and volume's bid
+    // err: Error occurs either during download or decoding dukas tick data file
+    
+    return true // Sets to true to continue to next tick, false to stop
+})
 ```
 
