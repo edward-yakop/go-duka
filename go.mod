@@ -1,4 +1,4 @@
-module ed-fx/go-duka
+module github.com/ed-fx/go-duka
 
 go 1.15
 
