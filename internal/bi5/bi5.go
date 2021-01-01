@@ -44,10 +44,10 @@ func (b Bi5) Symbol() string {
 }
 
 // New create an bi5 saver
-func New(day time.Time, symbol, dest string) *Bi5 {
+func New(day time.Time, symbol, downloadFolderPath string) *Bi5 {
 	y, m, d := day.Date()
 
-	biFilePath := filepath.FromSlash(fmt.Sprintf("%s/download/%s/%04d/%02d/%02d/%02dh_ticks.%s", dest, symbol, y, m, d, day.Hour(), ext))
+	biFilePath := filepath.FromSlash(fmt.Sprintf("%s/download/%s/%04d/%02d/%02d/%02dh_ticks.%s", downloadFolderPath, symbol, y, m, d, day.Hour(), ext))
 	metadata := instrument.GetMetadata(symbol)
 
 	return &Bi5{
