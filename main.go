@@ -101,7 +101,7 @@ func main() {
 	if err != nil {
 		fmt.Println("--------------------------------------------")
 		fmt.Printf("Error: %s\n", err)
-		fmt.Println("--------------------------------------------\n")
+		fmt.Println("--------------------------------------------")
 		fmt.Println("Usage:")
 		flag.PrintDefaults()
 		return

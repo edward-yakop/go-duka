@@ -1,7 +1,6 @@
 package bi5
 
 import (
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"
@@ -29,7 +28,7 @@ func testDownloadAndStream(t *testing.T, dateHour time.Time, firstTickDataString
 				assert.Equal(t, firstTickDataString, tickDataString)
 				isFirst = false
 			}
-			fmt.Printf("%v\n", tickDataString)
+			//fmt.Printf("%v\n", tickDataString)
 		}
 	} else {
 		t.Fail()
