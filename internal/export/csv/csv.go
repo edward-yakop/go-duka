@@ -1,15 +1,15 @@
 package csv
 
 import (
-	"ed-fx/go-duka/api/instrument"
-	"ed-fx/go-duka/api/tickdata"
 	"encoding/csv"
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
+	"github.com/ed-fx/go-duka/api/tickdata"
 	"os"
 	"path/filepath"
 	"time"
 
-	"ed-fx/go-duka/internal/misc"
+	"github.com/ed-fx/go-duka/internal/misc"
 )
 
 var (

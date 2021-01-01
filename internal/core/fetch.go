@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"ed-fx/go-duka/internal/misc"
+	"github.com/ed-fx/go-duka/internal/misc"
 )
 
 const (

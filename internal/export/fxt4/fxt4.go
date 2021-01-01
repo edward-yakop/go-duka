@@ -3,10 +3,10 @@ package fxt4
 import (
 	"bufio"
 	"bytes"
-	"ed-fx/go-duka/api/tickdata"
-	"ed-fx/go-duka/internal/misc"
 	"encoding/binary"
 	"fmt"
+	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/ed-fx/go-duka/internal/misc"
 	"io"
 	"math"
 	"os"

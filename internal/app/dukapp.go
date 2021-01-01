@@ -1,9 +1,9 @@
 package app
 
 import (
-	"ed-fx/go-duka/api/tickdata"
-	iTickdata "ed-fx/go-duka/internal/tickdata"
 	"fmt"
+	"github.com/ed-fx/go-duka/api/tickdata"
+	iTickdata "github.com/ed-fx/go-duka/internal/tickdata"
 	"github.com/pkg/errors"
 	"os"
 	"path/filepath"
@@ -11,11 +11,11 @@ import (
 	"sync"
 	"time"
 
-	"ed-fx/go-duka/internal/core"
-	"ed-fx/go-duka/internal/export/csv"
-	"ed-fx/go-duka/internal/export/fxt4"
-	"ed-fx/go-duka/internal/export/hst"
-	"ed-fx/go-duka/internal/misc"
+	"github.com/ed-fx/go-duka/internal/core"
+	"github.com/ed-fx/go-duka/internal/export/csv"
+	"github.com/ed-fx/go-duka/internal/export/fxt4"
+	"github.com/ed-fx/go-duka/internal/export/hst"
+	"github.com/ed-fx/go-duka/internal/misc"
 )
 
 var (

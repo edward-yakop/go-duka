@@ -1,7 +1,7 @@
 package stream
 
 import (
-	"ed-fx/go-duka/api/tickdata"
+	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"

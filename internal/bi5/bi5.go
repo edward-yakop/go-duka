@@ -2,10 +2,10 @@ package bi5
 
 import (
 	"bytes"
-	"ed-fx/go-duka/api/instrument"
-	"ed-fx/go-duka/api/tickdata"
 	"encoding/binary"
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
+	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/pkg/errors"
 	"io"
 	"net/http"
@@ -14,7 +14,7 @@ import (
 	"strconv"
 	"time"
 
-	"ed-fx/go-duka/internal/core"
+	"github.com/ed-fx/go-duka/internal/core"
 	"github.com/ulikunitz/xz/lzma"
 )
 

@@ -1,9 +1,9 @@
 package stream
 
 import (
-	"ed-fx/go-duka/api/tickdata"
-	"ed-fx/go-duka/api/tickdata/stream"
 	"fmt"
+	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/ed-fx/go-duka/api/tickdata/stream"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"math"

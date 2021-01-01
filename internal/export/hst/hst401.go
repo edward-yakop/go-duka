@@ -1,13 +1,13 @@
 package hst
 
 import (
-	"ed-fx/go-duka/api/tickdata"
 	"fmt"
+	"github.com/ed-fx/go-duka/api/tickdata"
 	"math"
 	"os"
 	"path/filepath"
 
-	"ed-fx/go-duka/internal/misc"
+	"github.com/ed-fx/go-duka/internal/misc"
 )
 
 var (

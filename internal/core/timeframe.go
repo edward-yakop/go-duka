@@ -1,7 +1,7 @@
 package core
 
 import (
-	"ed-fx/go-duka/api/tickdata"
+	"github.com/ed-fx/go-duka/api/tickdata"
 	"regexp"
 	"strconv"
 )
