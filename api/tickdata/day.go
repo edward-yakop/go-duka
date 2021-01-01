@@ -4,10 +4,12 @@ import (
 	"time"
 )
 
-type Iterator func(ticks []*TickData, err error)
+type DayIterator func(ticks []*TickData, err error) bool
+type TickIterator func(tick *TickData, err error) bool
 
 type Day interface {
 	Symbol() string
 	Time() time.Time
-	Each(it Iterator)
+	EachDay(it DayIterator)
+	EachTick(it TickIterator)
 }

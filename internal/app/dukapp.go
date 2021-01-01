@@ -2,6 +2,7 @@ package app
 
 import (
 	"ed-fx/go-duka/api/tickdata"
+	iTickdata "ed-fx/go-duka/internal/tickdata"
 	"fmt"
 	"github.com/pkg/errors"
 	"os"
@@ -10,15 +11,12 @@ import (
 	"sync"
 	"time"
 
-	"ed-fx/go-duka/internal/bi5"
 	"ed-fx/go-duka/internal/core"
 	"ed-fx/go-duka/internal/export/csv"
 	"ed-fx/go-duka/internal/export/fxt4"
 	"ed-fx/go-duka/internal/export/hst"
 	"ed-fx/go-duka/internal/misc"
 )
-
-const noParallelDownloads = 3
 
 var (
 	log             = misc.NewLogger("App", 2)
@@ -192,7 +190,7 @@ func (app *DukaApp) Execute() error {
 	// Download by day, 24 hours a day data is downloaded in parallel by 24 goroutines
 	for day := opt.Start; day.Unix() < opt.End.Unix(); day = day.Add(24 * time.Hour) {
 		// Download, parse, store
-		if td, err := app.fetchDay(day); err != nil {
+		if td, err := iTickdata.FetchDay(opt.Symbol, day, opt.Folder); err != nil {
 			err = errors.Wrap(err, "Failed to fetch ["+day.Format("2006-01-02")+"]")
 			return err
 		} else if err = app.export(td); err != nil {
@@ -215,54 +213,17 @@ func (app *DukaApp) Execute() error {
 	return nil
 }
 
-// Fetch a day
-func (app *DukaApp) fetchDay(day time.Time) (result tickdata.Day, err error) {
-	// Worker s get url from this channel
-	hours := make(chan int)
-
-	go func() {
-		for i := 0; i < 24; i++ {
-			hours <- i
-		}
-		close(hours)
-	}()
-
-	var wg sync.WaitGroup
-	opt := app.option
-	td := newDay(opt.Symbol, day)
-	for i := 0; i < noParallelDownloads; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			for hour := range hours {
-				dayHour := day.Add(time.Duration(hour) * time.Hour)
-				bi := bi5.New(dayHour, opt.Symbol, opt.Folder)
-				derr := bi.Download()
-				if derr != nil {
-					derr = errors.Wrap(err, "Download Bi5 ["+dayHour.Format("2006-01-02 15")+"] failed")
-				}
-				td.append(dayHour, bi, derr)
-			}
-		}()
-	}
-
-	wg.Wait()
-	td.postConstruct()
-
-	result = td
-	return
-}
-
 // export
 func (app *DukaApp) export(td tickdata.Day) error {
 	day := td.Time()
 	dayTicks := make([]*tickdata.TickData, 0, 2048)
-	td.Each(func(ticks []*tickdata.TickData, err error) {
+	td.EachDay(func(ticks []*tickdata.TickData, err error) bool {
 		if err != nil {
 			log.Error("Decode bi5 %s: %s failed: %v.", td.Symbol(), day.Format("2006-01-02:15H"), err)
-			return
+		} else {
+			dayTicks = append(dayTicks, ticks...)
 		}
-		dayTicks = append(dayTicks, ticks...)
+		return true
 	})
 
 	timestamp := uint32(day.Unix())

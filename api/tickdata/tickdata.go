@@ -21,7 +21,11 @@ type TickData struct {
 const timeMillisecond = int64(time.Millisecond)
 
 func (t TickData) UTC() time.Time {
-	return time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond).UTC()
+	return t.TimeInLocation(time.UTC)
+}
+
+func (t TickData) TimeInLocation(location *time.Location) time.Time {
+	return time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond).In(location)
 }
 
 func (t TickData) String() string {

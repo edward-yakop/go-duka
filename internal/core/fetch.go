@@ -46,12 +46,12 @@ func (h HTTPDownload) Download(URL string, toFilePath string) (httpStatusCode in
 
 		httpStatusCode = resp.StatusCode
 		if httpStatusCode != http.StatusOK {
-			log.Warn("[%d] Download %s failed %d:%s.", retry, URL, httpStatusCode, resp.Status)
 			if httpStatusCode == http.StatusNotFound {
 				// 404
 				break
 			}
 
+			log.Warn("[%d] Download %s failed %d:%s. Retrying", retry, URL, httpStatusCode, resp.Status)
 			err = fmt.Errorf("http error %d:%s", resp.StatusCode, resp.Status)
 			h.delay()
 			continue

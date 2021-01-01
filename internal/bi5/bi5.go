@@ -65,52 +65,22 @@ type TickDataResult struct {
 
 func (b Bi5) Ticks() ([]*tickdata.TickData, error) {
 	ticksArr := make([]*tickdata.TickData, 0)
-	if !b.isFileExists(b.targetFilePath) {
-		return ticksArr, nil
-	}
-
-	f, err := os.OpenFile(b.targetFilePath, os.O_RDONLY, 0666)
-	if err != nil {
-		err = errors.Wrap(err, "Failed to open "+b.targetFilePath+"]")
-		return nil, err
-	}
-
-	defer f.Close()
-
-	reader, err := lzma.NewReader(f)
-	if err != nil {
-		err = errors.Wrap(err, "Failed to create file reader")
-		return nil, err
-	}
-
-	bytesArr := make([]byte, TICK_BYTES)
-	var bytesCount = 0
-	var tick *tickdata.TickData
-	for {
-		tick = nil
-		bytesCount, err = reader.Read(bytesArr[:])
-		if err == io.EOF {
-			err = nil
-			break
-		}
-
-		if bytesCount != TICK_BYTES || err != nil {
-			err = errors.Wrap(err, "LZMA decode failed: ["+strconv.Itoa(bytesCount)+"] for file ["+b.targetFilePath+"]")
+	var ierr error
+	b.EachTick(func(tick *tickdata.TickData, err error) bool {
+		isNoError := err == nil
+		if isNoError {
+			ticksArr = append(ticksArr, tick)
 		} else {
-			tick, err = b.decodeTickData(bytesArr[:], b.symbol, b.dayHour)
-			if err != nil {
-				err = errors.Wrap(err, "Decode tick data failed for file ["+b.targetFilePath+"]")
-			}
+			ierr = err
 		}
 
-		// Stop streaming if error found
-		if err != nil {
-			return nil, err
-		}
-		ticksArr = append(ticksArr, tick)
+		return isNoError
+	})
+
+	if ierr != nil {
+		ticksArr = nil
 	}
-
-	return ticksArr, nil
+	return ticksArr, ierr
 }
 
 // decodeTickData from input data bytes array.
@@ -205,4 +175,51 @@ func (b Bi5) createFile(path string) error {
 		defer emptyFile.Close()
 	}
 	return err
+}
+
+func (b Bi5) EachTick(it tickdata.TickIterator) {
+	if !b.isFileExists(b.targetFilePath) {
+		return
+	}
+
+	f, err := os.OpenFile(b.targetFilePath, os.O_RDONLY, 0666)
+	if err != nil {
+		err = errors.Wrap(err, "Failed to open "+b.targetFilePath+"]")
+		it(nil, err)
+		return
+	}
+
+	defer f.Close()
+
+	reader, err := lzma.NewReader(f)
+	if err != nil {
+		err = errors.Wrap(err, "Failed to create file reader")
+		it(nil, err)
+		return
+	}
+
+	bytesArr := make([]byte, TICK_BYTES)
+	var bytesCount = 0
+	var tick *tickdata.TickData
+	for {
+		tick = nil
+		bytesCount, err = reader.Read(bytesArr[:])
+		if err == io.EOF {
+			err = nil
+			break
+		}
+
+		if bytesCount != TICK_BYTES || err != nil {
+			err = errors.Wrap(err, "LZMA decode failed: ["+strconv.Itoa(bytesCount)+"] for file ["+b.targetFilePath+"]")
+		} else {
+			tick, err = b.decodeTickData(bytesArr[:], b.symbol, b.dayHour)
+			if err != nil {
+				err = errors.Wrap(err, "Decode tick data failed for file ["+b.targetFilePath+"]")
+			}
+		}
+
+		if !it(tick, err) {
+			return
+		}
+	}
 }
