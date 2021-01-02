@@ -14,12 +14,12 @@ import (
 )
 
 func Test_StreamExample_DDFinder(t *testing.T) {
-	est, _ := time.LoadLocation("EET")
+	loc, _ := time.LoadLocation("EET")
 
 	symbol := "GBPJPY"
-	openTime := time.Date(2020, time.November, 3, 17, 0, 0, 0, est)
+	openTime := time.Date(2020, time.November, 3, 17, 0, 0, 0, loc)
 	openPrice := 136.325
-	closeTime := time.Date(2020, time.November, 4, 00, 56, 56, 0, est)
+	closeTime := time.Date(2020, time.November, 4, 00, 56, 56, 0, loc)
 	closePrice := 136.725
 
 	openPriceDiff, maxDD, maxPositive, maxDDForMaxPositive, maxPositiveTime, closePriceDiff :=
@@ -40,7 +40,6 @@ func Test_StreamExample_DDFinder(t *testing.T) {
 	assert.Equal(t, 392, maxPositive)
 	assert.Equal(t, -240, maxDDForMaxPositive)
 	assert.Equal(t, 400, profitInPoints)
-
 }
 
 func buyDDFinder(t *testing.T, symbol string, openTime time.Time, closeTime time.Time, openPrice float64, closePrice float64) (

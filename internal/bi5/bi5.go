@@ -44,15 +44,15 @@ func (b Bi5) Symbol() string {
 }
 
 // New create an bi5 saver
-func New(day time.Time, symbol, downloadFolderPath string) *Bi5 {
-	y, m, d := day.Date()
+func New(dayHour time.Time, symbol, downloadFolderPath string) *Bi5 {
+	y, m, d := dayHour.UTC().Date()
 
-	biFilePath := filepath.FromSlash(fmt.Sprintf("%s/download/%s/%04d/%02d/%02d/%02dh_ticks.%s", downloadFolderPath, symbol, y, m, d, day.Hour(), ext))
+	biFilePath := filepath.FromSlash(fmt.Sprintf("%s/download/%s/%04d/%02d/%02d/%02dh_ticks.%s", downloadFolderPath, symbol, y, m, d, dayHour.Hour(), ext))
 	metadata := instrument.GetMetadata(symbol)
 
 	return &Bi5{
 		targetFilePath: biFilePath,
-		dayHour:        day,
+		dayHour:        dayHour,
 		symbol:         symbol,
 		metadata:       metadata,
 	}
@@ -126,7 +126,7 @@ func (b Bi5) Download() error {
 		return nil
 	}
 
-	year, month, day := b.dayHour.Date()
+	year, month, day := b.dayHour.UTC().Date()
 	link := fmt.Sprintf(core.DukaTmplURL, b.symbol, year, month-1, day, b.dayHour.Hour())
 
 	var httpStatusCode int
@@ -170,6 +170,13 @@ func (b Bi5) symbolAndTime() string {
 }
 
 func (b Bi5) createFile(path string) error {
+	// Create dir if not exists
+	dir := filepath.Dir(path)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		err = errors.Wrap(err, "Create folder ["+dir+"] failed")
+		return err
+	}
+
 	emptyFile, err := os.Create(path)
 	if err == nil {
 		defer emptyFile.Close()

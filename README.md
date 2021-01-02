@@ -214,7 +214,7 @@ stream := stream.New("GBPJPY", start, end, createEmptyDir(t))
 // Stream ticks with the requested parameter
 stream.EachTick(func(time time.Time, tick *tickdata.TickData, err error) bool {
     // time: Tick data time in new_york time zone
-    // tick: The tick data containg symbol, time (UTC), ask, bid, volume's ask and volume's bid
+    // tick: The tick data containg symbol, time (loc), ask, bid, volume's ask and volume's bid
     // err: Error occurs either during download or decoding dukas tick data file
     
     return true // Sets to true to continue to next tick, false to stop
