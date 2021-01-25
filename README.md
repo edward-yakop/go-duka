@@ -199,7 +199,7 @@ type FXTHeader struct {
 }
 ```
 
-## 4 Streaming API
+## 4 Streaming API (From v0.1)
 
 Stream tick data given the start and end time boundary.
 
@@ -208,7 +208,7 @@ location, _ := time.LoadLocation("America/New_York")
 start := time.Date(2017, time.January, 10, 22, 0, 0, 0, location)
 end := start.Add(4 * 24 * time.Hour)
 
-// Create new stream that each tick will only be called withing start and end boundary
+// Create new stream that each tick will only be called within start and end boundary
 stream := stream.New("GBPJPY", start, end, createEmptyDir(t)) 
 
 // Stream ticks with the requested parameter
@@ -221,3 +221,26 @@ stream.EachTick(func(time time.Time, tick *tickdata.TickData, err error) bool {
 })
 ```
 
+## 5 Tick API (From v0.2)
+
+Iterate tick data given the start and end time boundary.
+
+``` Golang
+location, _ := time.LoadLocation("America/New_York")
+start := time.Date(2017, time.January, 10, 22, 0, 0, 0, location)
+end := start.Add(4 * 24 * time.Hour)
+
+// Create new ticks that iterate within start and end boundary
+ticks := New("GBPJPY", start, end, createEmptyDir(t))
+
+for !ticks.IsCompleted() {
+    isSuccess, err := ticks.Next() // Ticks start before start, must start with Next(). 
+                                   // true is returned if next successully executed
+                                   // false if ticks has reached end or error occurred
+
+    tick := ticks.Curr()           // To retrieve the current tick
+    
+    isGotoSucceed, err := ticks.Goto(tick.UTC().Add(time.Hour)) // Skip one hour forward
+    tick = ticks.Curr()                                         // tick is now the first tick after an hour later
+}
+```

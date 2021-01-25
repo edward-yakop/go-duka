@@ -3,6 +3,7 @@ package ticks
 import (
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/ed-fx/go-duka/internal/bi5"
+	"github.com/pkg/errors"
 	"time"
 	"unknwon.dev/clog/v2"
 )
@@ -60,8 +61,14 @@ func (t *Ticks) Next() (isSuccess bool, err error) {
 		}
 	}
 
-	start := t.nextDownloadHour()
-	for currTime := start; currTime.Before(t.end); currTime = currTime.Add(time.Hour) {
+	return t.Goto(t.nextDownloadHour())
+}
+
+func (t *Ticks) Goto(to time.Time) (isSuccess bool, err error) {
+	if to.Before(t.start) || to.After(t.end) {
+		return false, errors.New("")
+	}
+	for currTime := to; currTime.Before(t.end); currTime = currTime.Add(time.Hour) {
 		bi := bi5.New(currTime, t.symbol, t.downloadFolderPath)
 
 		// Download might return errors when there's no tick data during weekend or holiday
