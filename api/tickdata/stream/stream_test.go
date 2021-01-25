@@ -43,7 +43,7 @@ func createEmptyDir(t *testing.T) string {
 		t.FailNow()
 	}
 	t.Cleanup(func() {
-		os.RemoveAll(dir)
+		_ = os.RemoveAll(dir)
 	})
 	return dir
 }

@@ -14,18 +14,23 @@ type TickData struct {
 	Bid       float64 // 买价
 	VolumeAsk float64 // 单位：通常是按10万美元为一手，最小0.01手
 	VolumeBid float64 // 单位：...
+
+	timestampInUTC time.Time
 }
 
 // UTC convert timestamp to UTC time
 //
 const timeMillisecond = int64(time.Millisecond)
 
-func (t TickData) UTC() time.Time {
-	return t.TimeInLocation(time.UTC)
+func (t *TickData) UTC() time.Time {
+	if t.timestampInUTC.IsZero() {
+		t.timestampInUTC = time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond).In(time.UTC)
+	}
+	return t.timestampInUTC
 }
 
 func (t TickData) TimeInLocation(location *time.Location) time.Time {
-	return time.Unix(t.Timestamp/1000, (t.Timestamp%1000)*timeMillisecond).In(location)
+	return t.UTC().In(location)
 }
 
 func (t TickData) String() string {

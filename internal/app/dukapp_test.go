@@ -2,12 +2,17 @@ package app
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
 	"unknwon.dev/clog/v2"
 )
 
 func TestDukaApp(t *testing.T) {
+	t.Cleanup(func() {
+		_ = os.RemoveAll("EURUSD-2017-01-01-2017-01-03.CSV")
+		_ = os.RemoveAll("download")
+	})
 	args := ArgsList{
 		Verbose: true,
 		Header:  true,

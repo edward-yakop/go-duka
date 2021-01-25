@@ -1,6 +1,7 @@
 package bi5
 
 import (
+	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"
@@ -8,31 +9,36 @@ import (
 	"time"
 )
 
-func TestBi5DownloadAndStream(t *testing.T) {
-	dateHour := time.Date(2017, time.January, 10, 22, 0, 0, 0, time.UTC)
-	testDownloadAndStream(t, dateHour, "1484085600088 1.05549 1.05548 0.75 0.75")
+func TestBi5DownloadBetween(t *testing.T) {
+	from := time.Date(2017, time.January, 10, 22, 0, 0, 0, time.UTC)
+	to := from.Add(150 * time.Millisecond)
+	testDownloadAndTicks(t, from, to, "1484085600088 1.05549 1.05548 0.75 0.75")
+
+	to = from.Add(time.Hour)
+	testDownloadAndTicks(t, from, to, "1484085600088 1.05549 1.05548 0.75 0.75")
 }
 
-func testDownloadAndStream(t *testing.T, dateHour time.Time, firstTickDataString string) {
+func testDownloadAndTicks(t *testing.T, from time.Time, to time.Time, expectedFirstTickDataString string) (ticks []*tickdata.TickData) {
 	dir := createEmptyDir(t)
-	bi := New(dateHour, "EURUSD", dir)
+	bi := New(from, "EURUSD", dir)
 	err := bi.Download()
 	assert.NoError(t, err)
 
-	var isFirst = true
-	ticks, err := bi.Ticks()
+	ticks, err = bi.TicksBetween(from, to)
 	if assert.NoError(t, err) {
+		firstTickDataString := ticks[0].StringUnix()
+		assert.Equal(t, expectedFirstTickDataString, firstTickDataString)
+
 		for _, tick := range ticks {
-			tickDataString := tick.StringUnix()
-			if isFirst {
-				assert.Equal(t, firstTickDataString, tickDataString)
-				isFirst = false
-			}
-			//fmt.Printf("%v\n", tickDataString)
+			tt := tick.UTC()
+			assert.True(t, from.Before(tt) || from.Equal(tt))
+			assert.True(t, to.After(tt) || to.Equal(tt))
 		}
 	} else {
 		t.Fail()
 	}
+
+	return
 }
 
 func createEmptyDir(t *testing.T) string {

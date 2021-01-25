@@ -29,6 +29,7 @@ const (
 // Bi5 from dukascopy
 type Bi5 struct {
 	dayHour        time.Time
+	endDayHour     time.Time
 	symbol         string
 	metadata       *instrument.Metadata
 	targetFilePath string
@@ -50,9 +51,12 @@ func New(dayHour time.Time, symbol, downloadFolderPath string) *Bi5 {
 	biFilePath := filepath.FromSlash(fmt.Sprintf("%s/download/%s/%04d/%02d/%02d/%02dh_ticks.%s", downloadFolderPath, symbol, y, m, d, dayHour.Hour(), ext))
 	metadata := instrument.GetMetadata(symbol)
 
+	beginHour := time.Date(y, m, d, dayHour.Hour(), 0, 0, 0, time.UTC)
+	endHour := beginHour.Add(time.Hour).Add(-1)
 	return &Bi5{
 		targetFilePath: biFilePath,
-		dayHour:        dayHour,
+		dayHour:        beginHour,
+		endDayHour:     endHour,
 		symbol:         symbol,
 		metadata:       metadata,
 	}
@@ -64,23 +68,67 @@ type TickDataResult struct {
 }
 
 func (b Bi5) Ticks() ([]*tickdata.TickData, error) {
-	ticksArr := make([]*tickdata.TickData, 0)
-	var ierr error
-	b.EachTick(func(tick *tickdata.TickData, err error) bool {
-		isNoError := err == nil
-		if isNoError {
-			ticksArr = append(ticksArr, tick)
+	return b.TicksBetween(time.Time{}, time.Time{})
+}
+
+func (b Bi5) TicksBetween(from time.Time, to time.Time) (r []*tickdata.TickData, err error) {
+	r = make([]*tickdata.TickData, 0)
+
+	location := b.dayHour.Location()
+	from, err = b.sanitizeFrom(from, location)
+	if err != nil {
+		return
+	}
+	to, err = b.sanitizeTo(to, location)
+	if err != nil {
+		return
+	}
+
+	b.EachTick(func(tick *tickdata.TickData, terr error) (isContinue bool) {
+		if terr == nil {
+			t := tick.UTC()
+			if !(t.Before(from) || t.After(to)) {
+				r = append(r, tick)
+			}
+			isContinue = to.After(t)
 		} else {
-			ierr = err
+			err = terr
 		}
 
-		return isNoError
+		return
 	})
 
-	if ierr != nil {
-		ticksArr = nil
+	if err != nil {
+		r = []*tickdata.TickData{}
 	}
-	return ticksArr, ierr
+	return
+}
+
+func (b Bi5) sanitizeFrom(from time.Time, location *time.Location) (time.Time, error) {
+	if from.IsZero() {
+		return b.dayHour, nil
+	}
+	fromSanitize := from.In(location)
+	if fromSanitize.Before(b.dayHour) || fromSanitize.Equal(b.dayHour) {
+		return b.dayHour, nil
+	}
+	if fromSanitize.Before(b.endDayHour) || fromSanitize.Equal(b.endDayHour) {
+		return fromSanitize, nil
+	}
+
+	return time.Time{}, errors.New("From [" + from.String() + "] is after [" + b.endDayHour.String() + "]")
+}
+
+func (b Bi5) sanitizeTo(to time.Time, location *time.Location) (time.Time, error) {
+	if to.IsZero() {
+		return b.endDayHour, nil
+	}
+	toSanitize := to.In(location)
+	if toSanitize.Before(b.dayHour) || toSanitize.Equal(b.dayHour) {
+		return time.Time{}, errors.New("To [" + to.String() + "] is before [" + b.dayHour.String() + "]")
+	}
+
+	return toSanitize, nil
 }
 
 // decodeTickData from input data bytes array.
