@@ -66,8 +66,11 @@ func (t *Ticks) Next() (isSuccess bool, err error) {
 
 func (t *Ticks) Goto(to time.Time) (isSuccess bool, err error) {
 	if to.Before(t.start) || to.After(t.end) {
-		return false, errors.New("")
+		return false, errors.New("[" + to.String() + "] is after [" + t.end.String() + "]")
 	}
+
+	to = to.In(time.UTC) // Done to ease debugging
+	t.isCompleted = false
 	for currTime := to; currTime.Before(t.end); currTime = currTime.Add(time.Hour) {
 		bi := bi5.New(currTime, t.symbol, t.downloadFolderPath)
 
@@ -82,12 +85,19 @@ func (t *Ticks) Goto(to time.Time) (isSuccess bool, err error) {
 				t.ticksIdx = t.searchTickIdx()
 				t.currTick = nil
 
-				return t.Next()
+				isSuccess, err = t.Next()
+				currTick := t.currTick
+				for isSuccess && (to.After(currTick.UTC()) || to.Equal(currTick.UTC())) {
+					isSuccess, err = t.Next()
+					currTick = t.Current()
+				}
+
+				return
 			}
 		}
 	}
 
-	t.End()
+	t.complete()
 	return
 }
 
