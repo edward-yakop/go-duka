@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/pkg/errors"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -51,7 +52,7 @@ func (h HTTPDownload) Download(URL string, toFilePath string) (httpStatusCode in
 				break
 			}
 
-			log.Warn("[%d] Download %s failed %d:%s. Retrying", retry, URL, httpStatusCode, resp.Status)
+			log.Trace("[%d] Download %s failed %d:%s. Retrying", retry, URL, httpStatusCode, resp.Status)
 			err = fmt.Errorf("http error %d:%s", resp.StatusCode, resp.Status)
 			h.delay()
 			continue
@@ -69,7 +70,24 @@ func (h HTTPDownload) delay() {
 }
 
 func (h HTTPDownload) saveBodyToDisk(body io.ReadCloser, path string) (filesize int64, err error) {
-	// Create dir if not exists
+	tempFile, err := ioutil.TempFile(os.TempDir(), "go-duka.download.*.temp")
+	if err != nil {
+		return 0, errors.New("Failed to create temp file for download")
+	}
+	tempFileName := tempFile.Name()
+	defer func() {
+		if err != nil {
+			_ = tempFile.Close()
+			_ = os.Remove(tempFileName)
+		}
+	}()
+
+	filesize, err = io.Copy(tempFile, body)
+	if err != nil {
+		err = errors.Wrap(err, "Saving tick data ["+tempFileName+"] Failed")
+		return
+	}
+
 	dir := filepath.Dir(path)
 	err = os.MkdirAll(dir, 0755)
 	if err != nil {
@@ -77,18 +95,14 @@ func (h HTTPDownload) saveBodyToDisk(body io.ReadCloser, path string) (filesize 
 		return
 	}
 
-	f, err := os.OpenFile(path, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
+	err = tempFile.Close()
 	if err != nil {
-		err = errors.Wrap(err, "Create file ["+path+"] failed")
+		err = errors.Wrap(err, "Failed to close tick data ["+tempFileName+"] file")
 		return
 	}
-
-	defer f.Close()
-	filesize, err = io.Copy(f, body)
+	err = os.Rename(tempFileName, path)
 	if err != nil {
-		err = errors.Wrap(err, "Saving tick data ["+path+"] failed")
-		return
+		err = errors.Wrap(err, "Failed to move tick data to ["+path+"]")
 	}
-
 	return
 }

@@ -69,7 +69,7 @@ func (t *Ticks) Goto(to time.Time) (isSuccess bool, err error) {
 		return false, errors.New("[" + to.String() + "] is after [" + t.end.String() + "]")
 	}
 
-	to = to.In(time.UTC) // Done to ease debugging
+	to = to.In(time.UTC) // To ease debugging
 	t.isCompleted = false
 	for currTime := t.timeToHour(to); currTime.Before(t.end); currTime = currTime.Add(time.Hour) {
 		if t.ticksDayHour.Equal(currTime) {
@@ -80,12 +80,12 @@ func (t *Ticks) Goto(to time.Time) (isSuccess bool, err error) {
 			// Download might return errors when there's no tick data during weekend or holiday
 			if bi.Download() == nil {
 				t.ticks, err = bi.Ticks()
+				t.ticksIdx = 0
+				t.ticksDayHour = currTime
 				if err != nil {
 					t.complete()
 					return
 				} else if len(t.ticks) != 0 {
-					t.ticksIdx = 0
-					t.ticksDayHour = currTime
 					t.seek(to)
 					return true, nil
 				}
