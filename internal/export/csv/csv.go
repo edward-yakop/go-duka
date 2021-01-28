@@ -20,30 +20,30 @@ var (
 
 // CsvDump save csv format
 type CsvDump struct {
-	day       time.Time
-	end       time.Time
-	dest      string
-	symbol    string
-	header    bool
-	tickCount int64
-	chClose   chan struct{}
-	chTicks   chan *tickdata.TickData
+	day        time.Time
+	end        time.Time
+	dest       string
+	instrument *instrument.Metadata
+	header     bool
+	tickCount  int64
+	chClose    chan struct{}
+	chTicks    chan *tickdata.TickData
 }
 
 // New Csv file
-func New(start, end time.Time, header bool, symbol, dest string) *CsvDump {
-	csv := &CsvDump{
-		day:     start,
-		end:     end,
-		dest:    dest,
-		symbol:  symbol,
-		header:  header,
-		chClose: make(chan struct{}, 1),
-		chTicks: make(chan *tickdata.TickData, 1024),
+func New(start, end time.Time, header bool, instrument *instrument.Metadata, dest string) *CsvDump {
+	csvDump := &CsvDump{
+		day:        start,
+		end:        end,
+		dest:       dest,
+		instrument: instrument,
+		header:     header,
+		chClose:    make(chan struct{}, 1),
+		chTicks:    make(chan *tickdata.TickData, 1024),
 	}
 
-	go csv.worker()
-	return csv
+	go csvDump.worker()
+	return csvDump
 }
 
 // Finish complete csv file writing
@@ -71,7 +71,7 @@ func (c *CsvDump) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) err
 //
 func (c *CsvDump) worker() error {
 	fname := fmt.Sprintf("%s-%s-%s.%s",
-		c.symbol,
+		c.instrument.Code(),
 		c.day.Format("2006-01-02"),
 		c.end.Format("2006-01-02"),
 		ext)
@@ -84,24 +84,23 @@ func (c *CsvDump) worker() error {
 	}
 
 	defer func() {
-		f.Close()
+		_ = f.Close()
 		close(c.chClose)
 		log.Info("Saved Ticks: %d.", c.tickCount)
 	}()
 
-	csv := csv.NewWriter(f)
-	defer csv.Flush()
+	csvw := csv.NewWriter(f)
+	defer csvw.Flush()
 
 	// write header
 	if c.header {
-		csv.Write(csvHeader)
+		_ = csvw.Write(csvHeader)
 	}
 
-	m := instrument.GetMetadata(c.symbol)
 	// write tick one by one
 	for tick := range c.chTicks {
-		row := c.toRow(m, tick)
-		if err = csv.Write(row); err != nil {
+		row := c.toRow(tick)
+		if err = csvw.Write(row); err != nil {
 			log.Error("Write csv %s failed: %v.", fpath, err)
 			break
 		}
@@ -110,11 +109,11 @@ func (c *CsvDump) worker() error {
 	return err
 }
 
-func (c CsvDump) toRow(m *instrument.Metadata, t *tickdata.TickData) []string {
+func (c CsvDump) toRow(t *tickdata.TickData) []string {
 	return []string{
 		t.UTC().Format("2006-01-02 15:04:05.000"),
-		m.PriceToString(t.Ask),
-		m.PriceToString(t.Bid),
+		c.instrument.PriceToString(t.Ask),
+		c.instrument.PriceToString(t.Bid),
 		fmt.Sprintf("%.2f", t.VolumeAsk),
 		fmt.Sprintf("%.2f", t.VolumeBid),
 	}

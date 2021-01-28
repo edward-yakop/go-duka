@@ -1,6 +1,7 @@
 package tickdata
 
 import (
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/ed-fx/go-duka/internal/bi5"
 	"github.com/pkg/errors"
@@ -19,8 +20,8 @@ type dayHourResult struct {
 }
 
 type Day struct {
-	symbol string
-	time   time.Time
+	instrument *instrument.Metadata
+	time       time.Time
 
 	results  []*dayHourResult
 	resultCh chan *dayHourResult
@@ -29,7 +30,11 @@ type Day struct {
 var _ tickdata.Day = &Day{}
 
 func (d Day) Symbol() string {
-	return d.symbol
+	return d.instrument.Code()
+}
+
+func (d Day) Instrument() *instrument.Metadata {
+	return d.instrument
 }
 
 func (d Day) Time() time.Time {
@@ -91,7 +96,7 @@ func (d *Day) postConstruct() {
 	})
 }
 
-func FetchDay(symbol string, day time.Time, folderPath string) (result tickdata.Day, err error) {
+func FetchDay(instrument *instrument.Metadata, day time.Time, folderPath string) (result tickdata.Day, err error) {
 	day = day.UTC()
 	day = time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
 
@@ -106,14 +111,14 @@ func FetchDay(symbol string, day time.Time, folderPath string) (result tickdata.
 	}()
 
 	var wg sync.WaitGroup
-	td := newDay(symbol, day)
+	td := newDay(instrument, day)
 	for i := 0; i < noParallelDownloads; i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
 			for hour := range hours {
 				dayHour := day.Add(time.Duration(hour) * time.Hour)
-				bi := bi5.New(dayHour, symbol, folderPath)
+				bi := bi5.New(dayHour, instrument, folderPath)
 				derr := bi.Download()
 				if derr != nil {
 					derr = errors.Wrap(err, "Download Bi5 ["+dayHour.Format("2006-01-02 15")+"] failed")
@@ -130,11 +135,11 @@ func FetchDay(symbol string, day time.Time, folderPath string) (result tickdata.
 	return
 }
 
-func newDay(symbol string, time time.Time) *Day {
+func newDay(instrument *instrument.Metadata, time time.Time) *Day {
 	return &Day{
-		symbol:   symbol,
-		time:     time,
-		results:  make([]*dayHourResult, 0),
-		resultCh: make(chan *dayHourResult),
+		instrument: instrument,
+		time:       time,
+		results:    make([]*dayHourResult, 0),
+		resultCh:   make(chan *dayHourResult),
 	}
 }

@@ -1,6 +1,7 @@
 package bi5
 
 import (
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
@@ -20,7 +21,7 @@ func TestBi5DownloadBetween(t *testing.T) {
 
 func testDownloadAndTicks(t *testing.T, from time.Time, to time.Time, expectedFirstTickDataString string) (ticks []*tickdata.TickData) {
 	dir := createEmptyDir(t)
-	bi := New(from, "EURUSD", dir)
+	bi := New(from, instrument.GetMetadata("EURUSD"), dir)
 	err := bi.Download()
 	assert.NoError(t, err)
 
@@ -45,7 +46,7 @@ func createEmptyDir(t *testing.T) string {
 	dir, err := ioutil.TempDir(".", "test")
 	assert.NoError(t, err)
 	t.Cleanup(func() {
-		os.RemoveAll(dir)
+		_ = os.RemoveAll(dir)
 	})
 	return dir
 }

@@ -61,7 +61,7 @@ func (m *Metadata) PriceToString(price float64) string {
 //
 // Returns [nil] if not found
 func GetMetadata(code string) *Metadata {
-	symbol, ok := codeToSymbol[strings.ToLower(code)]
+	symbol, ok := codeToSymbol[strings.ToUpper(code)]
 	if ok {
 		return &symbol
 	}
@@ -69,8 +69,8 @@ func GetMetadata(code string) *Metadata {
 }
 
 var codeToSymbol = map[string]Metadata{
-	"aususd": {
-		code:              "aususd",
+	"AUSUSD": {
+		code:              "AUSUSD",
 		name:              "A.US/USD",
 		description:       "AGILENT TECHNOLOGIES INC",
 		minStartDate:      "2017-05-25",
@@ -78,8 +78,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"aaususd": {
-		code:              "aaususd",
+	"AAUSUSD": {
+		code:              "AAUSUSD",
 		name:              "AA.US/USD",
 		description:       "ALCOA INC",
 		minStartDate:      "2018-01-30",
@@ -87,8 +87,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"aabaususd": {
-		code:              "aabaususd",
+	"AABAUSUSD": {
+		code:              "AABAUSUSD",
 		name:              "AABA.US/USD",
 		description:       "ALTABA INC",
 		minStartDate:      "2017-11-02",
@@ -96,8 +96,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"aalgbgbx": {
-		code:              "aalgbgbx",
+	"AALGBGBX": {
+		code:              "AALGBGBX",
 		name:              "AAL.GB/GBX",
 		description:       "Anglo American PLC",
 		minStartDate:      "2016-08-01",
@@ -105,8 +105,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"aalususd": {
-		code:              "aalususd",
+	"AALUSUSD": {
+		code:              "AALUSUSD",
 		name:              "AAL.US/USD",
 		description:       "AMERICAN AIRLINES GROUP INC",
 		minStartDate:      "2017-11-02",
@@ -114,8 +114,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"aaplususd": {
-		code:              "aaplususd",
+	"AAPLUSUSD": {
+		code:              "AAPLUSUSD",
 		name:              "AAPL.US/USD",
 		description:       "APPLE INC",
 		minStartDate:      "2017-01-17",
@@ -123,8 +123,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"abbsesek": {
-		code:              "abbsesek",
+	"ABBSESEK": {
+		code:              "ABBSESEK",
 		name:              "ABB.SE/SEK",
 		description:       "ABB Ltd",
 		minStartDate:      "2016-11-14",
@@ -132,8 +132,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"abcususd": {
-		code:              "abcususd",
+	"ABCUSUSD": {
+		code:              "ABCUSUSD",
 		name:              "ABC.US/USD",
 		description:       "AMERISOURCEBERGEN CORP",
 		minStartDate:      "2018-01-30",
@@ -141,8 +141,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"abevususd": {
-		code:              "abevususd",
+	"ABEVUSUSD": {
+		code:              "ABEVUSUSD",
 		name:              "ABEV.US/USD",
 		description:       "Ambev S.A.",
 		minStartDate:      "2017-01-26",
@@ -150,8 +150,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"abfgbgbx": {
-		code:              "abfgbgbx",
+	"ABFGBGBX": {
+		code:              "ABFGBGBX",
 		name:              "ABF.GB/GBX",
 		description:       "Associated British Foods PLC",
 		minStartDate:      "2016-09-06",
@@ -159,8 +159,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"abibeeur": {
-		code:              "abibeeur",
+	"ABIBEEUR": {
+		code:              "ABIBEEUR",
 		name:              "ABI.BE/EUR",
 		description:       "Anheuser-Busch InBev NV",
 		minStartDate:      "2016-11-14",
@@ -168,8 +168,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Belgium",
 	},
-	"abtususd": {
-		code:              "abtususd",
+	"ABTUSUSD": {
+		code:              "ABTUSUSD",
 		name:              "ABT.US/USD",
 		description:       "ABBOTT LABORATORIES",
 		minStartDate:      "2017-05-11",
@@ -177,8 +177,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"acfreur": {
-		code:              "acfreur",
+	"ACFREUR": {
+		code:              "ACFREUR",
 		name:              "AC.FR/EUR",
 		description:       "Accor SA",
 		minStartDate:      "2016-08-11",
@@ -186,8 +186,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"acafreur": {
-		code:              "acafreur",
+	"ACAFREUR": {
+		code:              "ACAFREUR",
 		name:              "ACA.FR/EUR",
 		description:       "Credit Agricole SA",
 		minStartDate:      "2016-09-30",
@@ -195,8 +195,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"acseseur": {
-		code:              "acseseur",
+	"ACSESEUR": {
+		code:              "ACSESEUR",
 		name:              "ACS.ES/EUR",
 		description:       "ACS Actividades de Construccion y Servicios SA",
 		minStartDate:      "2016-11-14",
@@ -204,8 +204,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"acxeseur": {
-		code:              "acxeseur",
+	"ACXESEUR": {
+		code:              "ACXESEUR",
 		name:              "ACX.ES/EUR",
 		description:       "Acerinox SA",
 		minStartDate:      "2016-11-14",
@@ -213,8 +213,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"adbeususd": {
-		code:              "adbeususd",
+	"ADBEUSUSD": {
+		code:              "ADBEUSUSD",
 		name:              "ADBE.US/USD",
 		description:       "ADOBE SYSTEMS INC",
 		minStartDate:      "2017-05-11",
@@ -222,8 +222,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"adiususd": {
-		code:              "adiususd",
+	"ADIUSUSD": {
+		code:              "ADIUSUSD",
 		name:              "ADI.US/USD",
 		description:       "ANALOG DEVICES INC",
 		minStartDate:      "2018-01-30",
@@ -231,8 +231,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"admgbgbx": {
-		code:              "admgbgbx",
+	"ADMGBGBX": {
+		code:              "ADMGBGBX",
 		name:              "ADM.GB/GBX",
 		description:       "Admiral Group PLC",
 		minStartDate:      "2016-09-06",
@@ -240,8 +240,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"adpususd": {
-		code:              "adpususd",
+	"ADPUSUSD": {
+		code:              "ADPUSUSD",
 		name:              "ADP.US/USD",
 		description:       "AUTOMATIC DATA PROCESSING",
 		minStartDate:      "2017-11-02",
@@ -249,8 +249,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"adsdeeur": {
-		code:              "adsdeeur",
+	"ADSDEEUR": {
+		code:              "ADSDEEUR",
 		name:              "ADS.DE/EUR",
 		description:       "Adidas AG",
 		minStartDate:      "2015-03-13",
@@ -258,8 +258,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"adskususd": {
-		code:              "adskususd",
+	"ADSKUSUSD": {
+		code:              "ADSKUSUSD",
 		name:              "ADSK.US/USD",
 		description:       "AUTODESK INC",
 		minStartDate:      "2018-01-30",
@@ -267,8 +267,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"aenaeseur": {
-		code:              "aenaeseur",
+	"AENAESEUR": {
+		code:              "AENAESEUR",
 		name:              "AENA.ES/EUR",
 		description:       "Aena SA",
 		minStartDate:      "2016-11-14",
@@ -276,8 +276,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2015-01-01",
 		group:             "Spain",
 	},
-	"aetususd": {
-		code:              "aetususd",
+	"AETUSUSD": {
+		code:              "AETUSUSD",
 		name:              "AET.US/USD",
 		description:       "AETNA INC",
 		minStartDate:      "2017-05-11",
@@ -285,8 +285,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"affreur": {
-		code:              "affreur",
+	"AFFREUR": {
+		code:              "AFFREUR",
 		name:              "AF.FR/EUR",
 		description:       "Air France-KLM",
 		minStartDate:      "2016-09-27",
@@ -294,8 +294,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"agkgbgbx": {
-		code:              "agkgbgbx",
+	"AGKGBGBX": {
+		code:              "AGKGBGBX",
 		name:              "AGK.GB/GBX",
 		description:       "Aggreko PLC",
 		minStartDate:      "2016-09-06",
@@ -303,8 +303,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"agnnleur": {
-		code:              "agnnleur",
+	"AGNNLEUR": {
+		code:              "AGNNLEUR",
 		name:              "AGN.NL/EUR",
 		description:       "Aegon NV",
 		minStartDate:      "2016-11-14",
@@ -312,8 +312,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"agsbeeur": {
-		code:              "agsbeeur",
+	"AGSBEEUR": {
+		code:              "AGSBEEUR",
 		name:              "AGS.BE/EUR",
 		description:       "Ageas",
 		minStartDate:      "2016-11-14",
@@ -321,8 +321,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Belgium",
 	},
-	"ahnleur": {
-		code:              "ahnleur",
+	"AHNLEUR": {
+		code:              "AHNLEUR",
 		name:              "AH.NL/EUR",
 		description:       "Koninklijke Ahold Delhaize NV",
 		minStartDate:      "2016-11-14",
@@ -330,8 +330,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"ahtgbgbx": {
-		code:              "ahtgbgbx",
+	"AHTGBGBX": {
+		code:              "AHTGBGBX",
 		name:              "AHT.GB/GBX",
 		description:       "Ashtead Group PLC",
 		minStartDate:      "2016-09-06",
@@ -339,8 +339,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"aifreur": {
-		code:              "aifreur",
+	"AIFREUR": {
+		code:              "AIFREUR",
 		name:              "AI.FR/EUR",
 		description:       "Air Liquide SA",
 		minStartDate:      "2016-09-30",
@@ -348,8 +348,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"aigususd": {
-		code:              "aigususd",
+	"AIGUSUSD": {
+		code:              "AIGUSUSD",
 		name:              "AIG.US/USD",
 		description:       "AMERICAN INTERNATIONAL GROUP",
 		minStartDate:      "2017-05-11",
@@ -357,8 +357,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"airfreur": {
-		code:              "airfreur",
+	"AIRFREUR": {
+		code:              "AIRFREUR",
 		name:              "AIR.FR/EUR",
 		description:       "Airbus Group SE",
 		minStartDate:      "2016-09-30",
@@ -366,8 +366,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2014-01-01",
 		group:             "France",
 	},
-	"akzanleur": {
-		code:              "akzanleur",
+	"AKZANLEUR": {
+		code:              "AKZANLEUR",
 		name:              "AKZA.NL/EUR",
 		description:       "Akzo Nobel NV",
 		minStartDate:      "2016-11-14",
@@ -375,8 +375,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"alfasesek": {
-		code:              "alfasesek",
+	"ALFASESEK": {
+		code:              "ALFASESEK",
 		name:              "ALFA.SE/SEK",
 		description:       "Alfa Laval AB",
 		minStartDate:      "2016-11-07",
@@ -384,8 +384,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"allususd": {
-		code:              "allususd",
+	"ALLUSUSD": {
+		code:              "ALLUSUSD",
 		name:              "ALL.US/USD",
 		description:       "ALLSTATE CORP",
 		minStartDate:      "2018-01-31",
@@ -393,8 +393,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"alofreur": {
-		code:              "alofreur",
+	"ALOFREUR": {
+		code:              "ALOFREUR",
 		name:              "ALO.FR/EUR",
 		description:       "Alstom SA",
 		minStartDate:      "2016-09-27",
@@ -402,8 +402,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"alvdeeur": {
-		code:              "alvdeeur",
+	"ALVDEEUR": {
+		code:              "ALVDEEUR",
 		name:              "ALV.DE/EUR",
 		description:       "Allianz SE",
 		minStartDate:      "2015-04-09",
@@ -411,8 +411,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"alxnususd": {
-		code:              "alxnususd",
+	"ALXNUSUSD": {
+		code:              "ALXNUSUSD",
 		name:              "ALXN.US/USD",
 		description:       "ALEXION PHARMACEUTICALS INC",
 		minStartDate:      "2017-01-19",
@@ -420,8 +420,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"amatususd": {
-		code:              "amatususd",
+	"AMATUSUSD": {
+		code:              "AMATUSUSD",
 		name:              "AMAT.US/USD",
 		description:       "APPLIED MATERIALS INC",
 		minStartDate:      "2017-05-11",
@@ -429,8 +429,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"amdususd": {
-		code:              "amdususd",
+	"AMDUSUSD": {
+		code:              "AMDUSUSD",
 		name:              "AMD.US/USD",
 		description:       "ADVANCED MICRO DEVICES",
 		minStartDate:      "2017-11-02",
@@ -438,8 +438,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"amgnususd": {
-		code:              "amgnususd",
+	"AMGNUSUSD": {
+		code:              "AMGNUSUSD",
 		name:              "AMGN.US/USD",
 		description:       "AMGEN INC",
 		minStartDate:      "2017-01-19",
@@ -447,8 +447,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"amseseur": {
-		code:              "amseseur",
+	"AMSESEUR": {
+		code:              "AMSESEUR",
 		name:              "AMS.ES/EUR",
 		description:       "Amadeus IT Holding SA",
 		minStartDate:      "2016-11-14",
@@ -456,8 +456,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"amtususd": {
-		code:              "amtususd",
+	"AMTUSUSD": {
+		code:              "AMTUSUSD",
 		name:              "AMT.US/USD",
 		description:       "AMERICAN TOWER CORP",
 		minStartDate:      "2017-11-02",
@@ -465,8 +465,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"amznususd": {
-		code:              "amznususd",
+	"AMZNUSUSD": {
+		code:              "AMZNUSUSD",
 		name:              "AMZN.US/USD",
 		description:       "AMAZON.COM INC",
 		minStartDate:      "2017-01-19",
@@ -474,8 +474,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"antmususd": {
-		code:              "antmususd",
+	"ANTMUSUSD": {
+		code:              "ANTMUSUSD",
 		name:              "ANTM.US/USD",
 		description:       "ANTHEM INC",
 		minStartDate:      "2017-11-02",
@@ -483,8 +483,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"antogbgbx": {
-		code:              "antogbgbx",
+	"ANTOGBGBX": {
+		code:              "ANTOGBGBX",
 		name:              "ANTO.GB/GBX",
 		description:       "Antofagasta PLC",
 		minStartDate:      "2016-09-06",
@@ -492,8 +492,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"apaususd": {
-		code:              "apaususd",
+	"APAUSUSD": {
+		code:              "APAUSUSD",
 		name:              "APA.US/USD",
 		description:       "APACHE CORP",
 		minStartDate:      "2018-01-31",
@@ -501,8 +501,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"apcususd": {
-		code:              "apcususd",
+	"APCUSUSD": {
+		code:              "APCUSUSD",
 		name:              "APC.US/USD",
 		description:       "ANADARKO PETROLEUM CORP",
 		minStartDate:      "2017-11-02",
@@ -510,8 +510,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"apdususd": {
-		code:              "apdususd",
+	"APDUSUSD": {
+		code:              "APDUSUSD",
 		name:              "APD.US/USD",
 		description:       "AIR PRODUCTS &amp; CHEMICALS INC",
 		minStartDate:      "2017-11-02",
@@ -519,8 +519,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"asmlnleur": {
-		code:              "asmlnleur",
+	"ASMLNLEUR": {
+		code:              "ASMLNLEUR",
 		name:              "ASML.NL/EUR",
 		description:       "ASML Holding NV",
 		minStartDate:      "2016-11-14",
@@ -528,8 +528,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"atcoasesek": {
-		code:              "atcoasesek",
+	"ATCOASESEK": {
+		code:              "ATCOASESEK",
 		name:              "ATCOA.SE/SEK",
 		description:       "Atlas Copco AB",
 		minStartDate:      "2016-11-14",
@@ -537,8 +537,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"atviususd": {
-		code:              "atviususd",
+	"ATVIUSUSD": {
+		code:              "ATVIUSUSD",
 		name:              "ATVI.US/USD",
 		description:       "ACTIVISION BLIZZARD INC",
 		minStartDate:      "2017-05-11",
@@ -546,8 +546,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"audcad": {
-		code:              "audcad",
+	"AUDCAD": {
+		code:              "AUDCAD",
 		name:              "AUD/CAD",
 		description:       "Australian Dollar vs Canadian Dollar",
 		minStartDate:      "2005-12-26",
@@ -555,8 +555,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1992-01-01",
 		group:             "FX_CROSSES",
 	},
-	"audchf": {
-		code:              "audchf",
+	"AUDCHF": {
+		code:              "AUDCHF",
 		name:              "AUD/CHF",
 		description:       "Australian Dollar vs Swiss Franc",
 		minStartDate:      "2005-12-26",
@@ -564,8 +564,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"audjpy": {
-		code:              "audjpy",
+	"AUDJPY": {
+		code:              "AUDJPY",
 		name:              "AUD/JPY",
 		description:       "Australian Dollar vs Japanese Yen",
 		minStartDate:      "2003-11-29",
@@ -573,8 +573,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"audnzd": {
-		code:              "audnzd",
+	"AUDNZD": {
+		code:              "AUDNZD",
 		name:              "AUD/NZD",
 		description:       "Australian Dollar vs New Zealand Dollar",
 		minStartDate:      "2006-12-08",
@@ -582,8 +582,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1993-01-01",
 		group:             "FX_CROSSES",
 	},
-	"audsgd": {
-		code:              "audsgd",
+	"AUDSGD": {
+		code:              "AUDSGD",
 		name:              "AUD/SGD",
 		description:       "Australian Dollar vs Singapore Dollar",
 		minStartDate:      "2007-03-13",
@@ -591,8 +591,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"audusd": {
-		code:              "audusd",
+	"AUDUSD": {
+		code:              "AUDUSD",
 		name:              "AUD/USD",
 		description:       "Australian Dollar vs US Dollar",
 		minStartDate:      "2003-08-03",
@@ -600,8 +600,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1986-01-01",
 		group:             "FX_MAJORS",
 	},
-	"avgbgbx": {
-		code:              "avgbgbx",
+	"AVGBGBX": {
+		code:              "AVGBGBX",
 		name:              "AV.GB/GBX",
 		description:       "Aviva PLC",
 		minStartDate:      "2016-09-06",
@@ -609,8 +609,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"avbususd": {
-		code:              "avbususd",
+	"AVBUSUSD": {
+		code:              "AVBUSUSD",
 		name:              "AVB.US/USD",
 		description:       "AVALONBAY COMMUNITIES INC",
 		minStartDate:      "2018-01-31",
@@ -618,8 +618,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"avgoususd": {
-		code:              "avgoususd",
+	"AVGOUSUSD": {
+		code:              "AVGOUSUSD",
 		name:              "AVGO.US/USD",
 		description:       "Broadcom Limited",
 		minStartDate:      "2017-01-19",
@@ -627,8 +627,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"axpususd": {
-		code:              "axpususd",
+	"AXPUSUSD": {
+		code:              "AXPUSUSD",
 		name:              "AXP.US/USD",
 		description:       "AMERICAN EXPRESS CO",
 		minStartDate:      "2017-11-02",
@@ -636,8 +636,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"azngbgbx": {
-		code:              "azngbgbx",
+	"AZNGBGBX": {
+		code:              "AZNGBGBX",
 		name:              "AZN.GB/GBX",
 		description:       "AstraZeneca PLC",
 		minStartDate:      "2016-09-06",
@@ -645,8 +645,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"aznususd": {
-		code:              "aznususd",
+	"AZNUSUSD": {
+		code:              "AZNUSUSD",
 		name:              "AZN.US/USD",
 		description:       "AstraZeneca PLC",
 		minStartDate:      "2017-01-26",
@@ -654,8 +654,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"azoususd": {
-		code:              "azoususd",
+	"AZOUSUSD": {
+		code:              "AZOUSUSD",
 		name:              "AZO.US/USD",
 		description:       "AUTOZONE INC",
 		minStartDate:      "2017-11-02",
@@ -663,8 +663,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"bagbgbx": {
-		code:              "bagbgbx",
+	"BAGBGBX": {
+		code:              "BAGBGBX",
 		name:              "BA.GB/GBX",
 		description:       "BAE Systems PLC",
 		minStartDate:      "2016-09-06",
@@ -672,8 +672,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"baususd": {
-		code:              "baususd",
+	"BAUSUSD": {
+		code:              "BAUSUSD",
 		name:              "BA.US/USD",
 		description:       "Boeing Co",
 		minStartDate:      "2017-01-19",
@@ -681,8 +681,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"babgbgbx": {
-		code:              "babgbgbx",
+	"BABGBGBX": {
+		code:              "BABGBGBX",
 		name:              "BAB.GB/GBX",
 		description:       "Babcock International Group PLC",
 		minStartDate:      "2016-09-06",
@@ -690,8 +690,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"babaususd": {
-		code:              "babaususd",
+	"BABAUSUSD": {
+		code:              "BABAUSUSD",
 		name:              "BABA.US/USD",
 		description:       "ALIBABA GROUP HOLDING-SP ADR",
 		minStartDate:      "2017-01-19",
@@ -699,8 +699,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"bacususd": {
-		code:              "bacususd",
+	"BACUSUSD": {
+		code:              "BACUSUSD",
 		name:              "BAC.US/USD",
 		description:       "BANK OF AMERICA CORP",
 		minStartDate:      "2017-01-23",
@@ -708,8 +708,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"barcgbgbx": {
-		code:              "barcgbgbx",
+	"BARCGBGBX": {
+		code:              "BARCGBGBX",
 		name:              "BARC.GB/GBX",
 		description:       "Barclays PLC",
 		minStartDate:      "2016-09-06",
@@ -717,8 +717,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"basdeeur": {
-		code:              "basdeeur",
+	"BASDEEUR": {
+		code:              "BASDEEUR",
 		name:              "BAS.DE/EUR",
 		description:       "BASF SE",
 		minStartDate:      "2015-04-22",
@@ -726,8 +726,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"batsgbgbx": {
-		code:              "batsgbgbx",
+	"BATSGBGBX": {
+		code:              "BATSGBGBX",
 		name:              "BATS.GB/GBX",
 		description:       "British American Tobacco PLC",
 		minStartDate:      "2016-09-06",
@@ -735,8 +735,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"bayndeeur": {
-		code:              "bayndeeur",
+	"BAYNDEEUR": {
+		code:              "BAYNDEEUR",
 		name:              "BAYN.DE/EUR",
 		description:       "Bayer AG",
 		minStartDate:      "2015-03-20",
@@ -744,8 +744,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"bbdususd": {
-		code:              "bbdususd",
+	"BBDUSUSD": {
+		code:              "BBDUSUSD",
 		name:              "BBD.US/USD",
 		description:       "Banco Bradesco S.A.",
 		minStartDate:      "2017-01-26",
@@ -753,8 +753,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"bbtususd": {
-		code:              "bbtususd",
+	"BBTUSUSD": {
+		code:              "BBTUSUSD",
 		name:              "BBT.US/USD",
 		description:       "BB&amp;T CORP",
 		minStartDate:      "2018-01-31",
@@ -762,8 +762,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"bbvaeseur": {
-		code:              "bbvaeseur",
+	"BBVAESEUR": {
+		code:              "BBVAESEUR",
 		name:              "BBVA.ES/EUR",
 		description:       "Banco Bilbao Vizcaya Argentaria SA",
 		minStartDate:      "2016-11-14",
@@ -771,8 +771,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"bbyususd": {
-		code:              "bbyususd",
+	"BBYUSUSD": {
+		code:              "BBYUSUSD",
 		name:              "BBY.US/USD",
 		description:       "BEST BUY CO INC",
 		minStartDate:      "2017-05-11",
@@ -780,8 +780,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"bdxususd": {
-		code:              "bdxususd",
+	"BDXUSUSD": {
+		code:              "BDXUSUSD",
 		name:              "BDX.US/USD",
 		description:       "BECTON DICKINSON AND CO",
 		minStartDate:      "2018-01-31",
@@ -789,8 +789,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"beideeur": {
-		code:              "beideeur",
+	"BEIDEEUR": {
+		code:              "BEIDEEUR",
 		name:              "BEI.DE/EUR",
 		description:       "Beiersdorf AG",
 		minStartDate:      "2015-04-08",
@@ -798,8 +798,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"belgbeeur": {
-		code:              "belgbeeur",
+	"BELGBEEUR": {
+		code:              "BELGBEEUR",
 		name:              "BELG.BE/EUR",
 		description:       "Proximus",
 		minStartDate:      "2016-11-07",
@@ -807,8 +807,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Belgium",
 	},
-	"biduususd": {
-		code:              "biduususd",
+	"BIDUUSUSD": {
+		code:              "BIDUUSUSD",
 		name:              "BIDU.US/USD",
 		description:       "BAIDU INC",
 		minStartDate:      "2017-11-02",
@@ -816,8 +816,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"biibususd": {
-		code:              "biibususd",
+	"BIIBUSUSD": {
+		code:              "BIIBUSUSD",
 		name:              "BIIB.US/USD",
 		description:       "BIOGEN INC",
 		minStartDate:      "2017-05-11",
@@ -825,8 +825,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"bkususd": {
-		code:              "bkususd",
+	"BKUSUSD": {
+		code:              "BKUSUSD",
 		name:              "BK.US/USD",
 		description:       "BANK OF NEW YORK MELLON CORP",
 		minStartDate:      "2017-05-11",
@@ -834,8 +834,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"blndgbgbx": {
-		code:              "blndgbgbx",
+	"BLNDGBGBX": {
+		code:              "BLNDGBGBX",
 		name:              "BLND.GB/GBX",
 		description:       "British Land Co PLC",
 		minStartDate:      "2016-09-06",
@@ -843,8 +843,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"bltgbgbx": {
-		code:              "bltgbgbx",
+	"BLTGBGBX": {
+		code:              "BLTGBGBX",
 		name:              "BLT.GB/GBX",
 		description:       "BHP Billiton PLC",
 		minStartDate:      "2016-09-06",
@@ -852,8 +852,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"bmwdeeur": {
-		code:              "bmwdeeur",
+	"BMWDEEUR": {
+		code:              "BMWDEEUR",
 		name:              "BMW.DE/EUR",
 		description:       "Bayerische Motoren Werke AG",
 		minStartDate:      "2015-03-24",
@@ -861,8 +861,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"bmyususd": {
-		code:              "bmyususd",
+	"BMYUSUSD": {
+		code:              "BMYUSUSD",
 		name:              "BMY.US/USD",
 		description:       "BRISTOL-MYERS SQUIBB CO",
 		minStartDate:      "2017-05-11",
@@ -870,8 +870,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"bnfreur": {
-		code:              "bnfreur",
+	"BNFREUR": {
+		code:              "BNFREUR",
 		name:              "BN.FR/EUR",
 		description:       "Danone SA",
 		minStartDate:      "2016-09-30",
@@ -879,8 +879,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"bnpfreur": {
-		code:              "bnpfreur",
+	"BNPFREUR": {
+		code:              "BNPFREUR",
 		name:              "BNP.FR/EUR",
 		description:       "BNP Paribas SA",
 		minStartDate:      "2016-09-30",
@@ -888,8 +888,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"bnzlgbgbx": {
-		code:              "bnzlgbgbx",
+	"BNZLGBGBX": {
+		code:              "BNZLGBGBX",
 		name:              "BNZL.GB/GBX",
 		description:       "Bunzl PLC",
 		minStartDate:      "2016-09-06",
@@ -897,8 +897,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"bossdeeur": {
-		code:              "bossdeeur",
+	"BOSSDEEUR": {
+		code:              "BOSSDEEUR",
 		name:              "BOSS.DE/EUR",
 		description:       "HUGO BOSS AG",
 		minStartDate:      "2015-04-09",
@@ -906,8 +906,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2012-01-01",
 		group:             "Germany",
 	},
-	"bpgbgbx": {
-		code:              "bpgbgbx",
+	"BPGBGBX": {
+		code:              "BPGBGBX",
 		name:              "BP.GB/GBX",
 		description:       "BP PLC",
 		minStartDate:      "2016-09-06",
@@ -915,8 +915,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"bpususd": {
-		code:              "bpususd",
+	"BPUSUSD": {
+		code:              "BPUSUSD",
 		name:              "BP.US/USD",
 		description:       "BP p.l.c.",
 		minStartDate:      "2018-01-31",
@@ -924,8 +924,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"brbygbgbx": {
-		code:              "brbygbgbx",
+	"BRBYGBGBX": {
+		code:              "BRBYGBGBX",
 		name:              "BRBY.GB/GBX",
 		description:       "Burberry Group PLC",
 		minStartDate:      "2016-07-08",
@@ -933,8 +933,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"brkbususd": {
-		code:              "brkbususd",
+	"BRKBUSUSD": {
+		code:              "BRKBUSUSD",
 		name:              "BRKB.US/USD",
 		description:       "BERKSHIRE HATHAWAY INC-CL B",
 		minStartDate:      "2017-11-06",
@@ -942,8 +942,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"bsxususd": {
-		code:              "bsxususd",
+	"BSXUSUSD": {
+		code:              "BSXUSUSD",
 		name:              "BSX.US/USD",
 		description:       "BOSTON SCIENTIFIC CORP",
 		minStartDate:      "2017-05-11",
@@ -951,8 +951,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"btgbgbx": {
-		code:              "btgbgbx",
+	"BTGBGBX": {
+		code:              "BTGBGBX",
 		name:              "BT.GB/GBX",
 		description:       "BT Group PLC",
 		minStartDate:      "2016-07-07",
@@ -960,8 +960,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"btcusd": {
-		code:              "btcusd",
+	"BTCUSD": {
+		code:              "BTCUSD",
 		name:              "BTC/USD",
 		description:       "Bitcoin vs US Dollar",
 		minStartDate:      "2017-05-07",
@@ -969,8 +969,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "VCCY",
 	},
-	"bundtreur": {
-		code:              "bundtreur",
+	"BUNDTREUR": {
+		code:              "BUNDTREUR",
 		name:              "BUND.TR/EUR",
 		description:       "Euro Bund",
 		minStartDate:      "2016-05-02",
@@ -978,8 +978,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "BND_CFD",
 	},
-	"cususd": {
-		code:              "cususd",
+	"CUSUSD": {
+		code:              "CUSUSD",
 		name:              "C.US/USD",
 		description:       "CITIGROUP INC",
 		minStartDate:      "2017-01-23",
@@ -987,8 +987,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cafreur": {
-		code:              "cafreur",
+	"CAFREUR": {
+		code:              "CAFREUR",
 		name:              "CA.FR/EUR",
 		description:       "Carrefour SA",
 		minStartDate:      "2016-09-30",
@@ -996,8 +996,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"cabkeseur": {
-		code:              "cabkeseur",
+	"CABKESEUR": {
+		code:              "CABKESEUR",
 		name:              "CABK.ES/EUR",
 		description:       "CaixaBank",
 		minStartDate:      "2016-11-14",
@@ -1005,8 +1005,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"cadchf": {
-		code:              "cadchf",
+	"CADCHF": {
+		code:              "CADCHF",
 		name:              "CAD/CHF",
 		description:       "Canadian Dollar vs Swiss Franc",
 		minStartDate:      "2005-12-26",
@@ -1014,8 +1014,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"cadhkd": {
-		code:              "cadhkd",
+	"CADHKD": {
+		code:              "CADHKD",
 		name:              "CAD/HKD",
 		description:       "Canadian Dollar vs Hong Kong Dollar",
 		minStartDate:      "2007-03-13",
@@ -1023,8 +1023,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_CROSSES",
 	},
-	"cadjpy": {
-		code:              "cadjpy",
+	"CADJPY": {
+		code:              "CADJPY",
 		name:              "CAD/JPY",
 		description:       "Canadian Dollar vs Japanese Yen",
 		minStartDate:      "2004-10-20",
@@ -1032,8 +1032,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1993-01-01",
 		group:             "FX_CROSSES",
 	},
-	"cagususd": {
-		code:              "cagususd",
+	"CAGUSUSD": {
+		code:              "CAGUSUSD",
 		name:              "CAG.US/USD",
 		description:       "CONAGRA FOODS INC",
 		minStartDate:      "2018-01-31",
@@ -1041,8 +1041,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"cahususd": {
-		code:              "cahususd",
+	"CAHUSUSD": {
+		code:              "CAHUSUSD",
 		name:              "CAH.US/USD",
 		description:       "CARDINAL HEALTH INC",
 		minStartDate:      "2018-01-31",
@@ -1050,8 +1050,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"capfreur": {
-		code:              "capfreur",
+	"CAPFREUR": {
+		code:              "CAPFREUR",
 		name:              "CAP.FR/EUR",
 		description:       "Cap Gemini SA",
 		minStartDate:      "2016-09-30",
@@ -1059,8 +1059,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"carlbdkdkk": {
-		code:              "carlbdkdkk",
+	"CARLBDKDKK": {
+		code:              "CARLBDKDKK",
 		name:              "CARLB.DK/DKK",
 		description:       "Carlsberg A/S",
 		minStartDate:      "2016-11-07",
@@ -1068,8 +1068,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"catususd": {
-		code:              "catususd",
+	"CATUSUSD": {
+		code:              "CATUSUSD",
 		name:              "CAT.US/USD",
 		description:       "CATERPILLAR INC",
 		minStartDate:      "2017-05-11",
@@ -1077,8 +1077,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cbkdeeur": {
-		code:              "cbkdeeur",
+	"CBKDEEUR": {
+		code:              "CBKDEEUR",
 		name:              "CBK.DE/EUR",
 		description:       "Commerzbank AG",
 		minStartDate:      "2015-03-26",
@@ -1086,8 +1086,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"cbsususd": {
-		code:              "cbsususd",
+	"CBSUSUSD": {
+		code:              "CBSUSUSD",
 		name:              "CBS.US/USD",
 		description:       "CBS CORP-CLASS B NON VOTING",
 		minStartDate:      "2018-01-31",
@@ -1095,8 +1095,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"cclgbgbx": {
-		code:              "cclgbgbx",
+	"CCLGBGBX": {
+		code:              "CCLGBGBX",
 		name:              "CCL.GB/GBX",
 		description:       "Carnival PLC",
 		minStartDate:      "2016-07-06",
@@ -1104,8 +1104,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"celgususd": {
-		code:              "celgususd",
+	"CELGUSUSD": {
+		code:              "CELGUSUSD",
 		name:              "CELG.US/USD",
 		description:       "CELGENE CORP",
 		minStartDate:      "2017-05-11",
@@ -1113,8 +1113,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cfususd": {
-		code:              "cfususd",
+	"CFUSUSD": {
+		code:              "CFUSUSD",
 		name:              "CF.US/USD",
 		description:       "CF INDUSTRIES HOLDINGS INC",
 		minStartDate:      "2018-01-31",
@@ -1122,8 +1122,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"chfjpy": {
-		code:              "chfjpy",
+	"CHFJPY": {
+		code:              "CHFJPY",
 		name:              "CHF/JPY",
 		description:       "Swiss Franc vs Japanese Yen",
 		minStartDate:      "2003-08-03",
@@ -1131,8 +1131,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "FX_CROSSES",
 	},
-	"chfsgd": {
-		code:              "chfsgd",
+	"CHFSGD": {
+		code:              "CHFSGD",
 		name:              "CHF/SGD",
 		description:       "Swiss Franc vs Singapore Dollar",
 		minStartDate:      "2007-03-13",
@@ -1140,8 +1140,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1998-01-01",
 		group:             "FX_CROSSES",
 	},
-	"chiidxusd": {
-		code:              "chiidxusd",
+	"CHIIDXUSD": {
+		code:              "CHIIDXUSD",
 		name:              "CHI.IDX/USD",
 		description:       "China A50 Index",
 		minStartDate:      "2017-07-17",
@@ -1149,8 +1149,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "IDX_ASIA",
 	},
-	"ciususd": {
-		code:              "ciususd",
+	"CIUSUSD": {
+		code:              "CIUSUSD",
 		name:              "CI.US/USD",
 		description:       "CIGNA CORP",
 		minStartDate:      "2017-05-11",
@@ -1158,8 +1158,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"clususd": {
-		code:              "clususd",
+	"CLUSUSD": {
+		code:              "CLUSUSD",
 		name:              "CL.US/USD",
 		description:       "COLGATE-PALMOLIVE CO",
 		minStartDate:      "2017-11-02",
@@ -1167,8 +1167,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cmcsaususd": {
-		code:              "cmcsaususd",
+	"CMCSAUSUSD": {
+		code:              "CMCSAUSUSD",
 		name:              "CMCSA.US/USD",
 		description:       "COMCAST CORP-CLASS A",
 		minStartDate:      "2017-01-19",
@@ -1176,8 +1176,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cmeususd": {
-		code:              "cmeususd",
+	"CMEUSUSD": {
+		code:              "CMEUSUSD",
 		name:              "CME.US/USD",
 		description:       "CME GROUP INC",
 		minStartDate:      "2017-05-11",
@@ -1185,8 +1185,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cmgususd": {
-		code:              "cmgususd",
+	"CMGUSUSD": {
+		code:              "CMGUSUSD",
 		name:              "CMG.US/USD",
 		description:       "CHIPOTLE MEXICAN GRILL INC",
 		minStartDate:      "2017-05-11",
@@ -1194,8 +1194,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cmiususd": {
-		code:              "cmiususd",
+	"CMIUSUSD": {
+		code:              "CMIUSUSD",
 		name:              "CMI.US/USD",
 		description:       "CUMMINS INC",
 		minStartDate:      "2018-02-01",
@@ -1203,8 +1203,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"cnagbgbx": {
-		code:              "cnagbgbx",
+	"CNAGBGBX": {
+		code:              "CNAGBGBX",
 		name:              "CNA.GB/GBX",
 		description:       "Centrica PLC",
 		minStartDate:      "2016-07-07",
@@ -1212,8 +1212,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"cocoacmdusd": {
-		code:              "cocoacmdusd",
+	"COCOACMDUSD": {
+		code:              "COCOACMDUSD",
 		name:              "COCOA.CMD/USD",
 		description:       "NY Cocoa",
 		minStartDate:      "2017-10-20",
@@ -1221,8 +1221,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "CMD_AGRICULTURAL",
 	},
-	"coffeecmdusx": {
-		code:              "coffeecmdusx",
+	"COFFEECMDUSX": {
+		code:              "COFFEECMDUSX",
 		name:              "COFFEE.CMD/USX",
 		description:       "Coffee Arabica",
 		minStartDate:      "2017-12-04",
@@ -1230,8 +1230,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "CMD_AGRICULTURAL",
 	},
-	"colususd": {
-		code:              "colususd",
+	"COLUSUSD": {
+		code:              "COLUSUSD",
 		name:              "COL.US/USD",
 		description:       "ROCKWELL COLLINS INC",
 		minStartDate:      "2017-11-02",
@@ -1239,8 +1239,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"colobdkdkk": {
-		code:              "colobdkdkk",
+	"COLOBDKDKK": {
+		code:              "COLOBDKDKK",
 		name:              "COLOB.DK/DKK",
 		description:       "Coloplast A/S",
 		minStartDate:      "2016-11-07",
@@ -1248,8 +1248,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"condeeur": {
-		code:              "condeeur",
+	"CONDEEUR": {
+		code:              "CONDEEUR",
 		name:              "CON.DE/EUR",
 		description:       "Continental AG",
 		minStartDate:      "2015-04-08",
@@ -1257,8 +1257,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"copususd": {
-		code:              "copususd",
+	"COPUSUSD": {
+		code:              "COPUSUSD",
 		name:              "COP.US/USD",
 		description:       "CONOCOPHILLIPS",
 		minStartDate:      "2017-11-02",
@@ -1266,8 +1266,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"coppercmdusd": {
-		code:              "coppercmdusd",
+	"COPPERCMDUSD": {
+		code:              "COPPERCMDUSD",
 		name:              "COPPER.CMD/USD",
 		description:       "High Grade Copper",
 		minStartDate:      "2012-03-01",
@@ -1275,8 +1275,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2012-01-01",
 		group:             "CMD_METALS",
 	},
-	"costususd": {
-		code:              "costususd",
+	"COSTUSUSD": {
+		code:              "COSTUSUSD",
 		name:              "COST.US/USD",
 		description:       "COSTCO WHOLESALE CORP",
 		minStartDate:      "2017-11-02",
@@ -1284,8 +1284,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cottoncmdusx": {
-		code:              "cottoncmdusx",
+	"COTTONCMDUSX": {
+		code:              "COTTONCMDUSX",
 		name:              "COTTON.CMD/USX",
 		description:       "Cotton",
 		minStartDate:      "2017-10-20",
@@ -1293,8 +1293,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "CMD_AGRICULTURAL",
 	},
-	"cpggbgbx": {
-		code:              "cpggbgbx",
+	"CPGGBGBX": {
+		code:              "CPGGBGBX",
 		name:              "CPG.GB/GBX",
 		description:       "Compass Group PLC",
 		minStartDate:      "2016-07-08",
@@ -1302,8 +1302,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"cpigbgbx": {
-		code:              "cpigbgbx",
+	"CPIGBGBX": {
+		code:              "CPIGBGBX",
 		name:              "CPI.GB/GBX",
 		description:       "Capita PLC",
 		minStartDate:      "2016-07-07",
@@ -1311,8 +1311,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"crdagbgbx": {
-		code:              "crdagbgbx",
+	"CRDAGBGBX": {
+		code:              "CRDAGBGBX",
 		name:              "CRDA.GB/GBX",
 		description:       "Croda International PLC",
 		minStartDate:      "2016-11-01",
@@ -1320,8 +1320,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"crhgbgbx": {
-		code:              "crhgbgbx",
+	"CRHGBGBX": {
+		code:              "CRHGBGBX",
 		name:              "CRH.GB/GBX",
 		description:       "CRH PLC",
 		minStartDate:      "2016-11-08",
@@ -1329,8 +1329,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"crmususd": {
-		code:              "crmususd",
+	"CRMUSUSD": {
+		code:              "CRMUSUSD",
 		name:              "CRM.US/USD",
 		description:       "SALESFORCE.COM INC",
 		minStartDate:      "2017-05-11",
@@ -1338,8 +1338,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"csfreur": {
-		code:              "csfreur",
+	"CSFREUR": {
+		code:              "CSFREUR",
 		name:              "CS.FR/EUR",
 		description:       "AXA SA",
 		minStartDate:      "2016-09-30",
@@ -1347,8 +1347,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"csususd": {
-		code:              "csususd",
+	"CSUSUSD": {
+		code:              "CSUSUSD",
 		name:              "CS.US/USD",
 		description:       "Credit Suisse Group AG",
 		minStartDate:      "2017-01-26",
@@ -1356,8 +1356,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cscoususd": {
-		code:              "cscoususd",
+	"CSCOUSUSD": {
+		code:              "CSCOUSUSD",
 		name:              "CSCO.US/USD",
 		description:       "CISCO SYSTEMS INC",
 		minStartDate:      "2017-01-19",
@@ -1365,8 +1365,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"csxususd": {
-		code:              "csxususd",
+	"CSXUSUSD": {
+		code:              "CSXUSUSD",
 		name:              "CSX.US/USD",
 		description:       "CSX CORP",
 		minStartDate:      "2017-11-02",
@@ -1374,8 +1374,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ctlususd": {
-		code:              "ctlususd",
+	"CTLUSUSD": {
+		code:              "CTLUSUSD",
 		name:              "CTL.US/USD",
 		description:       "CENTURYLINK INC",
 		minStartDate:      "2017-11-02",
@@ -1383,8 +1383,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ctshususd": {
-		code:              "ctshususd",
+	"CTSHUSUSD": {
+		code:              "CTSHUSUSD",
 		name:              "CTSH.US/USD",
 		description:       "COGNIZANT TECH SOLUTIONS-A",
 		minStartDate:      "2017-11-02",
@@ -1392,8 +1392,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cvsususd": {
-		code:              "cvsususd",
+	"CVSUSUSD": {
+		code:              "CVSUSUSD",
 		name:              "CVS.US/USD",
 		description:       "CVS HEALTH CORP",
 		minStartDate:      "2017-11-02",
@@ -1401,8 +1401,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"cvxususd": {
-		code:              "cvxususd",
+	"CVXUSUSD": {
+		code:              "CVXUSUSD",
 		name:              "CVX.US/USD",
 		description:       "CHEVRON CORP",
 		minStartDate:      "2017-01-19",
@@ -1410,8 +1410,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"dususd": {
-		code:              "dususd",
+	"DUSUSD": {
+		code:              "DUSUSD",
 		name:              "D.US/USD",
 		description:       "DOMINION RESOURCES INC/VA",
 		minStartDate:      "2018-02-01",
@@ -1419,8 +1419,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"daideeur": {
-		code:              "daideeur",
+	"DAIDEEUR": {
+		code:              "DAIDEEUR",
 		name:              "DAI.DE/EUR",
 		description:       "Daimler AG",
 		minStartDate:      "2015-03-27",
@@ -1428,8 +1428,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"dalususd": {
-		code:              "dalususd",
+	"DALUSUSD": {
+		code:              "DALUSUSD",
 		name:              "DAL.US/USD",
 		description:       "DELTA AIR LINES INC",
 		minStartDate:      "2017-11-02",
@@ -1437,8 +1437,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"danskedkdkk": {
-		code:              "danskedkdkk",
+	"DANSKEDKDKK": {
+		code:              "DANSKEDKDKK",
 		name:              "DANSKE.DK/DKK",
 		description:       "Danske Bank A/S",
 		minStartDate:      "2016-11-08",
@@ -1446,8 +1446,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"db1deeur": {
-		code:              "db1deeur",
+	"DB1DEEUR": {
+		code:              "DB1DEEUR",
 		name:              "DB1.DE/EUR",
 		description:       "Deutsche Boerse AG",
 		minStartDate:      "2015-04-14",
@@ -1455,8 +1455,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"dbkdeeur": {
-		code:              "dbkdeeur",
+	"DBKDEEUR": {
+		code:              "DBKDEEUR",
 		name:              "DBK.DE/EUR",
 		description:       "Deutsche Bank AG",
 		minStartDate:      "2015-03-25",
@@ -1464,8 +1464,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"deususd": {
-		code:              "deususd",
+	"DEUSUSD": {
+		code:              "DEUSUSD",
 		name:              "DE.US/USD",
 		description:       "DEERE &amp; CO",
 		minStartDate:      "2017-05-11",
@@ -1473,8 +1473,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"dfsususd": {
-		code:              "dfsususd",
+	"DFSUSUSD": {
+		code:              "DFSUSUSD",
 		name:              "DFS.US/USD",
 		description:       "DISCOVER FINANCIAL SERVICES",
 		minStartDate:      "2018-02-01",
@@ -1482,8 +1482,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"dgfreur": {
-		code:              "dgfreur",
+	"DGFREUR": {
+		code:              "DGFREUR",
 		name:              "DG.FR/EUR",
 		description:       "Vinci SA",
 		minStartDate:      "2016-09-30",
@@ -1491,8 +1491,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"dgususd": {
-		code:              "dgususd",
+	"DGUSUSD": {
+		code:              "DGUSUSD",
 		name:              "DG.US/USD",
 		description:       "DOLLAR GENERAL CORP",
 		minStartDate:      "2017-05-11",
@@ -1500,8 +1500,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"dgegbgbx": {
-		code:              "dgegbgbx",
+	"DGEGBGBX": {
+		code:              "DGEGBGBX",
 		name:              "DGE.GB/GBX",
 		description:       "Diageo PLC",
 		minStartDate:      "2016-07-06",
@@ -1509,8 +1509,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"dhiususd": {
-		code:              "dhiususd",
+	"DHIUSUSD": {
+		code:              "DHIUSUSD",
 		name:              "DHI.US/USD",
 		description:       "DR HORTON INC",
 		minStartDate:      "2018-02-01",
@@ -1518,8 +1518,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"dhrususd": {
-		code:              "dhrususd",
+	"DHRUSUSD": {
+		code:              "DHRUSUSD",
 		name:              "DHR.US/USD",
 		description:       "DANAHER CORP",
 		minStartDate:      "2017-11-02",
@@ -1527,8 +1527,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"diaeseur": {
-		code:              "diaeseur",
+	"DIAESEUR": {
+		code:              "DIAESEUR",
 		name:              "DIA.ES/EUR",
 		description:       "Distribuidora Internacional de Alimentacion SA",
 		minStartDate:      "2016-11-14",
@@ -1536,8 +1536,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"diaususd": {
-		code:              "diaususd",
+	"DIAUSUSD": {
+		code:              "DIAUSUSD",
 		name:              "DIA.US/USD",
 		description:       "SPDR Dow Jones® Industrial Average ETF",
 		minStartDate:      "2017-05-11",
@@ -1545,8 +1545,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"dieselcmdusd": {
-		code:              "dieselcmdusd",
+	"DIESELCMDUSD": {
+		code:              "DIESELCMDUSD",
 		name:              "DIESEL.CMD/USD",
 		description:       "Gas oil",
 		minStartDate:      "2017-10-20",
@@ -1554,8 +1554,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "CMD_ENERGY",
 	},
-	"disususd": {
-		code:              "disususd",
+	"DISUSUSD": {
+		code:              "DISUSUSD",
 		name:              "DIS.US/USD",
 		description:       "WALT DISNEY CO/THE",
 		minStartDate:      "2017-01-19",
@@ -1563,8 +1563,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"dltrususd": {
-		code:              "dltrususd",
+	"DLTRUSUSD": {
+		code:              "DLTRUSUSD",
 		name:              "DLTR.US/USD",
 		description:       "DOLLAR TREE INC",
 		minStartDate:      "2017-11-02",
@@ -1572,8 +1572,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"dnbnonok": {
-		code:              "dnbnonok",
+	"DNBNONOK": {
+		code:              "DNBNONOK",
 		name:              "DNB.NO/NOK",
 		description:       "DNB ASA",
 		minStartDate:      "2016-11-14",
@@ -1581,8 +1581,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Norway",
 	},
-	"dollaridxusd": {
-		code:              "dollaridxusd",
+	"DOLLARIDXUSD": {
+		code:              "DOLLARIDXUSD",
 		name:              "DOLLAR.IDX/USD",
 		description:       "US Dollar Index",
 		minStartDate:      "2017-12-01",
@@ -1590,8 +1590,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "IDX_AMERICA",
 	},
-	"dpwdeeur": {
-		code:              "dpwdeeur",
+	"DPWDEEUR": {
+		code:              "DPWDEEUR",
 		name:              "DPW.DE/EUR",
 		description:       "Deutsche Post AG",
 		minStartDate:      "2015-03-31",
@@ -1599,8 +1599,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"dsmnleur": {
-		code:              "dsmnleur",
+	"DSMNLEUR": {
+		code:              "DSMNLEUR",
 		name:              "DSM.NL/EUR",
 		description:       "Koninklijke DSM NV",
 		minStartDate:      "2016-11-14",
@@ -1608,8 +1608,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"dtedeeur": {
-		code:              "dtedeeur",
+	"DTEDEEUR": {
+		code:              "DTEDEEUR",
 		name:              "DTE.DE/EUR",
 		description:       "Deutsche Telekom AG",
 		minStartDate:      "2015-03-31",
@@ -1617,8 +1617,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"dukususd": {
-		code:              "dukususd",
+	"DUKUSUSD": {
+		code:              "DUKUSUSD",
 		name:              "DUK.US/USD",
 		description:       "DUKE ENERGY CORP",
 		minStartDate:      "2017-05-11",
@@ -1626,8 +1626,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"dvaususd": {
-		code:              "dvaususd",
+	"DVAUSUSD": {
+		code:              "DVAUSUSD",
 		name:              "DVA.US/USD",
 		description:       "DAVITA HEALTHCARE PARTNERS I",
 		minStartDate:      "2018-02-01",
@@ -1635,8 +1635,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"dvnususd": {
-		code:              "dvnususd",
+	"DVNUSUSD": {
+		code:              "DVNUSUSD",
 		name:              "DVN.US/USD",
 		description:       "DEVON ENERGY CORP",
 		minStartDate:      "2018-02-01",
@@ -1644,8 +1644,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"dvyususd": {
-		code:              "dvyususd",
+	"DVYUSUSD": {
+		code:              "DVYUSUSD",
 		name:              "DVY.US/USD",
 		description:       "iShares Select Dividend ETF",
 		minStartDate:      "2017-05-11",
@@ -1653,8 +1653,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"eaususd": {
-		code:              "eaususd",
+	"EAUSUSD": {
+		code:              "EAUSUSD",
 		name:              "EA.US/USD",
 		description:       "ELECTRONIC ARTS INC",
 		minStartDate:      "2017-05-11",
@@ -1662,8 +1662,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ebayususd": {
-		code:              "ebayususd",
+	"EBAYUSUSD": {
+		code:              "EBAYUSUSD",
 		name:              "EBAY.US/USD",
 		description:       "EBAY INC",
 		minStartDate:      "2017-11-02",
@@ -1671,8 +1671,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ebsateur": {
-		code:              "ebsateur",
+	"EBSATEUR": {
+		code:              "EBSATEUR",
 		name:              "EBS.AT/EUR",
 		description:       "Erste Group Bank AG",
 		minStartDate:      "2016-11-04",
@@ -1680,8 +1680,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Austria",
 	},
-	"edffreur": {
-		code:              "edffreur",
+	"EDFFREUR": {
+		code:              "EDFFREUR",
 		name:              "EDF.FR/EUR",
 		description:       "Electricite de France SA",
 		minStartDate:      "2016-09-30",
@@ -1689,8 +1689,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"edppteur": {
-		code:              "edppteur",
+	"EDPPTEUR": {
+		code:              "EDPPTEUR",
 		name:              "EDP.PT/EUR",
 		description:       "EDP - Energias de Portugal SA",
 		minStartDate:      "2016-11-14",
@@ -1698,8 +1698,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Portugal",
 	},
-	"eemususd": {
-		code:              "eemususd",
+	"EEMUSUSD": {
+		code:              "EEMUSUSD",
 		name:              "EEM.US/USD",
 		description:       "iShares MSCI Emerging Markets ETF",
 		minStartDate:      "2017-01-23",
@@ -1707,8 +1707,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"efaususd": {
-		code:              "efaususd",
+	"EFAUSUSD": {
+		code:              "EFAUSUSD",
 		name:              "EFA.US/USD",
 		description:       "iShares MSCI EAFE ETF",
 		minStartDate:      "2017-01-23",
@@ -1716,8 +1716,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"efxususd": {
-		code:              "efxususd",
+	"EFXUSUSD": {
+		code:              "EFXUSUSD",
 		name:              "EFX.US/USD",
 		description:       "EQUIFAX INC",
 		minStartDate:      "2017-11-02",
@@ -1725,8 +1725,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"eifreur": {
-		code:              "eifreur",
+	"EIFREUR": {
+		code:              "EIFREUR",
 		name:              "EI.FR/EUR",
 		description:       "Essilor International SA",
 		minStartDate:      "2016-09-30",
@@ -1734,8 +1734,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"eixususd": {
-		code:              "eixususd",
+	"EIXUSUSD": {
+		code:              "EIXUSUSD",
 		name:              "EIX.US/USD",
 		description:       "EDISON INTERNATIONAL",
 		minStartDate:      "2018-02-01",
@@ -1743,8 +1743,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"elususd": {
-		code:              "elususd",
+	"ELUSUSD": {
+		code:              "ELUSUSD",
 		name:              "EL.US/USD",
 		description:       "ESTEE LAUDER COMPANIES-CL A",
 		minStartDate:      "2018-02-01",
@@ -1752,8 +1752,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"eleeseur": {
-		code:              "eleeseur",
+	"ELEESEUR": {
+		code:              "ELEESEUR",
 		name:              "ELE.ES/EUR",
 		description:       "Endesa SA",
 		minStartDate:      "2016-11-14",
@@ -1761,8 +1761,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"eli1vfieur": {
-		code:              "eli1vfieur",
+	"ELI1VFIEUR": {
+		code:              "ELI1VFIEUR",
 		name:              "ELI1V.FI/EUR",
 		description:       "Elisa OYJ",
 		minStartDate:      "2016-11-03",
@@ -1770,8 +1770,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Finland",
 	},
-	"eluxbsesek": {
-		code:              "eluxbsesek",
+	"ELUXBSESEK": {
+		code:              "ELUXBSESEK",
 		name:              "ELUXB.SE/SEK",
 		description:       "Electrolux AB",
 		minStartDate:      "2016-11-07",
@@ -1779,8 +1779,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"embususd": {
-		code:              "embususd",
+	"EMBUSUSD": {
+		code:              "EMBUSUSD",
 		name:              "EMB.US/USD",
 		description:       "iShares J.P. Morgan USD Emerging Markets Bond ETF",
 		minStartDate:      "2017-05-11",
@@ -1788,8 +1788,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"emrususd": {
-		code:              "emrususd",
+	"EMRUSUSD": {
+		code:              "EMRUSUSD",
 		name:              "EMR.US/USD",
 		description:       "EMERSON ELECTRIC CO",
 		minStartDate:      "2018-02-01",
@@ -1797,8 +1797,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"enfreur": {
-		code:              "enfreur",
+	"ENFREUR": {
+		code:              "ENFREUR",
 		name:              "EN.FR/EUR",
 		description:       "Bouygues SA",
 		minStartDate:      "2016-09-30",
@@ -1806,8 +1806,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"engeseur": {
-		code:              "engeseur",
+	"ENGESEUR": {
+		code:              "ENGESEUR",
 		name:              "ENG.ES/EUR",
 		description:       "Enagas SA",
 		minStartDate:      "2016-11-14",
@@ -1815,8 +1815,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"engifreur": {
-		code:              "engifreur",
+	"ENGIFREUR": {
+		code:              "ENGIFREUR",
 		name:              "ENGI.FR/EUR",
 		description:       "Engie",
 		minStartDate:      "2016-09-30",
@@ -1824,8 +1824,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2015-01-01",
 		group:             "France",
 	},
-	"eoandeeur": {
-		code:              "eoandeeur",
+	"EOANDEEUR": {
+		code:              "EOANDEEUR",
 		name:              "EOAN.DE/EUR",
 		description:       "E.ON SE",
 		minStartDate:      "2015-04-20",
@@ -1833,8 +1833,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"eogususd": {
-		code:              "eogususd",
+	"EOGUSUSD": {
+		code:              "EOGUSUSD",
 		name:              "EOG.US/USD",
 		description:       "EOG RESOURCES INC",
 		minStartDate:      "2017-11-02",
@@ -1842,8 +1842,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"eqtususd": {
-		code:              "eqtususd",
+	"EQTUSUSD": {
+		code:              "EQTUSUSD",
 		name:              "EQT.US/USD",
 		description:       "EQT CORP",
 		minStartDate:      "2017-11-02",
@@ -1851,8 +1851,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ericbsesek": {
-		code:              "ericbsesek",
+	"ERICBSESEK": {
+		code:              "ERICBSESEK",
 		name:              "ERICB.SE/SEK",
 		description:       "Telefonaktiebolaget LM Ericsson",
 		minStartDate:      "2016-11-14",
@@ -1860,8 +1860,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"esrxususd": {
-		code:              "esrxususd",
+	"ESRXUSUSD": {
+		code:              "ESRXUSUSD",
 		name:              "ESRX.US/USD",
 		description:       "EXPRESS SCRIPTS HOLDING CO",
 		minStartDate:      "2017-11-02",
@@ -1869,8 +1869,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ethusd": {
-		code:              "ethusd",
+	"ETHUSD": {
+		code:              "ETHUSD",
 		name:              "ETH/USD",
 		description:       "Ether vs US Dollar",
 		minStartDate:      "2017-12-11",
@@ -1878,8 +1878,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "VCCY",
 	},
-	"euraud": {
-		code:              "euraud",
+	"EURAUD": {
+		code:              "EURAUD",
 		name:              "EUR/AUD",
 		description:       "Euro vs Australian Dollar",
 		minStartDate:      "2005-10-02",
@@ -1887,8 +1887,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurcad": {
-		code:              "eurcad",
+	"EURCAD": {
+		code:              "EURCAD",
 		name:              "EUR/CAD",
 		description:       "Euro vs Canadian Dollar",
 		minStartDate:      "2004-10-20",
@@ -1896,8 +1896,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurchf": {
-		code:              "eurchf",
+	"EURCHF": {
+		code:              "EURCHF",
 		name:              "EUR/CHF",
 		description:       "Euro vs Swiss Franc",
 		minStartDate:      "2003-08-03",
@@ -1905,8 +1905,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurczk": {
-		code:              "eurczk",
+	"EURCZK": {
+		code:              "EURCZK",
 		name:              "EUR/CZK",
 		description:       "Euro vs Czech Koruna",
 		minStartDate:      "2016-01-03",
@@ -1914,8 +1914,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurdkk": {
-		code:              "eurdkk",
+	"EURDKK": {
+		code:              "EURDKK",
 		name:              "EUR/DKK",
 		description:       "Euro vs Danish Krone",
 		minStartDate:      "2004-10-20",
@@ -1923,8 +1923,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1993-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurgbp": {
-		code:              "eurgbp",
+	"EURGBP": {
+		code:              "EURGBP",
 		name:              "EUR/GBP",
 		description:       "Euro vs Pound Sterling",
 		minStartDate:      "2003-08-03",
@@ -1932,8 +1932,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1995-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurhkd": {
-		code:              "eurhkd",
+	"EURHKD": {
+		code:              "EURHKD",
 		name:              "EUR/HKD",
 		description:       "Euro vs Hong Kong Dollar",
 		minStartDate:      "2007-03-13",
@@ -1941,8 +1941,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurhuf": {
-		code:              "eurhuf",
+	"EURHUF": {
+		code:              "EURHUF",
 		name:              "EUR/HUF",
 		description:       "Euro vs Hungarian Forint",
 		minStartDate:      "2007-03-13",
@@ -1950,8 +1950,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurjpy": {
-		code:              "eurjpy",
+	"EURJPY": {
+		code:              "EURJPY",
 		name:              "EUR/JPY",
 		description:       "Euro vs Japanese Yen",
 		minStartDate:      "2003-08-03",
@@ -1959,8 +1959,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1972-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurnok": {
-		code:              "eurnok",
+	"EURNOK": {
+		code:              "EURNOK",
 		name:              "EUR/NOK",
 		description:       "Euro vs Norwegian Krone",
 		minStartDate:      "2004-10-20",
@@ -1968,8 +1968,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurnzd": {
-		code:              "eurnzd",
+	"EURNZD": {
+		code:              "EURNZD",
 		name:              "EUR/NZD",
 		description:       "Euro vs New Zealand Dollar",
 		minStartDate:      "2005-12-26",
@@ -1977,8 +1977,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurpln": {
-		code:              "eurpln",
+	"EURPLN": {
+		code:              "EURPLN",
 		name:              "EUR/PLN",
 		description:       "Euro vs Polish Zloty",
 		minStartDate:      "2007-03-13",
@@ -1986,8 +1986,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurrub": {
-		code:              "eurrub",
+	"EURRUB": {
+		code:              "EURRUB",
 		name:              "EUR/RUB",
 		description:       "Euro vs Russian Rouble",
 		minStartDate:      "2007-03-13",
@@ -1995,8 +1995,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eursek": {
-		code:              "eursek",
+	"EURSEK": {
+		code:              "EURSEK",
 		name:              "EUR/SEK",
 		description:       "Euro vs Swedish Krona",
 		minStartDate:      "2004-10-27",
@@ -2004,8 +2004,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eursgd": {
-		code:              "eursgd",
+	"EURSGD": {
+		code:              "EURSGD",
 		name:              "EUR/SGD",
 		description:       "Euro vs Singapore Dollar",
 		minStartDate:      "2007-03-13",
@@ -2013,8 +2013,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1998-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurtry": {
-		code:              "eurtry",
+	"EURTRY": {
+		code:              "EURTRY",
 		name:              "EUR/TRY",
 		description:       "Euro vs Turkish Lira",
 		minStartDate:      "2007-03-13",
@@ -2022,8 +2022,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2005-01-01",
 		group:             "FX_CROSSES",
 	},
-	"eurusd": {
-		code:              "eurusd",
+	"EURUSD": {
+		code:              "EURUSD",
 		name:              "EUR/USD",
 		description:       "Euro vs US Dollar",
 		minStartDate:      "2003-05-04",
@@ -2031,8 +2031,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1972-01-01",
 		group:             "FX_MAJORS",
 	},
-	"ewhususd": {
-		code:              "ewhususd",
+	"EWHUSUSD": {
+		code:              "EWHUSUSD",
 		name:              "EWH.US/USD",
 		description:       "iShares MSCI Hong Kong ETF",
 		minStartDate:      "2017-11-06",
@@ -2040,8 +2040,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ewjususd": {
-		code:              "ewjususd",
+	"EWJUSUSD": {
+		code:              "EWJUSUSD",
 		name:              "EWJ.US/USD",
 		description:       "iShares MSCI Japan ETF",
 		minStartDate:      "2017-01-23",
@@ -2049,8 +2049,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ewwususd": {
-		code:              "ewwususd",
+	"EWWUSUSD": {
+		code:              "EWWUSUSD",
 		name:              "EWW.US/USD",
 		description:       "iShares MSCI Mexico Capped",
 		minStartDate:      "2017-03-13",
@@ -2058,8 +2058,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ewzususd": {
-		code:              "ewzususd",
+	"EWZUSUSD": {
+		code:              "EWZUSUSD",
 		name:              "EWZ.US/USD",
 		description:       "iShares MSCI Brazil Capped",
 		minStartDate:      "2017-01-26",
@@ -2067,8 +2067,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"excususd": {
-		code:              "excususd",
+	"EXCUSUSD": {
+		code:              "EXCUSUSD",
 		name:              "EXC.US/USD",
 		description:       "EXELON CORP",
 		minStartDate:      "2018-02-01",
@@ -2076,8 +2076,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"expeususd": {
-		code:              "expeususd",
+	"EXPEUSUSD": {
+		code:              "EXPEUSUSD",
 		name:              "EXPE.US/USD",
 		description:       "EXPEDIA INC",
 		minStartDate:      "2017-11-02",
@@ -2085,8 +2085,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"expngbgbx": {
-		code:              "expngbgbx",
+	"EXPNGBGBX": {
+		code:              "EXPNGBGBX",
 		name:              "EXPN.GB/GBX",
 		description:       "Experian PLC",
 		minStartDate:      "2016-07-08",
@@ -2094,8 +2094,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"ezjgbgbx": {
-		code:              "ezjgbgbx",
+	"EZJGBGBX": {
+		code:              "EZJGBGBX",
 		name:              "EZJ.GB/GBX",
 		description:       "easyJet PLC",
 		minStartDate:      "2016-07-08",
@@ -2103,8 +2103,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"ezuususd": {
-		code:              "ezuususd",
+	"EZUUSUSD": {
+		code:              "EZUUSUSD",
 		name:              "EZU.US/USD",
 		description:       "iShares MSCI EMU ETF",
 		minStartDate:      "2018-02-01",
@@ -2112,8 +2112,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"brentcmdusd": {
-		code:              "brentcmdusd",
+	"BRENTCMDUSD": {
+		code:              "BRENTCMDUSD",
 		name:              "BRENT.CMD/USD",
 		description:       "US Brent Crude Oil",
 		minStartDate:      "2010-12-02",
@@ -2121,8 +2121,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2006-01-01",
 		group:             "CMD_ENERGY",
 	},
-	"fraidxeur": {
-		code:              "fraidxeur",
+	"FRAIDXEUR": {
+		code:              "FRAIDXEUR",
 		name:              "FRA.IDX/EUR",
 		description:       "France 40 Index",
 		minStartDate:      "2011-09-18",
@@ -2130,8 +2130,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1987-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"usa30idxusd": {
-		code:              "usa30idxusd",
+	"USA30IDXUSD": {
+		code:              "USA30IDXUSD",
 		name:              "USA30.IDX/USD",
 		description:       "USA 30 Index",
 		minStartDate:      "2013-09-30",
@@ -2139,8 +2139,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2013-01-01",
 		group:             "IDX_AMERICA",
 	},
-	"deuidxeur": {
-		code:              "deuidxeur",
+	"DEUIDXEUR": {
+		code:              "DEUIDXEUR",
 		name:              "DEU.IDX/EUR",
 		description:       "Germany 30 Index",
 		minStartDate:      "2013-09-30",
@@ -2148,8 +2148,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2013-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"eusidxeur": {
-		code:              "eusidxeur",
+	"EUSIDXEUR": {
+		code:              "EUSIDXEUR",
 		name:              "EUS.IDX/EUR",
 		description:       "Europe 50 Index",
 		minStartDate:      "2011-09-18",
@@ -2157,8 +2157,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1998-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"gbridxgbp": {
-		code:              "gbridxgbp",
+	"GBRIDXGBP": {
+		code:              "GBRIDXGBP",
 		name:              "GBR.IDX/GBP",
 		description:       "UK 100 Index",
 		minStartDate:      "2011-09-18",
@@ -2166,8 +2166,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1988-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"hkgidxhkd": {
-		code:              "hkgidxhkd",
+	"HKGIDXHKD": {
+		code:              "HKGIDXHKD",
 		name:              "HKG.IDX/HKD",
 		description:       "Hong Kong 40 Index",
 		minStartDate:      "2011-09-18",
@@ -2175,8 +2175,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "IDX_ASIA",
 	},
-	"espidxeur": {
-		code:              "espidxeur",
+	"ESPIDXEUR": {
+		code:              "ESPIDXEUR",
 		name:              "ESP.IDX/EUR",
 		description:       "Spain 35 Index",
 		minStartDate:      "2012-01-02",
@@ -2184,8 +2184,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1992-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"lightcmdusd": {
-		code:              "lightcmdusd",
+	"LIGHTCMDUSD": {
+		code:              "LIGHTCMDUSD",
 		name:              "LIGHT.CMD/USD",
 		description:       "US Light Crude Oil",
 		minStartDate:      "2011-09-23",
@@ -2193,8 +2193,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1983-01-01",
 		group:             "CMD_ENERGY",
 	},
-	"jpnidxjpy": {
-		code:              "jpnidxjpy",
+	"JPNIDXJPY": {
+		code:              "JPNIDXJPY",
 		name:              "JPN.IDX/JPY",
 		description:       "Japan 225",
 		minStartDate:      "2011-09-18",
@@ -2202,8 +2202,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1986-01-01",
 		group:             "IDX_ASIA",
 	},
-	"usatechidxusd": {
-		code:              "usatechidxusd",
+	"USATECHIDXUSD": {
+		code:              "USATECHIDXUSD",
 		name:              "USATECH.IDX/USD",
 		description:       "USA 100 Technical Index",
 		minStartDate:      "2011-09-18",
@@ -2211,8 +2211,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "IDX_AMERICA",
 	},
-	"usa500idxusd": {
-		code:              "usa500idxusd",
+	"USA500IDXUSD": {
+		code:              "USA500IDXUSD",
 		name:              "USA500.IDX/USD",
 		description:       "USA 500 Index",
 		minStartDate:      "2011-09-18",
@@ -2220,8 +2220,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1980-01-01",
 		group:             "IDX_AMERICA",
 	},
-	"cheidxchf": {
-		code:              "cheidxchf",
+	"CHEIDXCHF": {
+		code:              "CHEIDXCHF",
 		name:              "CHE.IDX/CHF",
 		description:       "Switzerland 20 Index",
 		minStartDate:      "2011-09-18",
@@ -2229,8 +2229,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1992-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"ausidxaud": {
-		code:              "ausidxaud",
+	"AUSIDXAUD": {
+		code:              "AUSIDXAUD",
 		name:              "AUS.IDX/AUD",
 		description:       "Australia 200 Index",
 		minStartDate:      "2013-01-02",
@@ -2238,8 +2238,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1982-01-01",
 		group:             "IDX_ASIA",
 	},
-	"fususd": {
-		code:              "fususd",
+	"FUSUSD": {
+		code:              "FUSUSD",
 		name:              "F.US/USD",
 		description:       "FORD MOTOR CO",
 		minStartDate:      "2017-11-02",
@@ -2247,8 +2247,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"fbususd": {
-		code:              "fbususd",
+	"FBUSUSD": {
+		code:              "FBUSUSD",
 		name:              "FB.US/USD",
 		description:       "FACEBOOK INC-A",
 		minStartDate:      "2017-01-19",
@@ -2256,8 +2256,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"fcxususd": {
-		code:              "fcxususd",
+	"FCXUSUSD": {
+		code:              "FCXUSUSD",
 		name:              "FCX.US/USD",
 		description:       "FREEPORT-MCMORAN INC",
 		minStartDate:      "2017-11-02",
@@ -2265,8 +2265,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"fdxususd": {
-		code:              "fdxususd",
+	"FDXUSUSD": {
+		code:              "FDXUSUSD",
 		name:              "FDX.US/USD",
 		description:       "FEDEX CORP",
 		minStartDate:      "2017-11-02",
@@ -2274,8 +2274,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"feususd": {
-		code:              "feususd",
+	"FEUSUSD": {
+		code:              "FEUSUSD",
 		name:              "FE.US/USD",
 		description:       "FIRSTENERGY CORP",
 		minStartDate:      "2018-02-01",
@@ -2283,8 +2283,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"fereseur": {
-		code:              "fereseur",
+	"FERESEUR": {
+		code:              "FERESEUR",
 		name:              "FER.ES/EUR",
 		description:       "Ferrovial SA",
 		minStartDate:      "2016-11-14",
@@ -2292,8 +2292,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"fmedeeur": {
-		code:              "fmedeeur",
+	"FMEDEEUR": {
+		code:              "FMEDEEUR",
 		name:              "FME.DE/EUR",
 		description:       "Fresenius Medical Care AG &amp; Co KGaA",
 		minStartDate:      "2015-04-01",
@@ -2301,8 +2301,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"foxaususd": {
-		code:              "foxaususd",
+	"FOXAUSUSD": {
+		code:              "FOXAUSUSD",
 		name:              "FOXA.US/USD",
 		description:       "TWENTY-FIRST CENTURY FOX-A",
 		minStartDate:      "2018-01-31",
@@ -2310,8 +2310,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"fpfreur": {
-		code:              "fpfreur",
+	"FPFREUR": {
+		code:              "FPFREUR",
 		name:              "FP.FR/EUR",
 		description:       "Total SA",
 		minStartDate:      "2016-09-30",
@@ -2319,8 +2319,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"frfreur": {
-		code:              "frfreur",
+	"FRFREUR": {
+		code:              "FRFREUR",
 		name:              "FR.FR/EUR",
 		description:       "Valeo SA",
 		minStartDate:      "2016-09-30",
@@ -2328,8 +2328,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"fredeeur": {
-		code:              "fredeeur",
+	"FREDEEUR": {
+		code:              "FREDEEUR",
 		name:              "FRE.DE/EUR",
 		description:       "Fresenius SE &amp; Co KGaA",
 		minStartDate:      "2015-04-10",
@@ -2337,8 +2337,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"fresgbgbx": {
-		code:              "fresgbgbx",
+	"FRESGBGBX": {
+		code:              "FRESGBGBX",
 		name:              "FRES.GB/GBX",
 		description:       "Fresnillo PLC",
 		minStartDate:      "2016-07-07",
@@ -2346,8 +2346,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"fxiususd": {
-		code:              "fxiususd",
+	"FXIUSUSD": {
+		code:              "FXIUSUSD",
 		name:              "FXI.US/USD",
 		description:       "iShares China Large-Cap ETF",
 		minStartDate:      "2017-01-26",
@@ -2355,8 +2355,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"galppteur": {
-		code:              "galppteur",
+	"GALPPTEUR": {
+		code:              "GALPPTEUR",
 		name:              "GALP.PT/EUR",
 		description:       "Galp Energia SGPS SA",
 		minStartDate:      "2016-11-14",
@@ -2364,8 +2364,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Portugal",
 	},
-	"gameseur": {
-		code:              "gameseur",
+	"GAMESEUR": {
+		code:              "GAMESEUR",
 		name:              "GAM.ES/EUR",
 		description:       "Gamesa Corporacion Tecnologica SA",
 		minStartDate:      "2016-11-14",
@@ -2373,8 +2373,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"gascmdusd": {
-		code:              "gascmdusd",
+	"GASCMDUSD": {
+		code:              "GASCMDUSD",
 		name:              "GAS.CMD/USD",
 		description:       "Natural Gas",
 		minStartDate:      "2012-08-20",
@@ -2382,8 +2382,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2012-01-01",
 		group:             "CMD_ENERGY",
 	},
-	"gaseseur": {
-		code:              "gaseseur",
+	"GASESEUR": {
+		code:              "GASESEUR",
 		name:              "GAS.ES/EUR",
 		description:       "Gas Natural SDG SA",
 		minStartDate:      "2016-11-14",
@@ -2391,8 +2391,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"gbpaud": {
-		code:              "gbpaud",
+	"GBPAUD": {
+		code:              "GBPAUD",
 		name:              "GBP/AUD",
 		description:       "Pound Sterling vs Australian Dollar",
 		minStartDate:      "2006-01-01",
@@ -2400,8 +2400,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"gbpcad": {
-		code:              "gbpcad",
+	"GBPCAD": {
+		code:              "GBPCAD",
 		name:              "GBP/CAD",
 		description:       "Pound Sterling vs Canadian Dollar",
 		minStartDate:      "2006-01-01",
@@ -2409,8 +2409,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "FX_CROSSES",
 	},
-	"gbpchf": {
-		code:              "gbpchf",
+	"GBPCHF": {
+		code:              "GBPCHF",
 		name:              "GBP/CHF",
 		description:       "Pound Sterling vs Swiss Franc",
 		minStartDate:      "2003-08-03",
@@ -2418,8 +2418,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "FX_CROSSES",
 	},
-	"gbpjpy": {
-		code:              "gbpjpy",
+	"GBPJPY": {
+		code:              "GBPJPY",
 		name:              "GBP/JPY",
 		description:       "Pound Sterling vs Japanese Yen",
 		minStartDate:      "2003-08-03",
@@ -2427,8 +2427,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"gbpnzd": {
-		code:              "gbpnzd",
+	"GBPNZD": {
+		code:              "GBPNZD",
 		name:              "GBP/NZD",
 		description:       "Pound Sterling vs New Zealand Dollar",
 		minStartDate:      "2006-01-01",
@@ -2436,8 +2436,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1994-01-01",
 		group:             "FX_CROSSES",
 	},
-	"gbpusd": {
-		code:              "gbpusd",
+	"GBPUSD": {
+		code:              "GBPUSD",
 		name:              "GBP/USD",
 		description:       "Pound Sterling vs US Dollar",
 		minStartDate:      "2003-05-04",
@@ -2445,8 +2445,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1986-01-01",
 		group:             "FX_MAJORS",
 	},
-	"gdxususd": {
-		code:              "gdxususd",
+	"GDXUSUSD": {
+		code:              "GDXUSUSD",
 		name:              "GDX.US/USD",
 		description:       "VanEck Vectors Gold Miners ETF",
 		minStartDate:      "2017-01-23",
@@ -2454,8 +2454,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"gdxjususd": {
-		code:              "gdxjususd",
+	"GDXJUSUSD": {
+		code:              "GDXJUSUSD",
 		name:              "GDXJ.US/USD",
 		description:       "VanEck Vectors Junior Gold Miners ETF",
 		minStartDate:      "2017-01-26",
@@ -2463,8 +2463,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"geususd": {
-		code:              "geususd",
+	"GEUSUSD": {
+		code:              "GEUSUSD",
 		name:              "GE.US/USD",
 		description:       "GENERAL ELECTRIC CO",
 		minStartDate:      "2017-01-19",
@@ -2472,8 +2472,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"getibsesek": {
-		code:              "getibsesek",
+	"GETIBSESEK": {
+		code:              "GETIBSESEK",
 		name:              "GETIB.SE/SEK",
 		description:       "Getinge AB",
 		minStartDate:      "2016-11-07",
@@ -2481,8 +2481,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"gfsgbgbx": {
-		code:              "gfsgbgbx",
+	"GFSGBGBX": {
+		code:              "GFSGBGBX",
 		name:              "GFS.GB/GBX",
 		description:       "G4S PLC",
 		minStartDate:      "2016-07-07",
@@ -2490,8 +2490,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"gildususd": {
-		code:              "gildususd",
+	"GILDUSUSD": {
+		code:              "GILDUSUSD",
 		name:              "GILD.US/USD",
 		description:       "GILEAD SCIENCES INC",
 		minStartDate:      "2017-01-19",
@@ -2499,8 +2499,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"gisususd": {
-		code:              "gisususd",
+	"GISUSUSD": {
+		code:              "GISUSUSD",
 		name:              "GIS.US/USD",
 		description:       "GENERAL MILLS INC",
 		minStartDate:      "2018-02-01",
@@ -2508,8 +2508,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"gldususd": {
-		code:              "gldususd",
+	"GLDUSUSD": {
+		code:              "GLDUSUSD",
 		name:              "GLD.US/USD",
 		description:       "SPDR Gold Shares ETF",
 		minStartDate:      "2017-01-23",
@@ -2517,8 +2517,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"glefreur": {
-		code:              "glefreur",
+	"GLEFREUR": {
+		code:              "GLEFREUR",
 		name:              "GLE.FR/EUR",
 		description:       "Societe Generale SA",
 		minStartDate:      "2016-09-30",
@@ -2526,8 +2526,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"glengbgbx": {
-		code:              "glengbgbx",
+	"GLENGBGBX": {
+		code:              "GLENGBGBX",
 		name:              "GLEN.GB/GBX",
 		description:       "Glencore PLC",
 		minStartDate:      "2016-07-07",
@@ -2535,8 +2535,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"glwususd": {
-		code:              "glwususd",
+	"GLWUSUSD": {
+		code:              "GLWUSUSD",
 		name:              "GLW.US/USD",
 		description:       "CORNING INC",
 		minStartDate:      "2017-05-11",
@@ -2544,8 +2544,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"gmususd": {
-		code:              "gmususd",
+	"GMUSUSD": {
+		code:              "GMUSUSD",
 		name:              "GM.US/USD",
 		description:       "GENERAL MOTORS CO",
 		minStartDate:      "2017-11-02",
@@ -2553,8 +2553,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"googususd": {
-		code:              "googususd",
+	"GOOGUSUSD": {
+		code:              "GOOGUSUSD",
 		name:              "GOOG.US/USD",
 		description:       "ALPHABET INC-CL C",
 		minStartDate:      "2017-01-19",
@@ -2562,8 +2562,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"googlususd": {
-		code:              "googlususd",
+	"GOOGLUSUSD": {
+		code:              "GOOGLUSUSD",
 		name:              "GOOGL.US/USD",
 		description:       "ALPHABET INC-CL A",
 		minStartDate:      "2017-01-19",
@@ -2571,8 +2571,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"gpsususd": {
-		code:              "gpsususd",
+	"GPSUSUSD": {
+		code:              "GPSUSUSD",
 		name:              "GPS.US/USD",
 		description:       "GAP INC/THE",
 		minStartDate:      "2018-02-01",
@@ -2580,8 +2580,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"gsususd": {
-		code:              "gsususd",
+	"GSUSUSD": {
+		code:              "GSUSUSD",
 		name:              "GS.US/USD",
 		description:       "GOLDMAN SACHS GROUP INC",
 		minStartDate:      "2017-01-19",
@@ -2589,8 +2589,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"gtonleur": {
-		code:              "gtonleur",
+	"GTONLEUR": {
+		code:              "GTONLEUR",
 		name:              "GTO.NL/EUR",
 		description:       "Gemalto NV",
 		minStartDate:      "2016-11-14",
@@ -2598,8 +2598,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"gwwususd": {
-		code:              "gwwususd",
+	"GWWUSUSD": {
+		code:              "GWWUSUSD",
 		name:              "GWW.US/USD",
 		description:       "WW GRAINGER INC",
 		minStartDate:      "2018-02-01",
@@ -2607,8 +2607,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"halususd": {
-		code:              "halususd",
+	"HALUSUSD": {
+		code:              "HALUSUSD",
 		name:              "HAL.US/USD",
 		description:       "HALLIBURTON CO",
 		minStartDate:      "2017-11-02",
@@ -2616,8 +2616,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"hcnususd": {
-		code:              "hcnususd",
+	"HCNUSUSD": {
+		code:              "HCNUSUSD",
 		name:              "HCN.US/USD",
 		description:       "WELLTOWER INC",
 		minStartDate:      "2018-02-01",
@@ -2625,8 +2625,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"hcpususd": {
-		code:              "hcpususd",
+	"HCPUSUSD": {
+		code:              "HCPUSUSD",
 		name:              "HCP.US/USD",
 		description:       "HCP INC",
 		minStartDate:      "2018-02-01",
@@ -2634,8 +2634,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"hdususd": {
-		code:              "hdususd",
+	"HDUSUSD": {
+		code:              "HDUSUSD",
 		name:              "HD.US/USD",
 		description:       "HOME DEPOT INC",
 		minStartDate:      "2017-01-19",
@@ -2643,8 +2643,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"heideeur": {
-		code:              "heideeur",
+	"HEIDEEUR": {
+		code:              "HEIDEEUR",
 		name:              "HEI.DE/EUR",
 		description:       "HeidelbergCement AG",
 		minStartDate:      "2015-04-02",
@@ -2652,8 +2652,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"heianleur": {
-		code:              "heianleur",
+	"HEIANLEUR": {
+		code:              "HEIANLEUR",
 		name:              "HEIA.NL/EUR",
 		description:       "Heineken NV",
 		minStartDate:      "2016-11-14",
@@ -2661,8 +2661,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"hen3deeur": {
-		code:              "hen3deeur",
+	"HEN3DEEUR": {
+		code:              "HEN3DEEUR",
 		name:              "HEN3.DE/EUR",
 		description:       "Henkel AG &amp; Co KGaA",
 		minStartDate:      "2015-04-21",
@@ -2670,8 +2670,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"hesususd": {
-		code:              "hesususd",
+	"HESUSUSD": {
+		code:              "HESUSUSD",
 		name:              "HES.US/USD",
 		description:       "HESS CORP",
 		minStartDate:      "2017-11-02",
@@ -2679,8 +2679,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"hkdjpy": {
-		code:              "hkdjpy",
+	"HKDJPY": {
+		code:              "HKDJPY",
 		name:              "HKD/JPY",
 		description:       "Hong Kong Dollar vs Japanese Yen",
 		minStartDate:      "2007-03-13",
@@ -2688,8 +2688,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_CROSSES",
 	},
-	"hmbsesek": {
-		code:              "hmbsesek",
+	"HMBSESEK": {
+		code:              "HMBSESEK",
 		name:              "HMB.SE/SEK",
 		description:       "Hennes &amp; Mauritz AB",
 		minStartDate:      "2016-11-07",
@@ -2697,8 +2697,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"hmsogbgbx": {
-		code:              "hmsogbgbx",
+	"HMSOGBGBX": {
+		code:              "HMSOGBGBX",
 		name:              "HMSO.GB/GBX",
 		description:       "Hammerson PLC",
 		minStartDate:      "2016-07-07",
@@ -2706,8 +2706,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"honususd": {
-		code:              "honususd",
+	"HONUSUSD": {
+		code:              "HONUSUSD",
 		name:              "HON.US/USD",
 		description:       "HONEYWELL INTERNATIONAL INC",
 		minStartDate:      "2017-11-02",
@@ -2715,8 +2715,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"hpqususd": {
-		code:              "hpqususd",
+	"HPQUSUSD": {
+		code:              "HPQUSUSD",
 		name:              "HPQ.US/USD",
 		description:       "HP INC",
 		minStartDate:      "2018-02-01",
@@ -2724,8 +2724,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"hsbagbgbx": {
-		code:              "hsbagbgbx",
+	"HSBAGBGBX": {
+		code:              "HSBAGBGBX",
 		name:              "HSBA.GB/GBX",
 		description:       "HSBC Holdings PLC",
 		minStartDate:      "2016-07-07",
@@ -2733,8 +2733,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"humususd": {
-		code:              "humususd",
+	"HUMUSUSD": {
+		code:              "HUMUSUSD",
 		name:              "HUM.US/USD",
 		description:       "HUMANA INC",
 		minStartDate:      "2017-11-02",
@@ -2742,8 +2742,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"iaggbgbx": {
-		code:              "iaggbgbx",
+	"IAGGBGBX": {
+		code:              "IAGGBGBX",
 		name:              "IAG.GB/GBX",
 		description:       "International Consolidated Airlines Grou",
 		minStartDate:      "2016-11-08",
@@ -2751,8 +2751,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"ibbususd": {
-		code:              "ibbususd",
+	"IBBUSUSD": {
+		code:              "IBBUSUSD",
 		name:              "IBB.US/USD",
 		description:       "iShares Nasdaq Biotechnology ETF",
 		minStartDate:      "2017-05-11",
@@ -2760,8 +2760,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ibeeseur": {
-		code:              "ibeeseur",
+	"IBEESEUR": {
+		code:              "IBEESEUR",
 		name:              "IBE.ES/EUR",
 		description:       "Iberdrola SA",
 		minStartDate:      "2016-11-14",
@@ -2769,8 +2769,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"ibmususd": {
-		code:              "ibmususd",
+	"IBMUSUSD": {
+		code:              "IBMUSUSD",
 		name:              "IBM.US/USD",
 		description:       "INTL BUSINESS MACHINES CORP",
 		minStartDate:      "2017-01-19",
@@ -2778,8 +2778,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"iceususd": {
-		code:              "iceususd",
+	"ICEUSUSD": {
+		code:              "ICEUSUSD",
 		name:              "ICE.US/USD",
 		description:       "INTERCONTINENTAL EXCHANGE IN",
 		minStartDate:      "2017-11-06",
@@ -2787,8 +2787,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"iefususd": {
-		code:              "iefususd",
+	"IEFUSUSD": {
+		code:              "IEFUSUSD",
 		name:              "IEF.US/USD",
 		description:       "iShares 7-10 Year Treasury Bond ETF",
 		minStartDate:      "2018-02-01",
@@ -2796,8 +2796,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ifxdeeur": {
-		code:              "ifxdeeur",
+	"IFXDEEUR": {
+		code:              "IFXDEEUR",
 		name:              "IFX.DE/EUR",
 		description:       "Infineon Technologies AG",
 		minStartDate:      "2015-04-13",
@@ -2805,8 +2805,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"ihggbgbx": {
-		code:              "ihggbgbx",
+	"IHGGBGBX": {
+		code:              "IHGGBGBX",
 		name:              "IHG.GB/GBX",
 		description:       "InterContinental Hotels Group PLC",
 		minStartDate:      "2016-11-01",
@@ -2814,8 +2814,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"ijhususd": {
-		code:              "ijhususd",
+	"IJHUSUSD": {
+		code:              "IJHUSUSD",
 		name:              "IJH.US/USD",
 		description:       "iShares Core S&amp;P Mid-Cap ETF",
 		minStartDate:      "2018-02-01",
@@ -2823,8 +2823,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ijrususd": {
-		code:              "ijrususd",
+	"IJRUSUSD": {
+		code:              "IJRUSUSD",
 		name:              "IJR.US/USD",
 		description:       "iShares Core S&amp;P Small-Cap ETF",
 		minStartDate:      "2017-05-11",
@@ -2832,8 +2832,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ilmnususd": {
-		code:              "ilmnususd",
+	"ILMNUSUSD": {
+		code:              "ILMNUSUSD",
 		name:              "ILMN.US/USD",
 		description:       "ILLUMINA INC",
 		minStartDate:      "2018-02-01",
@@ -2841,8 +2841,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"imtgbgbx": {
-		code:              "imtgbgbx",
+	"IMTGBGBX": {
+		code:              "IMTGBGBX",
 		name:              "IMT.GB/GBX",
 		description:       "Imperial Brands Plc",
 		minStartDate:      "2016-07-06",
@@ -2850,8 +2850,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "UK",
 	},
-	"indidxusd": {
-		code:              "indidxusd",
+	"INDIDXUSD": {
+		code:              "INDIDXUSD",
 		name:              "IND.IDX/USD",
 		description:       "India 50 Index",
 		minStartDate:      "2017-12-01",
@@ -2859,8 +2859,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "IDX_ASIA",
 	},
-	"inganleur": {
-		code:              "inganleur",
+	"INGANLEUR": {
+		code:              "INGANLEUR",
 		name:              "INGA.NL/EUR",
 		description:       "ING Groep NV",
 		minStartDate:      "2016-11-14",
@@ -2868,8 +2868,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "Netherlands",
 	},
-	"intcususd": {
-		code:              "intcususd",
+	"INTCUSUSD": {
+		code:              "INTCUSUSD",
 		name:              "INTC.US/USD",
 		description:       "INTEL CORP",
 		minStartDate:      "2017-01-19",
@@ -2877,8 +2877,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"intuususd": {
-		code:              "intuususd",
+	"INTUUSUSD": {
+		code:              "INTUUSUSD",
 		name:              "INTU.US/USD",
 		description:       "INTUIT INC",
 		minStartDate:      "2018-02-01",
@@ -2886,8 +2886,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"invebsesek": {
-		code:              "invebsesek",
+	"INVEBSESEK": {
+		code:              "INVEBSESEK",
 		name:              "INVEB.SE/SEK",
 		description:       "Investor AB",
 		minStartDate:      "2016-11-14",
@@ -2895,8 +2895,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"ipgususd": {
-		code:              "ipgususd",
+	"IPGUSUSD": {
+		code:              "IPGUSUSD",
 		name:              "IPG.US/USD",
 		description:       "INTERPUBLIC GROUP OF COS INC",
 		minStartDate:      "2018-02-01",
@@ -2904,8 +2904,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"isatgbgbx": {
-		code:              "isatgbgbx",
+	"ISATGBGBX": {
+		code:              "ISATGBGBX",
 		name:              "ISAT.GB/GBX",
 		description:       "Inmarsat PLC",
 		minStartDate:      "2016-07-08",
@@ -2913,8 +2913,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"isrgususd": {
-		code:              "isrgususd",
+	"ISRGUSUSD": {
+		code:              "ISRGUSUSD",
 		name:              "ISRG.US/USD",
 		description:       "INTUITIVE SURGICAL INC",
 		minStartDate:      "2018-02-01",
@@ -2922,8 +2922,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"itrkgbgbx": {
-		code:              "itrkgbgbx",
+	"ITRKGBGBX": {
+		code:              "ITRKGBGBX",
 		name:              "ITRK.GB/GBX",
 		description:       "Intertek Group PLC",
 		minStartDate:      "2016-07-06",
@@ -2931,8 +2931,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"itubususd": {
-		code:              "itubususd",
+	"ITUBUSUSD": {
+		code:              "ITUBUSUSD",
 		name:              "ITUB.US/USD",
 		description:       "Itau Unibanco Holding S.A.",
 		minStartDate:      "2017-01-26",
@@ -2940,8 +2940,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"itvgbgbx": {
-		code:              "itvgbgbx",
+	"ITVGBGBX": {
+		code:              "ITVGBGBX",
 		name:              "ITV.GB/GBX",
 		description:       "ITV PLC",
 		minStartDate:      "2016-07-07",
@@ -2949,8 +2949,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"itwususd": {
-		code:              "itwususd",
+	"ITWUSUSD": {
+		code:              "ITWUSUSD",
 		name:              "ITW.US/USD",
 		description:       "ILLINOIS TOOL WORKS",
 		minStartDate:      "2017-05-11",
@@ -2958,8 +2958,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"itxeseur": {
-		code:              "itxeseur",
+	"ITXESEUR": {
+		code:              "ITXESEUR",
 		name:              "ITX.ES/EUR",
 		description:       "Inditex SA",
 		minStartDate:      "2016-11-14",
@@ -2967,8 +2967,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"iveususd": {
-		code:              "iveususd",
+	"IVEUSUSD": {
+		code:              "IVEUSUSD",
 		name:              "IVE.US/USD",
 		description:       "iShares S&amp;P 500 Value ETF",
 		minStartDate:      "2017-05-11",
@@ -2976,8 +2976,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ivwususd": {
-		code:              "ivwususd",
+	"IVWUSUSD": {
+		code:              "IVWUSUSD",
 		name:              "IVW.US/USD",
 		description:       "iShares S&amp;P 500 Growth ETF",
 		minStartDate:      "2017-05-11",
@@ -2985,8 +2985,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"iwdususd": {
-		code:              "iwdususd",
+	"IWDUSUSD": {
+		code:              "IWDUSUSD",
 		name:              "IWD.US/USD",
 		description:       "iShares Russell 1000 Value ETF",
 		minStartDate:      "2018-02-01",
@@ -2994,8 +2994,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"iwfususd": {
-		code:              "iwfususd",
+	"IWFUSUSD": {
+		code:              "IWFUSUSD",
 		name:              "IWF.US/USD",
 		description:       "iShares Russell 1000 Growth ETF",
 		minStartDate:      "2018-02-01",
@@ -3003,8 +3003,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"iwmususd": {
-		code:              "iwmususd",
+	"IWMUSUSD": {
+		code:              "IWMUSUSD",
 		name:              "IWM.US/USD",
 		description:       "iShares Russell 2000 ETF",
 		minStartDate:      "2017-01-23",
@@ -3012,8 +3012,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"iyrususd": {
-		code:              "iyrususd",
+	"IYRUSUSD": {
+		code:              "IYRUSUSD",
 		name:              "IYR.US/USD",
 		description:       "iShares U.S. Real Estate ETF",
 		minStartDate:      "2017-01-23",
@@ -3021,8 +3021,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"jciususd": {
-		code:              "jciususd",
+	"JCIUSUSD": {
+		code:              "JCIUSUSD",
 		name:              "JCI.US/USD",
 		description:       "JOHNSON CONTROLS INC",
 		minStartDate:      "2017-11-02",
@@ -3030,8 +3030,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"jnjususd": {
-		code:              "jnjususd",
+	"JNJUSUSD": {
+		code:              "JNJUSUSD",
 		name:              "JNJ.US/USD",
 		description:       "JOHNSON &amp; JOHNSON",
 		minStartDate:      "2017-01-19",
@@ -3039,8 +3039,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"jnkususd": {
-		code:              "jnkususd",
+	"JNKUSUSD": {
+		code:              "JNKUSUSD",
 		name:              "JNK.US/USD",
 		description:       "SPDR Barclays Capital High Yield Bond ETF",
 		minStartDate:      "2017-01-23",
@@ -3048,8 +3048,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"jpmususd": {
-		code:              "jpmususd",
+	"JPMUSUSD": {
+		code:              "JPMUSUSD",
 		name:              "JPM.US/USD",
 		description:       "JPMORGAN CHASE &amp; CO",
 		minStartDate:      "2017-01-19",
@@ -3057,8 +3057,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"jwnususd": {
-		code:              "jwnususd",
+	"JWNUSUSD": {
+		code:              "JWNUSUSD",
 		name:              "JWN.US/USD",
 		description:       "NORDSTROM INC",
 		minStartDate:      "2017-05-11",
@@ -3066,8 +3066,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"kususd": {
-		code:              "kususd",
+	"KUSUSD": {
+		code:              "KUSUSD",
 		name:              "K.US/USD",
 		description:       "KELLOGG CO",
 		minStartDate:      "2017-05-11",
@@ -3075,8 +3075,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"kbcbeeur": {
-		code:              "kbcbeeur",
+	"KBCBEEUR": {
+		code:              "KBCBEEUR",
 		name:              "KBC.BE/EUR",
 		description:       "KBC Groep NV",
 		minStartDate:      "2016-11-07",
@@ -3084,8 +3084,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Belgium",
 	},
-	"kerfreur": {
-		code:              "kerfreur",
+	"KERFREUR": {
+		code:              "KERFREUR",
 		name:              "KER.FR/EUR",
 		description:       "Kering",
 		minStartDate:      "2016-09-30",
@@ -3093,8 +3093,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"keyususd": {
-		code:              "keyususd",
+	"KEYUSUSD": {
+		code:              "KEYUSUSD",
 		name:              "KEY.US/USD",
 		description:       "KEYCORP",
 		minStartDate:      "2017-11-02",
@@ -3102,8 +3102,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"kgfgbgbx": {
-		code:              "kgfgbgbx",
+	"KGFGBGBX": {
+		code:              "KGFGBGBX",
 		name:              "KGF.GB/GBX",
 		description:       "Kingfisher PLC",
 		minStartDate:      "2016-07-07",
@@ -3111,8 +3111,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"khcususd": {
-		code:              "khcususd",
+	"KHCUSUSD": {
+		code:              "KHCUSUSD",
 		name:              "KHC.US/USD",
 		description:       "KRAFT HEINZ CO/THE",
 		minStartDate:      "2017-05-11",
@@ -3120,8 +3120,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"kmbususd": {
-		code:              "kmbususd",
+	"KMBUSUSD": {
+		code:              "KMBUSUSD",
 		name:              "KMB.US/USD",
 		description:       "KIMBERLY-CLARK CORP",
 		minStartDate:      "2017-05-11",
@@ -3129,8 +3129,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"kmiususd": {
-		code:              "kmiususd",
+	"KMIUSUSD": {
+		code:              "KMIUSUSD",
 		name:              "KMI.US/USD",
 		description:       "KINDER MORGAN INC",
 		minStartDate:      "2017-11-02",
@@ -3138,8 +3138,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"koususd": {
-		code:              "koususd",
+	"KOUSUSD": {
+		code:              "KOUSUSD",
 		name:              "KO.US/USD",
 		description:       "COCA-COLA CO/THE",
 		minStartDate:      "2017-01-19",
@@ -3147,8 +3147,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"kpnnleur": {
-		code:              "kpnnleur",
+	"KPNNLEUR": {
+		code:              "KPNNLEUR",
 		name:              "KPN.NL/EUR",
 		description:       "Koninklijke KPN NV",
 		minStartDate:      "2016-11-14",
@@ -3156,8 +3156,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"krususd": {
-		code:              "krususd",
+	"KRUSUSD": {
+		code:              "KRUSUSD",
 		name:              "KR.US/USD",
 		description:       "KROGER CO",
 		minStartDate:      "2017-11-02",
@@ -3165,8 +3165,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"kssususd": {
-		code:              "kssususd",
+	"KSSUSUSD": {
+		code:              "KSSUSUSD",
 		name:              "KSS.US/USD",
 		description:       "KOHLS CORP",
 		minStartDate:      "2018-02-01",
@@ -3174,8 +3174,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"lususd": {
-		code:              "lususd",
+	"LUSUSD": {
+		code:              "LUSUSD",
 		name:              "L.US/USD",
 		description:       "LOEWS CORP",
 		minStartDate:      "2017-05-11",
@@ -3183,8 +3183,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"landgbgbx": {
-		code:              "landgbgbx",
+	"LANDGBGBX": {
+		code:              "LANDGBGBX",
 		name:              "LAND.GB/GBX",
 		description:       "Land Securities Group PLC",
 		minStartDate:      "2016-07-07",
@@ -3192,8 +3192,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"lenususd": {
-		code:              "lenususd",
+	"LENUSUSD": {
+		code:              "LENUSUSD",
 		name:              "LEN.US/USD",
 		description:       "LENNAR CORP-A",
 		minStartDate:      "2017-05-11",
@@ -3201,8 +3201,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"lgengbgbx": {
-		code:              "lgengbgbx",
+	"LGENGBGBX": {
+		code:              "LGENGBGBX",
 		name:              "LGEN.GB/GBX",
 		description:       "Legal &amp; General Group PLC",
 		minStartDate:      "2016-07-07",
@@ -3210,8 +3210,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"lhadeeur": {
-		code:              "lhadeeur",
+	"LHADEEUR": {
+		code:              "LHADEEUR",
 		name:              "LHA.DE/EUR",
 		description:       "Deutsche Lufthansa AG",
 		minStartDate:      "2015-04-21",
@@ -3219,8 +3219,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"lifreur": {
-		code:              "lifreur",
+	"LIFREUR": {
+		code:              "LIFREUR",
 		name:              "LI.FR/EUR",
 		description:       "Klepierre",
 		minStartDate:      "2016-08-05",
@@ -3228,8 +3228,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"lindeeur": {
-		code:              "lindeeur",
+	"LINDEEUR": {
+		code:              "LINDEEUR",
 		name:              "LIN.DE/EUR",
 		description:       "Linde AG",
 		minStartDate:      "2015-04-21",
@@ -3237,8 +3237,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"lloygbgbx": {
-		code:              "lloygbgbx",
+	"LLOYGBGBX": {
+		code:              "LLOYGBGBX",
 		name:              "LLOY.GB/GBX",
 		description:       "Lloyds Banking Group PLC",
 		minStartDate:      "2016-07-08",
@@ -3246,8 +3246,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"llyususd": {
-		code:              "llyususd",
+	"LLYUSUSD": {
+		code:              "LLYUSUSD",
 		name:              "LLY.US/USD",
 		description:       "ELI LILLY &amp; CO",
 		minStartDate:      "2017-05-11",
@@ -3255,8 +3255,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"lmtususd": {
-		code:              "lmtususd",
+	"LMTUSUSD": {
+		code:              "LMTUSUSD",
 		name:              "LMT.US/USD",
 		description:       "LOCKHEED MARTIN CORP",
 		minStartDate:      "2017-05-11",
@@ -3264,8 +3264,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"lowususd": {
-		code:              "lowususd",
+	"LOWUSUSD": {
+		code:              "LOWUSUSD",
 		name:              "LOW.US/USD",
 		description:       "LOWE'S COS INC",
 		minStartDate:      "2017-11-02",
@@ -3273,8 +3273,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"lrfreur": {
-		code:              "lrfreur",
+	"LRFREUR": {
+		code:              "LRFREUR",
 		name:              "LR.FR/EUR",
 		description:       "Legrand SA",
 		minStartDate:      "2016-08-05",
@@ -3282,8 +3282,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"lrcxususd": {
-		code:              "lrcxususd",
+	"LRCXUSUSD": {
+		code:              "LRCXUSUSD",
 		name:              "LRCX.US/USD",
 		description:       "LAM RESEARCH CORP",
 		minStartDate:      "2017-11-02",
@@ -3291,8 +3291,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"lsegbgbx": {
-		code:              "lsegbgbx",
+	"LSEGBGBX": {
+		code:              "LSEGBGBX",
 		name:              "LSE.GB/GBX",
 		description:       "London Stock Exchange Group PLC",
 		minStartDate:      "2016-07-06",
@@ -3300,8 +3300,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"luvususd": {
-		code:              "luvususd",
+	"LUVUSUSD": {
+		code:              "LUVUSUSD",
 		name:              "LUV.US/USD",
 		description:       "SOUTHWEST AIRLINES CO",
 		minStartDate:      "2017-11-02",
@@ -3309,8 +3309,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"lvsususd": {
-		code:              "lvsususd",
+	"LVSUSUSD": {
+		code:              "LVSUSUSD",
 		name:              "LVS.US/USD",
 		description:       "Las Vegas Sands Corp.",
 		minStartDate:      "2017-01-26",
@@ -3318,8 +3318,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"lxsdeeur": {
-		code:              "lxsdeeur",
+	"LXSDEEUR": {
+		code:              "LXSDEEUR",
 		name:              "LXS.DE/EUR",
 		description:       "Lanxess AG",
 		minStartDate:      "2015-04-21",
@@ -3327,8 +3327,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"mususd": {
-		code:              "mususd",
+	"MUSUSD": {
+		code:              "MUSUSD",
 		name:              "M.US/USD",
 		description:       "MACY'S INC",
 		minStartDate:      "2017-11-02",
@@ -3336,8 +3336,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"maususd": {
-		code:              "maususd",
+	"MAUSUSD": {
+		code:              "MAUSUSD",
 		name:              "MA.US/USD",
 		description:       "MASTERCARD INC-CLASS A",
 		minStartDate:      "2017-05-11",
@@ -3345,8 +3345,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"maerskbdkdkk": {
-		code:              "maerskbdkdkk",
+	"MAERSKBDKDKK": {
+		code:              "MAERSKBDKDKK",
 		name:              "MAERSKB.DK/DKK",
 		description:       "AP Moeller - Maersk A/S",
 		minStartDate:      "2016-11-08",
@@ -3354,8 +3354,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"marususd": {
-		code:              "marususd",
+	"MARUSUSD": {
+		code:              "MARUSUSD",
 		name:              "MAR.US/USD",
 		description:       "MARRIOTT INTERNATIONAL -CL A",
 		minStartDate:      "2017-11-02",
@@ -3363,8 +3363,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"matususd": {
-		code:              "matususd",
+	"MATUSUSD": {
+		code:              "MATUSUSD",
 		name:              "MAT.US/USD",
 		description:       "MATTEL INC",
 		minStartDate:      "2018-02-01",
@@ -3372,8 +3372,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"mcfreur": {
-		code:              "mcfreur",
+	"MCFREUR": {
+		code:              "MCFREUR",
 		name:              "MC.FR/EUR",
 		description:       "LVMH Moet Hennessy Louis Vuitton SA",
 		minStartDate:      "2016-08-05",
@@ -3381,8 +3381,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"mcdususd": {
-		code:              "mcdususd",
+	"MCDUSUSD": {
+		code:              "MCDUSUSD",
 		name:              "MCD.US/USD",
 		description:       "MCDONALD'S CORP",
 		minStartDate:      "2017-11-02",
@@ -3390,8 +3390,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mchpususd": {
-		code:              "mchpususd",
+	"MCHPUSUSD": {
+		code:              "MCHPUSUSD",
 		name:              "MCHP.US/USD",
 		description:       "MICROCHIP TECHNOLOGY INC",
 		minStartDate:      "2018-02-01",
@@ -3399,8 +3399,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"mckususd": {
-		code:              "mckususd",
+	"MCKUSUSD": {
+		code:              "MCKUSUSD",
 		name:              "MCK.US/USD",
 		description:       "MCKESSON CORP",
 		minStartDate:      "2017-11-02",
@@ -3408,8 +3408,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mdlzususd": {
-		code:              "mdlzususd",
+	"MDLZUSUSD": {
+		code:              "MDLZUSUSD",
 		name:              "MDLZ.US/USD",
 		description:       "MONDELEZ INTERNATIONAL INC-A",
 		minStartDate:      "2017-11-02",
@@ -3417,8 +3417,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"metususd": {
-		code:              "metususd",
+	"METUSUSD": {
+		code:              "METUSUSD",
 		name:              "MET.US/USD",
 		description:       "METLIFE INC",
 		minStartDate:      "2017-11-02",
@@ -3426,8 +3426,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mgmususd": {
-		code:              "mgmususd",
+	"MGMUSUSD": {
+		code:              "MGMUSUSD",
 		name:              "MGM.US/USD",
 		description:       "MGM RESORTS INTERNATIONAL",
 		minStartDate:      "2017-11-02",
@@ -3435,8 +3435,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mhgnonok": {
-		code:              "mhgnonok",
+	"MHGNONOK": {
+		code:              "MHGNONOK",
 		name:              "MHG.NO/NOK",
 		description:       "Marine Harvest ASA",
 		minStartDate:      "2016-11-14",
@@ -3444,8 +3444,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Norway",
 	},
-	"mksgbgbx": {
-		code:              "mksgbgbx",
+	"MKSGBGBX": {
+		code:              "MKSGBGBX",
 		name:              "MKS.GB/GBX",
 		description:       "Marks &amp; Spencer Group PLC",
 		minStartDate:      "2016-07-07",
@@ -3453,8 +3453,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"mmmususd": {
-		code:              "mmmususd",
+	"MMMUSUSD": {
+		code:              "MMMUSUSD",
 		name:              "MMM.US/USD",
 		description:       "3M CO",
 		minStartDate:      "2017-05-11",
@@ -3462,8 +3462,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mndigbgbx": {
-		code:              "mndigbgbx",
+	"MNDIGBGBX": {
+		code:              "MNDIGBGBX",
 		name:              "MNDI.GB/GBX",
 		description:       "Mondi PLC",
 		minStartDate:      "2016-07-08",
@@ -3471,8 +3471,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"moususd": {
-		code:              "moususd",
+	"MOUSUSD": {
+		code:              "MOUSUSD",
 		name:              "MO.US/USD",
 		description:       "ALTRIA GROUP INC",
 		minStartDate:      "2017-11-02",
@@ -3480,8 +3480,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mpcususd": {
-		code:              "mpcususd",
+	"MPCUSUSD": {
+		code:              "MPCUSUSD",
 		name:              "MPC.US/USD",
 		description:       "MARATHON PETROLEUM CORP",
 		minStartDate:      "2018-02-01",
@@ -3489,8 +3489,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"mrkdeeur": {
-		code:              "mrkdeeur",
+	"MRKDEEUR": {
+		code:              "MRKDEEUR",
 		name:              "MRK.DE/EUR",
 		description:       "Merck KGaA",
 		minStartDate:      "2015-03-24",
@@ -3498,8 +3498,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"mrkususd": {
-		code:              "mrkususd",
+	"MRKUSUSD": {
+		code:              "MRKUSUSD",
 		name:              "MRK.US/USD",
 		description:       "MERCK &amp; CO. INC.",
 		minStartDate:      "2017-11-02",
@@ -3507,8 +3507,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mroususd": {
-		code:              "mroususd",
+	"MROUSUSD": {
+		code:              "MROUSUSD",
 		name:              "MRO.US/USD",
 		description:       "MARATHON OIL CORP",
 		minStartDate:      "2018-02-01",
@@ -3516,8 +3516,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"mrwgbgbx": {
-		code:              "mrwgbgbx",
+	"MRWGBGBX": {
+		code:              "MRWGBGBX",
 		name:              "MRW.GB/GBX",
 		description:       "WM Morrison Supermarkets PLC",
 		minStartDate:      "2016-07-07",
@@ -3525,8 +3525,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"msususd": {
-		code:              "msususd",
+	"MSUSUSD": {
+		code:              "MSUSUSD",
 		name:              "MS.US/USD",
 		description:       "MORGAN STANLEY",
 		minStartDate:      "2017-11-02",
@@ -3534,8 +3534,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"msftususd": {
-		code:              "msftususd",
+	"MSFTUSUSD": {
+		code:              "MSFTUSUSD",
 		name:              "MSFT.US/USD",
 		description:       "MICROSOFT CORP",
 		minStartDate:      "2017-01-19",
@@ -3543,8 +3543,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"mtnleur": {
-		code:              "mtnleur",
+	"MTNLEUR": {
+		code:              "MTNLEUR",
 		name:              "MT.NL/EUR",
 		description:       "ArcelorMittal",
 		minStartDate:      "2016-11-14",
@@ -3552,8 +3552,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"muususd": {
-		code:              "muususd",
+	"MUUSUSD": {
+		code:              "MUUSUSD",
 		name:              "MU.US/USD",
 		description:       "MICRON TECHNOLOGY INC",
 		minStartDate:      "2017-11-02",
@@ -3561,8 +3561,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"muv2deeur": {
-		code:              "muv2deeur",
+	"MUV2DEEUR": {
+		code:              "MUV2DEEUR",
 		name:              "MUV2.DE/EUR",
 		description:       "Muenchener Rueckversicherungs AG",
 		minStartDate:      "2015-04-21",
@@ -3570,8 +3570,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"nblususd": {
-		code:              "nblususd",
+	"NBLUSUSD": {
+		code:              "NBLUSUSD",
 		name:              "NBL.US/USD",
 		description:       "NOBLE ENERGY INC",
 		minStartDate:      "2018-02-01",
@@ -3579,8 +3579,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"ndasesek": {
-		code:              "ndasesek",
+	"NDASESEK": {
+		code:              "NDASESEK",
 		name:              "NDA.SE/SEK",
 		description:       "Nordea Bank AB",
 		minStartDate:      "2016-11-07",
@@ -3588,8 +3588,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"neeususd": {
-		code:              "neeususd",
+	"NEEUSUSD": {
+		code:              "NEEUSUSD",
 		name:              "NEE.US/USD",
 		description:       "NEXTERA ENERGY INC",
 		minStartDate:      "2018-02-01",
@@ -3597,8 +3597,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"nemususd": {
-		code:              "nemususd",
+	"NEMUSUSD": {
+		code:              "NEMUSUSD",
 		name:              "NEM.US/USD",
 		description:       "NEWMONT MINING CORP",
 		minStartDate:      "2017-05-11",
@@ -3606,8 +3606,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"nes1vfieur": {
-		code:              "nes1vfieur",
+	"NES1VFIEUR": {
+		code:              "NES1VFIEUR",
 		name:              "NES1V.FI/EUR",
 		description:       "Neste OYJ",
 		minStartDate:      "2016-11-03",
@@ -3615,8 +3615,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Finland",
 	},
-	"nflxususd": {
-		code:              "nflxususd",
+	"NFLXUSUSD": {
+		code:              "NFLXUSUSD",
 		name:              "NFLX.US/USD",
 		description:       "NETFLIX INC",
 		minStartDate:      "2017-01-19",
@@ -3624,8 +3624,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"nggbgbx": {
-		code:              "nggbgbx",
+	"NGGBGBX": {
+		code:              "NGGBGBX",
 		name:              "NG.GB/GBX",
 		description:       "National Grid PLC",
 		minStartDate:      "2016-07-07",
@@ -3633,8 +3633,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"nhynonok": {
-		code:              "nhynonok",
+	"NHYNONOK": {
+		code:              "NHYNONOK",
 		name:              "NHY.NO/NOK",
 		description:       "Norsk Hydro ASA",
 		minStartDate:      "2016-11-14",
@@ -3642,8 +3642,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Norway",
 	},
-	"nkeususd": {
-		code:              "nkeususd",
+	"NKEUSUSD": {
+		code:              "NKEUSUSD",
 		name:              "NKE.US/USD",
 		description:       "NIKE INC",
 		minStartDate:      "2017-11-02",
@@ -3651,8 +3651,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"nldidxeur": {
-		code:              "nldidxeur",
+	"NLDIDXEUR": {
+		code:              "NLDIDXEUR",
 		name:              "NLD.IDX/EUR",
 		description:       "Netherlands 25 Index",
 		minStartDate:      "2013-02-27",
@@ -3660,8 +3660,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"nocususd": {
-		code:              "nocususd",
+	"NOCUSUSD": {
+		code:              "NOCUSUSD",
 		name:              "NOC.US/USD",
 		description:       "NORTHROP GRUMMAN CORP",
 		minStartDate:      "2017-05-11",
@@ -3669,8 +3669,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"novobdkdkk": {
-		code:              "novobdkdkk",
+	"NOVOBDKDKK": {
+		code:              "NOVOBDKDKK",
 		name:              "NOVOB.DK/DKK",
 		description:       "Novo Nordisk A/S",
 		minStartDate:      "2016-11-07",
@@ -3678,8 +3678,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"nre1vfieur": {
-		code:              "nre1vfieur",
+	"NRE1VFIEUR": {
+		code:              "NRE1VFIEUR",
 		name:              "NRE1V.FI/EUR",
 		description:       "Nokian Renkaat OYJ",
 		minStartDate:      "2016-11-03",
@@ -3687,8 +3687,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Finland",
 	},
-	"nrgususd": {
-		code:              "nrgususd",
+	"NRGUSUSD": {
+		code:              "NRGUSUSD",
 		name:              "NRG.US/USD",
 		description:       "NRG ENERGY INC",
 		minStartDate:      "2018-02-01",
@@ -3696,8 +3696,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"nscususd": {
-		code:              "nscususd",
+	"NSCUSUSD": {
+		code:              "NSCUSUSD",
 		name:              "NSC.US/USD",
 		description:       "NORFOLK SOUTHERN CORP",
 		minStartDate:      "2018-02-01",
@@ -3705,8 +3705,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"nvdaususd": {
-		code:              "nvdaususd",
+	"NVDAUSUSD": {
+		code:              "NVDAUSUSD",
 		name:              "NVDA.US/USD",
 		description:       "NVIDIA CORP",
 		minStartDate:      "2017-01-19",
@@ -3714,8 +3714,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"nwlususd": {
-		code:              "nwlususd",
+	"NWLUSUSD": {
+		code:              "NWLUSUSD",
 		name:              "NWL.US/USD",
 		description:       "NEWELL BRANDS INC",
 		minStartDate:      "2017-11-02",
@@ -3723,8 +3723,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"nxtgbgbx": {
-		code:              "nxtgbgbx",
+	"NXTGBGBX": {
+		code:              "NXTGBGBX",
 		name:              "NXT.GB/GBX",
 		description:       "Next PLC",
 		minStartDate:      "2016-07-06",
@@ -3732,8 +3732,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"nzdcad": {
-		code:              "nzdcad",
+	"NZDCAD": {
+		code:              "NZDCAD",
 		name:              "NZD/CAD",
 		description:       "New Zealand Dollar vs Canadian Dollar",
 		minStartDate:      "2006-01-01",
@@ -3741,8 +3741,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2002-01-01",
 		group:             "FX_CROSSES",
 	},
-	"nzdchf": {
-		code:              "nzdchf",
+	"NZDCHF": {
+		code:              "NZDCHF",
 		name:              "NZD/CHF",
 		description:       "New Zealand Dollar vs Swiss Franc",
 		minStartDate:      "2006-01-01",
@@ -3750,8 +3750,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_CROSSES",
 	},
-	"nzdjpy": {
-		code:              "nzdjpy",
+	"NZDJPY": {
+		code:              "NZDJPY",
 		name:              "NZD/JPY",
 		description:       "New Zealand Dollar vs Japanese Yen",
 		minStartDate:      "2006-01-01",
@@ -3759,8 +3759,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_CROSSES",
 	},
-	"nzdusd": {
-		code:              "nzdusd",
+	"NZDUSD": {
+		code:              "NZDUSD",
 		name:              "NZD/USD",
 		description:       "New Zealand Dollar vs US Dollar",
 		minStartDate:      "2003-08-03",
@@ -3768,8 +3768,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_MAJORS",
 	},
-	"nzymbdkdkk": {
-		code:              "nzymbdkdkk",
+	"NZYMBDKDKK": {
+		code:              "NZYMBDKDKK",
 		name:              "NZYMB.DK/DKK",
 		description:       "Novozymes A/S",
 		minStartDate:      "2016-11-07",
@@ -3777,8 +3777,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"ojuicecmdusx": {
-		code:              "ojuicecmdusx",
+	"OJUICECMDUSX": {
+		code:              "OJUICECMDUSX",
 		name:              "OJUICE.CMD/USX",
 		description:       "Orange Juice",
 		minStartDate:      "2017-10-20",
@@ -3786,8 +3786,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "CMD_AGRICULTURAL",
 	},
-	"okeususd": {
-		code:              "okeususd",
+	"OKEUSUSD": {
+		code:              "OKEUSUSD",
 		name:              "OKE.US/USD",
 		description:       "ONEOK INC",
 		minStartDate:      "2018-02-01",
@@ -3795,8 +3795,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"omcususd": {
-		code:              "omcususd",
+	"OMCUSUSD": {
+		code:              "OMCUSUSD",
 		name:              "OMC.US/USD",
 		description:       "OMNICOM GROUP",
 		minStartDate:      "2018-02-01",
@@ -3804,8 +3804,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"orfreur": {
-		code:              "orfreur",
+	"ORFREUR": {
+		code:              "ORFREUR",
 		name:              "OR.FR/EUR",
 		description:       "L'Oreal SA",
 		minStartDate:      "2016-08-05",
@@ -3813,8 +3813,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"orafreur": {
-		code:              "orafreur",
+	"ORAFREUR": {
+		code:              "ORAFREUR",
 		name:              "ORA.FR/EUR",
 		description:       "Orange SA",
 		minStartDate:      "2016-08-05",
@@ -3822,8 +3822,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2013-01-01",
 		group:             "France",
 	},
-	"orclususd": {
-		code:              "orclususd",
+	"ORCLUSUSD": {
+		code:              "ORCLUSUSD",
 		name:              "ORCL.US/USD",
 		description:       "ORACLE CORP",
 		minStartDate:      "2017-11-02",
@@ -3831,8 +3831,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"orknonok": {
-		code:              "orknonok",
+	"ORKNONOK": {
+		code:              "ORKNONOK",
 		name:              "ORK.NO/NOK",
 		description:       "Orkla ASA",
 		minStartDate:      "2016-11-14",
@@ -3840,8 +3840,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Norway",
 	},
-	"orlyususd": {
-		code:              "orlyususd",
+	"ORLYUSUSD": {
+		code:              "ORLYUSUSD",
 		name:              "ORLY.US/USD",
 		description:       "O'REILLY AUTOMOTIVE INC",
 		minStartDate:      "2017-11-02",
@@ -3849,8 +3849,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ote1vfieur": {
-		code:              "ote1vfieur",
+	"OTE1VFIEUR": {
+		code:              "OTE1VFIEUR",
 		name:              "OTE1V.FI/EUR",
 		description:       "Outotec OYJ",
 		minStartDate:      "2016-11-03",
@@ -3858,8 +3858,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Finland",
 	},
-	"out1vfieur": {
-		code:              "out1vfieur",
+	"OUT1VFIEUR": {
+		code:              "OUT1VFIEUR",
 		name:              "OUT1V.FI/EUR",
 		description:       "Outokumpu OYJ",
 		minStartDate:      "2016-11-03",
@@ -3867,8 +3867,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Finland",
 	},
-	"oxyususd": {
-		code:              "oxyususd",
+	"OXYUSUSD": {
+		code:              "OXYUSUSD",
 		name:              "OXY.US/USD",
 		description:       "OCCIDENTAL PETROLEUM CORP",
 		minStartDate:      "2017-05-11",
@@ -3876,8 +3876,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pah3deeur": {
-		code:              "pah3deeur",
+	"PAH3DEEUR": {
+		code:              "PAH3DEEUR",
 		name:              "PAH3.DE/EUR",
 		description:       "Porsche Automobil Holding SE",
 		minStartDate:      "2015-04-21",
@@ -3885,8 +3885,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"payxususd": {
-		code:              "payxususd",
+	"PAYXUSUSD": {
+		code:              "PAYXUSUSD",
 		name:              "PAYX.US/USD",
 		description:       "PAYCHEX INC",
 		minStartDate:      "2018-02-01",
@@ -3894,8 +3894,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"pbrususd": {
-		code:              "pbrususd",
+	"PBRUSUSD": {
+		code:              "PBRUSUSD",
 		name:              "PBR.US/USD",
 		description:       "Petroleo Brasileiro S.A.",
 		minStartDate:      "2017-01-26",
@@ -3903,8 +3903,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pcarususd": {
-		code:              "pcarususd",
+	"PCARUSUSD": {
+		code:              "PCARUSUSD",
 		name:              "PCAR.US/USD",
 		description:       "PACCAR INC",
 		minStartDate:      "2018-02-01",
@@ -3912,8 +3912,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"pcgususd": {
-		code:              "pcgususd",
+	"PCGUSUSD": {
+		code:              "PCGUSUSD",
 		name:              "PCG.US/USD",
 		description:       "P G &amp; E CORP",
 		minStartDate:      "2017-11-02",
@@ -3921,8 +3921,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pclnususd": {
-		code:              "pclnususd",
+	"PCLNUSUSD": {
+		code:              "PCLNUSUSD",
 		name:              "PCLN.US/USD",
 		description:       "PRICELINE GROUP INC/THE",
 		minStartDate:      "2017-01-19",
@@ -3930,8 +3930,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pepususd": {
-		code:              "pepususd",
+	"PEPUSUSD": {
+		code:              "PEPUSUSD",
 		name:              "PEP.US/USD",
 		description:       "PEPSICO INC",
 		minStartDate:      "2017-11-02",
@@ -3939,8 +3939,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pfcgbgbx": {
-		code:              "pfcgbgbx",
+	"PFCGBGBX": {
+		code:              "PFCGBGBX",
 		name:              "PFC.GB/GBX",
 		description:       "Petrofac Ltd",
 		minStartDate:      "2016-07-08",
@@ -3948,8 +3948,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"pfeususd": {
-		code:              "pfeususd",
+	"PFEUSUSD": {
+		code:              "PFEUSUSD",
 		name:              "PFE.US/USD",
 		description:       "PFIZER INC",
 		minStartDate:      "2017-01-19",
@@ -3957,8 +3957,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pgususd": {
-		code:              "pgususd",
+	"PGUSUSD": {
+		code:              "PGUSUSD",
 		name:              "PG.US/USD",
 		description:       "PROCTER &amp; GAMBLE CO/THE",
 		minStartDate:      "2017-01-19",
@@ -3966,8 +3966,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pgrususd": {
-		code:              "pgrususd",
+	"PGRUSUSD": {
+		code:              "PGRUSUSD",
 		name:              "PGR.US/USD",
 		description:       "PROGRESSIVE CORP",
 		minStartDate:      "2018-02-01",
@@ -3975,8 +3975,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"phususd": {
-		code:              "phususd",
+	"PHUSUSD": {
+		code:              "PHUSUSD",
 		name:              "PH.US/USD",
 		description:       "PARKER HANNIFIN CORP",
 		minStartDate:      "2018-02-01",
@@ -3984,8 +3984,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"phianleur": {
-		code:              "phianleur",
+	"PHIANLEUR": {
+		code:              "PHIANLEUR",
 		name:              "PHIA.NL/EUR",
 		description:       "Koninklijke Philips NV",
 		minStartDate:      "2016-11-14",
@@ -3993,8 +3993,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"plnidxpln": {
-		code:              "plnidxpln",
+	"PLNIDXPLN": {
+		code:              "PLNIDXPLN",
 		name:              "PLN.IDX/PLN",
 		description:       "Poland 20 Index",
 		minStartDate:      "2017-12-01",
@@ -4002,8 +4002,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "IDX_EUROPE",
 	},
-	"pmususd": {
-		code:              "pmususd",
+	"PMUSUSD": {
+		code:              "PMUSUSD",
 		name:              "PM.US/USD",
 		description:       "PHILIP MORRIS INTERNATIONAL",
 		minStartDate:      "2017-11-02",
@@ -4011,8 +4011,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pncususd": {
-		code:              "pncususd",
+	"PNCUSUSD": {
+		code:              "PNCUSUSD",
 		name:              "PNC.US/USD",
 		description:       "PNC FINANCIAL SERVICES GROUP",
 		minStartDate:      "2017-11-02",
@@ -4020,8 +4020,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pndoradkdkk": {
-		code:              "pndoradkdkk",
+	"PNDORADKDKK": {
+		code:              "PNDORADKDKK",
 		name:              "PNDORA.DK/DKK",
 		description:       "Pandora A/S",
 		minStartDate:      "2016-11-08",
@@ -4029,8 +4029,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"ppgususd": {
-		code:              "ppgususd",
+	"PPGUSUSD": {
+		code:              "PPGUSUSD",
 		name:              "PPG.US/USD",
 		description:       "PPG INDUSTRIES INC",
 		minStartDate:      "2018-02-02",
@@ -4038,8 +4038,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"prugbgbx": {
-		code:              "prugbgbx",
+	"PRUGBGBX": {
+		code:              "PRUGBGBX",
 		name:              "PRU.GB/GBX",
 		description:       "Prudential PLC",
 		minStartDate:      "2016-07-07",
@@ -4047,8 +4047,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"pruususd": {
-		code:              "pruususd",
+	"PRUUSUSD": {
+		code:              "PRUUSUSD",
 		name:              "PRU.US/USD",
 		description:       "PRUDENTIAL FINANCIAL INC",
 		minStartDate:      "2018-02-01",
@@ -4056,8 +4056,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"psaususd": {
-		code:              "psaususd",
+	"PSAUSUSD": {
+		code:              "PSAUSUSD",
 		name:              "PSA.US/USD",
 		description:       "PUBLIC STORAGE",
 		minStartDate:      "2018-02-01",
@@ -4065,8 +4065,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"psmdeeur": {
-		code:              "psmdeeur",
+	"PSMDEEUR": {
+		code:              "PSMDEEUR",
 		name:              "PSM.DE/EUR",
 		description:       "ProSiebenSat.1 Media AG",
 		minStartDate:      "2015-04-20",
@@ -4074,8 +4074,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2013-01-01",
 		group:             "Germany",
 	},
-	"psngbgbx": {
-		code:              "psngbgbx",
+	"PSNGBGBX": {
+		code:              "PSNGBGBX",
 		name:              "PSN.GB/GBX",
 		description:       "Persimmon PLC",
 		minStartDate:      "2016-07-08",
@@ -4083,8 +4083,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"psongbgbx": {
-		code:              "psongbgbx",
+	"PSONGBGBX": {
+		code:              "PSONGBGBX",
 		name:              "PSON.GB/GBX",
 		description:       "Pearson PLC",
 		minStartDate:      "2016-07-07",
@@ -4092,8 +4092,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"psxususd": {
-		code:              "psxususd",
+	"PSXUSUSD": {
+		code:              "PSXUSUSD",
 		name:              "PSX.US/USD",
 		description:       "PHILLIPS 66",
 		minStartDate:      "2018-02-01",
@@ -4101,8 +4101,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"pubfreur": {
-		code:              "pubfreur",
+	"PUBFREUR": {
+		code:              "PUBFREUR",
 		name:              "PUB.FR/EUR",
 		description:       "Publicis Groupe SA",
 		minStartDate:      "2016-08-05",
@@ -4110,8 +4110,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"pxdususd": {
-		code:              "pxdususd",
+	"PXDUSUSD": {
+		code:              "PXDUSUSD",
 		name:              "PXD.US/USD",
 		description:       "PIONEER NATURAL RESOURCES CO",
 		minStartDate:      "2017-11-02",
@@ -4119,8 +4119,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"pyplususd": {
-		code:              "pyplususd",
+	"PYPLUSUSD": {
+		code:              "PYPLUSUSD",
 		name:              "PYPL.US/USD",
 		description:       "PAYPAL HOLDINGS INC",
 		minStartDate:      "2017-11-02",
@@ -4128,8 +4128,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"qcomususd": {
-		code:              "qcomususd",
+	"QCOMUSUSD": {
+		code:              "QCOMUSUSD",
 		name:              "QCOM.US/USD",
 		description:       "QUALCOMM INC",
 		minStartDate:      "2017-11-02",
@@ -4137,8 +4137,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"qqqususd": {
-		code:              "qqqususd",
+	"QQQUSUSD": {
+		code:              "QQQUSUSD",
 		name:              "QQQ.US/USD",
 		description:       "PowerShares QQQ ETF",
 		minStartDate:      "2017-01-23",
@@ -4146,8 +4146,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"randnleur": {
-		code:              "randnleur",
+	"RANDNLEUR": {
+		code:              "RANDNLEUR",
 		name:              "RAND.NL/EUR",
 		description:       "Randstad Holding NV",
 		minStartDate:      "2016-11-14",
@@ -4155,8 +4155,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"rbgbgbx": {
-		code:              "rbgbgbx",
+	"RBGBGBX": {
+		code:              "RBGBGBX",
 		name:              "RB.GB/GBX",
 		description:       "Reckitt Benckiser Group PLC",
 		minStartDate:      "2016-07-06",
@@ -4164,8 +4164,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"rbiateur": {
-		code:              "rbiateur",
+	"RBIATEUR": {
+		code:              "RBIATEUR",
 		name:              "RBI.AT/EUR",
 		description:       "Raiffeisen Bank International AG",
 		minStartDate:      "2016-11-02",
@@ -4173,8 +4173,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Austria",
 	},
-	"rbsgbgbx": {
-		code:              "rbsgbgbx",
+	"RBSGBGBX": {
+		code:              "RBSGBGBX",
 		name:              "RBS.GB/GBX",
 		description:       "Royal Bank of Scotland Group PLC",
 		minStartDate:      "2016-07-08",
@@ -4182,8 +4182,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"rdsanleur": {
-		code:              "rdsanleur",
+	"RDSANLEUR": {
+		code:              "RDSANLEUR",
 		name:              "RDSA.NL/EUR",
 		description:       "Royal Dutch Shell PLC",
 		minStartDate:      "2016-11-14",
@@ -4191,8 +4191,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"rdsbgbgbx": {
-		code:              "rdsbgbgbx",
+	"RDSBGBGBX": {
+		code:              "RDSBGBGBX",
 		name:              "RDSB.GB/GBX",
 		description:       "Royal Dutch Shell PLC",
 		minStartDate:      "2016-11-01",
@@ -4200,8 +4200,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"reeeseur": {
-		code:              "reeeseur",
+	"REEESEUR": {
+		code:              "REEESEUR",
 		name:              "REE.ES/EUR",
 		description:       "Red Electrica Corp SA",
 		minStartDate:      "2016-11-14",
@@ -4209,8 +4209,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"regnususd": {
-		code:              "regnususd",
+	"REGNUSUSD": {
+		code:              "REGNUSUSD",
 		name:              "REGN.US/USD",
 		description:       "REGENERON PHARMACEUTICALS",
 		minStartDate:      "2017-11-02",
@@ -4218,8 +4218,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"relgbgbx": {
-		code:              "relgbgbx",
+	"RELGBGBX": {
+		code:              "RELGBGBX",
 		name:              "REL.GB/GBX",
 		description:       "Reed Elsevier PLC",
 		minStartDate:      "2016-07-08",
@@ -4227,8 +4227,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"rennleur": {
-		code:              "rennleur",
+	"RENNLEUR": {
+		code:              "RENNLEUR",
 		name:              "REN.NL/EUR",
 		description:       "RELX NV",
 		minStartDate:      "2016-11-14",
@@ -4236,8 +4236,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2015-01-01",
 		group:             "Netherlands",
 	},
-	"repeseur": {
-		code:              "repeseur",
+	"REPESEUR": {
+		code:              "REPESEUR",
 		name:              "REP.ES/EUR",
 		description:       "Repsol SA",
 		minStartDate:      "2016-11-14",
@@ -4245,8 +4245,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"rfususd": {
-		code:              "rfususd",
+	"RFUSUSD": {
+		code:              "RFUSUSD",
 		name:              "RF.US/USD",
 		description:       "REGIONS FINANCIAL CORP",
 		minStartDate:      "2018-02-01",
@@ -4254,8 +4254,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"rhtususd": {
-		code:              "rhtususd",
+	"RHTUSUSD": {
+		code:              "RHTUSUSD",
 		name:              "RHT.US/USD",
 		description:       "RED HAT INC",
 		minStartDate:      "2018-02-01",
@@ -4263,8 +4263,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"rifreur": {
-		code:              "rifreur",
+	"RIFREUR": {
+		code:              "RIFREUR",
 		name:              "RI.FR/EUR",
 		description:       "Pernod-Ricard SA",
 		minStartDate:      "2016-08-05",
@@ -4272,8 +4272,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"riogbgbx": {
-		code:              "riogbgbx",
+	"RIOGBGBX": {
+		code:              "RIOGBGBX",
 		name:              "RIO.GB/GBX",
 		description:       "Rio Tinto PLC",
 		minStartDate:      "2016-07-06",
@@ -4281,8 +4281,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"rmggbgbx": {
-		code:              "rmggbgbx",
+	"RMGGBGBX": {
+		code:              "RMGGBGBX",
 		name:              "RMG.GB/GBX",
 		description:       "Royal Mail PLC",
 		minStartDate:      "2016-07-07",
@@ -4290,8 +4290,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2013-01-01",
 		group:             "UK",
 	},
-	"rnofreur": {
-		code:              "rnofreur",
+	"RNOFREUR": {
+		code:              "RNOFREUR",
 		name:              "RNO.FR/EUR",
 		description:       "Renault SA",
 		minStartDate:      "2016-08-05",
@@ -4299,8 +4299,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"rostususd": {
-		code:              "rostususd",
+	"ROSTUSUSD": {
+		code:              "ROSTUSUSD",
 		name:              "ROST.US/USD",
 		description:       "ROSS STORES INC",
 		minStartDate:      "2018-02-01",
@@ -4308,8 +4308,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"rrgbgbx": {
-		code:              "rrgbgbx",
+	"RRGBGBX": {
+		code:              "RRGBGBX",
 		name:              "RR.GB/GBX",
 		description:       "Rolls-Royce Holdings PLC",
 		minStartDate:      "2016-07-08",
@@ -4317,8 +4317,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"rrcususd": {
-		code:              "rrcususd",
+	"RRCUSUSD": {
+		code:              "RRCUSUSD",
 		name:              "RRC.US/USD",
 		description:       "RANGE RESOURCES CORP",
 		minStartDate:      "2018-02-01",
@@ -4326,8 +4326,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"rrsgbgbx": {
-		code:              "rrsgbgbx",
+	"RRSGBGBX": {
+		code:              "RRSGBGBX",
 		name:              "RRS.GB/GBX",
 		description:       "Randgold Resources Ltd",
 		minStartDate:      "2016-07-06",
@@ -4335,8 +4335,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"rsagbgbx": {
-		code:              "rsagbgbx",
+	"RSAGBGBX": {
+		code:              "RSAGBGBX",
 		name:              "RSA.GB/GBX",
 		description:       "RSA Insurance Group PLC",
 		minStartDate:      "2016-07-07",
@@ -4344,8 +4344,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"rtnususd": {
-		code:              "rtnususd",
+	"RTNUSUSD": {
+		code:              "RTNUSUSD",
 		name:              "RTN.US/USD",
 		description:       "RAYTHEON COMPANY",
 		minStartDate:      "2018-02-01",
@@ -4353,8 +4353,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"rwedeeur": {
-		code:              "rwedeeur",
+	"RWEDEEUR": {
+		code:              "RWEDEEUR",
 		name:              "RWE.DE/EUR",
 		description:       "RWE AG",
 		minStartDate:      "2015-04-16",
@@ -4362,8 +4362,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"saffreur": {
-		code:              "saffreur",
+	"SAFFREUR": {
+		code:              "SAFFREUR",
 		name:              "SAF.FR/EUR",
 		description:       "Safran SA",
 		minStartDate:      "2016-08-05",
@@ -4371,8 +4371,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"saneseur": {
-		code:              "saneseur",
+	"SANESEUR": {
+		code:              "SANESEUR",
 		name:              "SAN.ES/EUR",
 		description:       "Banco Santander SA",
 		minStartDate:      "2016-11-14",
@@ -4380,8 +4380,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"sanfreur": {
-		code:              "sanfreur",
+	"SANFREUR": {
+		code:              "SANFREUR",
 		name:              "SAN.FR/EUR",
 		description:       "Sanofi",
 		minStartDate:      "2016-08-05",
@@ -4389,8 +4389,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"sandsesek": {
-		code:              "sandsesek",
+	"SANDSESEK": {
+		code:              "SANDSESEK",
 		name:              "SAND.SE/SEK",
 		description:       "Sandvik AB",
 		minStartDate:      "2016-11-08",
@@ -4398,8 +4398,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"sapdeeur": {
-		code:              "sapdeeur",
+	"SAPDEEUR": {
+		code:              "SAPDEEUR",
 		name:              "SAP.DE/EUR",
 		description:       "SAP AG",
 		minStartDate:      "2015-04-16",
@@ -4407,8 +4407,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"sbrygbgbx": {
-		code:              "sbrygbgbx",
+	"SBRYGBGBX": {
+		code:              "SBRYGBGBX",
 		name:              "SBRY.GB/GBX",
 		description:       "J Sainsbury PLC",
 		minStartDate:      "2016-07-07",
@@ -4416,8 +4416,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"sbuxususd": {
-		code:              "sbuxususd",
+	"SBUXUSUSD": {
+		code:              "SBUXUSUSD",
 		name:              "SBUX.US/USD",
 		description:       "STARBUCKS CORP",
 		minStartDate:      "2017-11-02",
@@ -4425,8 +4425,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"scabsesek": {
-		code:              "scabsesek",
+	"SCABSESEK": {
+		code:              "SCABSESEK",
 		name:              "SCAB.SE/SEK",
 		description:       "Svenska Cellulosa AB",
 		minStartDate:      "2016-11-07",
@@ -4434,8 +4434,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"schwususd": {
-		code:              "schwususd",
+	"SCHWUSUSD": {
+		code:              "SCHWUSUSD",
 		name:              "SCHW.US/USD",
 		description:       "SCHWAB (CHARLES) CORP",
 		minStartDate:      "2017-11-02",
@@ -4443,8 +4443,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"sdfdeeur": {
-		code:              "sdfdeeur",
+	"SDFDEEUR": {
+		code:              "SDFDEEUR",
 		name:              "SDF.DE/EUR",
 		description:       "K+S AG",
 		minStartDate:      "2015-04-15",
@@ -4452,8 +4452,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"sebasesek": {
-		code:              "sebasesek",
+	"SEBASESEK": {
+		code:              "SEBASESEK",
 		name:              "SEBA.SE/SEK",
 		description:       "Skandinaviska Enskilda Banken AB",
 		minStartDate:      "2016-11-14",
@@ -4461,8 +4461,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"secubsesek": {
-		code:              "secubsesek",
+	"SECUBSESEK": {
+		code:              "SECUBSESEK",
 		name:              "SECUB.SE/SEK",
 		description:       "Securitas AB",
 		minStartDate:      "2016-11-07",
@@ -4470,8 +4470,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"sgdidxsgd": {
-		code:              "sgdidxsgd",
+	"SGDIDXSGD": {
+		code:              "SGDIDXSGD",
 		name:              "SGD.IDX/SGD",
 		description:       "Singapore Blue Chip Cash Index",
 		minStartDate:      "2017-12-01",
@@ -4479,8 +4479,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "IDX_ASIA",
 	},
-	"sgdjpy": {
-		code:              "sgdjpy",
+	"SGDJPY": {
+		code:              "SGDJPY",
 		name:              "SGD/JPY",
 		description:       "Singapore Dollar vs Japanese Yen",
 		minStartDate:      "2007-03-13",
@@ -4488,8 +4488,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_CROSSES",
 	},
-	"sgegbgbx": {
-		code:              "sgegbgbx",
+	"SGEGBGBX": {
+		code:              "SGEGBGBX",
 		name:              "SGE.GB/GBX",
 		description:       "Sage Group PLC/The",
 		minStartDate:      "2016-07-08",
@@ -4497,8 +4497,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"sgofreur": {
-		code:              "sgofreur",
+	"SGOFREUR": {
+		code:              "SGOFREUR",
 		name:              "SGO.FR/EUR",
 		description:       "Cie de St-Gobain",
 		minStartDate:      "2016-10-31",
@@ -4506,8 +4506,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"shpgbgbx": {
-		code:              "shpgbgbx",
+	"SHPGBGBX": {
+		code:              "SHPGBGBX",
 		name:              "SHP.GB/GBX",
 		description:       "Shire PLC",
 		minStartDate:      "2016-07-06",
@@ -4515,8 +4515,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"shwususd": {
-		code:              "shwususd",
+	"SHWUSUSD": {
+		code:              "SHWUSUSD",
 		name:              "SHW.US/USD",
 		description:       "SHERWIN-WILLIAMS COMPANY",
 		minStartDate:      "2018-02-01",
@@ -4524,8 +4524,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"siedeeur": {
-		code:              "siedeeur",
+	"SIEDEEUR": {
+		code:              "SIEDEEUR",
 		name:              "SIE.DE/EUR",
 		description:       "Siemens AG",
 		minStartDate:      "2015-04-20",
@@ -4533,8 +4533,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"sjmususd": {
-		code:              "sjmususd",
+	"SJMUSUSD": {
+		code:              "SJMUSUSD",
 		name:              "SJM.US/USD",
 		description:       "JM SMUCKER COMPANY",
 		minStartDate:      "2018-02-01",
@@ -4542,8 +4542,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"skabsesek": {
-		code:              "skabsesek",
+	"SKABSESEK": {
+		code:              "SKABSESEK",
 		name:              "SKAB.SE/SEK",
 		description:       "Skanska AB",
 		minStartDate:      "2016-11-07",
@@ -4551,8 +4551,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"skfbsesek": {
-		code:              "skfbsesek",
+	"SKFBSESEK": {
+		code:              "SKFBSESEK",
 		name:              "SKFB.SE/SEK",
 		description:       "SKF AB",
 		minStartDate:      "2016-11-07",
@@ -4560,8 +4560,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"skygbgbx": {
-		code:              "skygbgbx",
+	"SKYGBGBX": {
+		code:              "SKYGBGBX",
 		name:              "SKY.GB/GBX",
 		description:       "Sky Plc",
 		minStartDate:      "2016-07-07",
@@ -4569,8 +4569,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2014-01-01",
 		group:             "UK",
 	},
-	"slvususd": {
-		code:              "slvususd",
+	"SLVUSUSD": {
+		code:              "SLVUSUSD",
 		name:              "SLV.US/USD",
 		description:       "iShares Silver Trust ETF",
 		minStartDate:      "2018-02-01",
@@ -4578,8 +4578,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"smingbgbx": {
-		code:              "smingbgbx",
+	"SMINGBGBX": {
+		code:              "SMINGBGBX",
 		name:              "SMIN.GB/GBX",
 		description:       "Smiths Group PLC",
 		minStartDate:      "2016-07-08",
@@ -4587,8 +4587,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"sngbgbx": {
-		code:              "sngbgbx",
+	"SNGBGBX": {
+		code:              "SNGBGBX",
 		name:              "SN.GB/GBX",
 		description:       "Smith &amp; Nephew PLC",
 		minStartDate:      "2016-07-08",
@@ -4596,8 +4596,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"snapususd": {
-		code:              "snapususd",
+	"SNAPUSUSD": {
+		code:              "SNAPUSUSD",
 		name:              "SNAP.US/USD",
 		description:       "SNAP Inc",
 		minStartDate:      "2017-11-02",
@@ -4605,8 +4605,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"soususd": {
-		code:              "soususd",
+	"SOUSUSD": {
+		code:              "SOUSUSD",
 		name:              "SO.US/USD",
 		description:       "SOUTHERN CO/THE",
 		minStartDate:      "2017-11-02",
@@ -4614,8 +4614,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"solbbeeur": {
-		code:              "solbbeeur",
+	"SOLBBEEUR": {
+		code:              "SOLBBEEUR",
 		name:              "SOLB.BE/EUR",
 		description:       "Solvay SA",
 		minStartDate:      "2016-11-07",
@@ -4623,8 +4623,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Belgium",
 	},
-	"spgususd": {
-		code:              "spgususd",
+	"SPGUSUSD": {
+		code:              "SPGUSUSD",
 		name:              "SPG.US/USD",
 		description:       "SIMON PROPERTY GROUP INC",
 		minStartDate:      "2017-11-02",
@@ -4632,8 +4632,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"spyususd": {
-		code:              "spyususd",
+	"SPYUSUSD": {
+		code:              "SPYUSUSD",
 		name:              "SPY.US/USD",
 		description:       "SPDR S&amp;P 500 ETF",
 		minStartDate:      "2017-02-16",
@@ -4641,8 +4641,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"ssegbgbx": {
-		code:              "ssegbgbx",
+	"SSEGBGBX": {
+		code:              "SSEGBGBX",
 		name:              "SSE.GB/GBX",
 		description:       "SSE PLC",
 		minStartDate:      "2016-07-08",
@@ -4650,8 +4650,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"stangbgbx": {
-		code:              "stangbgbx",
+	"STANGBGBX": {
+		code:              "STANGBGBX",
 		name:              "STAN.GB/GBX",
 		description:       "Standard Chartered PLC",
 		minStartDate:      "2016-07-07",
@@ -4659,8 +4659,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"stervfieur": {
-		code:              "stervfieur",
+	"STERVFIEUR": {
+		code:              "STERVFIEUR",
 		name:              "STERV.FI/EUR",
 		description:       "Stora Enso OYJ",
 		minStartDate:      "2016-11-03",
@@ -4668,8 +4668,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Finland",
 	},
-	"stiususd": {
-		code:              "stiususd",
+	"STIUSUSD": {
+		code:              "STIUSUSD",
 		name:              "STI.US/USD",
 		description:       "SUNTRUST BANKS INC",
 		minStartDate:      "2018-02-01",
@@ -4677,8 +4677,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"stlnonok": {
-		code:              "stlnonok",
+	"STLNONOK": {
+		code:              "STLNONOK",
 		name:              "STL.NO/NOK",
 		description:       "Statoil ASA",
 		minStartDate:      "2016-11-14",
@@ -4686,8 +4686,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Norway",
 	},
-	"sttususd": {
-		code:              "sttususd",
+	"STTUSUSD": {
+		code:              "STTUSUSD",
 		name:              "STT.US/USD",
 		description:       "STATE STREET CORP",
 		minStartDate:      "2018-02-01",
@@ -4695,8 +4695,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"stzususd": {
-		code:              "stzususd",
+	"STZUSUSD": {
+		code:              "STZUSUSD",
 		name:              "STZ.US/USD",
 		description:       "CONSTELLATION BRANDS INC-A",
 		minStartDate:      "2018-02-01",
@@ -4704,8 +4704,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"sufreur": {
-		code:              "sufreur",
+	"SUFREUR": {
+		code:              "SUFREUR",
 		name:              "SU.FR/EUR",
 		description:       "Schneider Electric SA",
 		minStartDate:      "2016-08-05",
@@ -4713,8 +4713,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"sugarcmdusd": {
-		code:              "sugarcmdusd",
+	"SUGARCMDUSD": {
+		code:              "SUGARCMDUSD",
 		name:              "SUGAR.CMD/USD",
 		description:       "London Sugar No.5",
 		minStartDate:      "2017-10-02",
@@ -4722,8 +4722,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "CMD_AGRICULTURAL",
 	},
-	"svtgbgbx": {
-		code:              "svtgbgbx",
+	"SVTGBGBX": {
+		code:              "SVTGBGBX",
 		name:              "SVT.GB/GBX",
 		description:       "Severn Trent PLC",
 		minStartDate:      "2016-07-06",
@@ -4731,8 +4731,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"swedasesek": {
-		code:              "swedasesek",
+	"SWEDASESEK": {
+		code:              "SWEDASESEK",
 		name:              "SWEDA.SE/SEK",
 		description:       "Swedbank AB",
 		minStartDate:      "2016-11-07",
@@ -4740,8 +4740,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"swkususd": {
-		code:              "swkususd",
+	"SWKUSUSD": {
+		code:              "SWKUSUSD",
 		name:              "SWK.US/USD",
 		description:       "STANLEY BLACK &amp; DECKER INC",
 		minStartDate:      "2018-02-01",
@@ -4749,8 +4749,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"swmasesek": {
-		code:              "swmasesek",
+	"SWMASESEK": {
+		code:              "SWMASESEK",
 		name:              "SWMA.SE/SEK",
 		description:       "Swedish Match AB",
 		minStartDate:      "2016-11-07",
@@ -4758,8 +4758,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"sykususd": {
-		code:              "sykususd",
+	"SYKUSUSD": {
+		code:              "SYKUSUSD",
 		name:              "SYK.US/USD",
 		description:       "STRYKER CORP",
 		minStartDate:      "2018-02-01",
@@ -4767,8 +4767,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"symcususd": {
-		code:              "symcususd",
+	"SYMCUSUSD": {
+		code:              "SYMCUSUSD",
 		name:              "SYMC.US/USD",
 		description:       "SYMANTEC CORP",
 		minStartDate:      "2018-02-01",
@@ -4776,8 +4776,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"syyususd": {
-		code:              "syyususd",
+	"SYYUSUSD": {
+		code:              "SYYUSUSD",
 		name:              "SYY.US/USD",
 		description:       "SYSCO CORP",
 		minStartDate:      "2018-02-01",
@@ -4785,8 +4785,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"tususd": {
-		code:              "tususd",
+	"TUSUSD": {
+		code:              "TUSUSD",
 		name:              "T.US/USD",
 		description:       "AT&amp;T INC",
 		minStartDate:      "2017-01-19",
@@ -4794,8 +4794,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"tapususd": {
-		code:              "tapususd",
+	"TAPUSUSD": {
+		code:              "TAPUSUSD",
 		name:              "TAP.US/USD",
 		description:       "MOLSON COORS BREWING CO -B",
 		minStartDate:      "2018-02-01",
@@ -4803,8 +4803,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"tategbgbx": {
-		code:              "tategbgbx",
+	"TATEGBGBX": {
+		code:              "TATEGBGBX",
 		name:              "TATE.GB/GBX",
 		description:       "Tate &amp; Lyle PLC",
 		minStartDate:      "2016-07-08",
@@ -4812,8 +4812,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"tefeseur": {
-		code:              "tefeseur",
+	"TEFESEUR": {
+		code:              "TEFESEUR",
 		name:              "TEF.ES/EUR",
 		description:       "Telefonica SA",
 		minStartDate:      "2016-11-14",
@@ -4821,8 +4821,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Spain",
 	},
-	"telnonok": {
-		code:              "telnonok",
+	"TELNONOK": {
+		code:              "TELNONOK",
 		name:              "TEL.NO/NOK",
 		description:       "Telenor ASA",
 		minStartDate:      "2016-11-14",
@@ -4830,8 +4830,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Norway",
 	},
-	"tel2bsesek": {
-		code:              "tel2bsesek",
+	"TEL2BSESEK": {
+		code:              "TEL2BSESEK",
 		name:              "TEL2B.SE/SEK",
 		description:       "Tele2 AB",
 		minStartDate:      "2016-11-08",
@@ -4839,8 +4839,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"tevaususd": {
-		code:              "tevaususd",
+	"TEVAUSUSD": {
+		code:              "TEVAUSUSD",
 		name:              "TEVA.US/USD",
 		description:       "TEVA PHARMACEUTICAL-SP ADR",
 		minStartDate:      "2017-11-02",
@@ -4848,8 +4848,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"tgtususd": {
-		code:              "tgtususd",
+	"TGTUSUSD": {
+		code:              "TGTUSUSD",
 		name:              "TGT.US/USD",
 		description:       "TARGET CORP",
 		minStartDate:      "2017-11-02",
@@ -4857,8 +4857,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"tifususd": {
-		code:              "tifususd",
+	"TIFUSUSD": {
+		code:              "TIFUSUSD",
 		name:              "TIF.US/USD",
 		description:       "TIFFANY &amp; CO",
 		minStartDate:      "2018-02-01",
@@ -4866,8 +4866,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"tjxususd": {
-		code:              "tjxususd",
+	"TJXUSUSD": {
+		code:              "TJXUSUSD",
 		name:              "TJX.US/USD",
 		description:       "TJX COMPANIES INC",
 		minStartDate:      "2017-11-02",
@@ -4875,8 +4875,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"tkadeeur": {
-		code:              "tkadeeur",
+	"TKADEEUR": {
+		code:              "TKADEEUR",
 		name:              "TKA.DE/EUR",
 		description:       "ThyssenKrupp AG",
 		minStartDate:      "2015-04-14",
@@ -4884,8 +4884,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"tls1vfieur": {
-		code:              "tls1vfieur",
+	"TLS1VFIEUR": {
+		code:              "TLS1VFIEUR",
 		name:              "TLS1V.FI/EUR",
 		description:       "Telia Company AB",
 		minStartDate:      "2016-11-09",
@@ -4893,8 +4893,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "Finland",
 	},
-	"tlsnsesek": {
-		code:              "tlsnsesek",
+	"TLSNSESEK": {
+		code:              "TLSNSESEK",
 		name:              "TLSN.SE/SEK",
 		description:       "Telia Company AB",
 		minStartDate:      "2016-11-14",
@@ -4902,8 +4902,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "Sweden",
 	},
-	"tltususd": {
-		code:              "tltususd",
+	"TLTUSUSD": {
+		code:              "TLTUSUSD",
 		name:              "TLT.US/USD",
 		description:       "iShares 20+ Year Treasury Bond ETF",
 		minStartDate:      "2017-01-23",
@@ -4911,8 +4911,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"tlwgbgbx": {
-		code:              "tlwgbgbx",
+	"TLWGBGBX": {
+		code:              "TLWGBGBX",
 		name:              "TLW.GB/GBX",
 		description:       "Tullow Oil PLC",
 		minStartDate:      "2016-07-07",
@@ -4920,8 +4920,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"tmoususd": {
-		code:              "tmoususd",
+	"TMOUSUSD": {
+		code:              "TMOUSUSD",
 		name:              "TMO.US/USD",
 		description:       "THERMO FISHER SCIENTIFIC INC",
 		minStartDate:      "2017-11-02",
@@ -4929,8 +4929,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"tpkgbgbx": {
-		code:              "tpkgbgbx",
+	"TPKGBGBX": {
+		code:              "TPKGBGBX",
 		name:              "TPK.GB/GBX",
 		description:       "Travis Perkins PLC",
 		minStartDate:      "2016-07-08",
@@ -4938,8 +4938,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"trowususd": {
-		code:              "trowususd",
+	"TROWUSUSD": {
+		code:              "TROWUSUSD",
 		name:              "TROW.US/USD",
 		description:       "T ROWE PRICE GROUP INC",
 		minStartDate:      "2018-02-01",
@@ -4947,8 +4947,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"trvususd": {
-		code:              "trvususd",
+	"TRVUSUSD": {
+		code:              "TRVUSUSD",
 		name:              "TRV.US/USD",
 		description:       "TRAVELERS COS INC/THE",
 		minStartDate:      "2017-11-02",
@@ -4956,8 +4956,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"tryjpy": {
-		code:              "tryjpy",
+	"TRYJPY": {
+		code:              "TRYJPY",
 		name:              "TRY/JPY",
 		description:       "Turkish Lira vs Japanese Yen",
 		minStartDate:      "2010-05-09",
@@ -4965,8 +4965,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2010-01-01",
 		group:             "FX_CROSSES",
 	},
-	"tscogbgbx": {
-		code:              "tscogbgbx",
+	"TSCOGBGBX": {
+		code:              "TSCOGBGBX",
 		name:              "TSCO.GB/GBX",
 		description:       "Tesco PLC",
 		minStartDate:      "2016-07-08",
@@ -4974,8 +4974,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"tslaususd": {
-		code:              "tslaususd",
+	"TSLAUSUSD": {
+		code:              "TSLAUSUSD",
 		name:              "TSLA.US/USD",
 		description:       "TESLA MOTORS INC",
 		minStartDate:      "2017-01-19",
@@ -4983,8 +4983,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"tsmususd": {
-		code:              "tsmususd",
+	"TSMUSUSD": {
+		code:              "TSMUSUSD",
 		name:              "TSM.US/USD",
 		description:       "Taiwan Semiconductor Manufacturing Company Limited",
 		minStartDate:      "2018-02-01",
@@ -4992,8 +4992,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"tsnususd": {
-		code:              "tsnususd",
+	"TSNUSUSD": {
+		code:              "TSNUSUSD",
 		name:              "TSN.US/USD",
 		description:       "TYSON FOODS INC-CL A",
 		minStartDate:      "2018-02-01",
@@ -5001,8 +5001,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"tui1deeur": {
-		code:              "tui1deeur",
+	"TUI1DEEUR": {
+		code:              "TUI1DEEUR",
 		name:              "TUI1.DE/EUR",
 		description:       "TUI AG",
 		minStartDate:      "2015-04-15",
@@ -5010,8 +5010,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"twtrususd": {
-		code:              "twtrususd",
+	"TWTRUSUSD": {
+		code:              "TWTRUSUSD",
 		name:              "TWTR.US/USD",
 		description:       "TWITTER INC",
 		minStartDate:      "2017-11-02",
@@ -5019,8 +5019,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"txnususd": {
-		code:              "txnususd",
+	"TXNUSUSD": {
+		code:              "TXNUSUSD",
 		name:              "TXN.US/USD",
 		description:       "TEXAS INSTRUMENTS INC",
 		minStartDate:      "2017-11-02",
@@ -5028,8 +5028,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ucbbeeur": {
-		code:              "ucbbeeur",
+	"UCBBEEUR": {
+		code:              "UCBBEEUR",
 		name:              "UCB.BE/EUR",
 		description:       "UCB SA",
 		minStartDate:      "2016-11-07",
@@ -5037,8 +5037,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Belgium",
 	},
-	"ugfreur": {
-		code:              "ugfreur",
+	"UGFREUR": {
+		code:              "UGFREUR",
 		name:              "UG.FR/EUR",
 		description:       "Peugeot SA",
 		minStartDate:      "2016-08-05",
@@ -5046,8 +5046,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"ukgilttrgbp": {
-		code:              "ukgilttrgbp",
+	"UKGILTTRGBP": {
+		code:              "UKGILTTRGBP",
 		name:              "UKGILT.TR/GBP",
 		description:       "UK Long Gilt",
 		minStartDate:      "2017-12-26",
@@ -5055,8 +5055,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "BND_CFD",
 	},
-	"ultaususd": {
-		code:              "ultaususd",
+	"ULTAUSUSD": {
+		code:              "ULTAUSUSD",
 		name:              "ULTA.US/USD",
 		description:       "ULTA SALON COSMETICS &amp; FRAGR",
 		minStartDate:      "2017-11-02",
@@ -5064,8 +5064,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"ulvrgbgbx": {
-		code:              "ulvrgbgbx",
+	"ULVRGBGBX": {
+		code:              "ULVRGBGBX",
 		name:              "ULVR.GB/GBX",
 		description:       "Unilever PLC",
 		minStartDate:      "2016-07-06",
@@ -5073,8 +5073,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"umibeeur": {
-		code:              "umibeeur",
+	"UMIBEEUR": {
+		code:              "UMIBEEUR",
 		name:              "UMI.BE/EUR",
 		description:       "Umicore SA",
 		minStartDate:      "2016-11-07",
@@ -5082,8 +5082,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Belgium",
 	},
-	"unanleur": {
-		code:              "unanleur",
+	"UNANLEUR": {
+		code:              "UNANLEUR",
 		name:              "UNA.NL/EUR",
 		description:       "Unilever NV",
 		minStartDate:      "2016-11-14",
@@ -5091,8 +5091,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"unhususd": {
-		code:              "unhususd",
+	"UNHUSUSD": {
+		code:              "UNHUSUSD",
 		name:              "UNH.US/USD",
 		description:       "UNITEDHEALTH GROUP INC",
 		minStartDate:      "2017-11-02",
@@ -5100,8 +5100,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"unpususd": {
-		code:              "unpususd",
+	"UNPUSUSD": {
+		code:              "UNPUSUSD",
 		name:              "UNP.US/USD",
 		description:       "UNION PACIFIC CORP",
 		minStartDate:      "2017-11-15",
@@ -5109,8 +5109,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"upsususd": {
-		code:              "upsususd",
+	"UPSUSUSD": {
+		code:              "UPSUSUSD",
 		name:              "UPS.US/USD",
 		description:       "UNITED PARCEL SERVICE-CL B",
 		minStartDate:      "2017-11-15",
@@ -5118,8 +5118,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"usbususd": {
-		code:              "usbususd",
+	"USBUSUSD": {
+		code:              "USBUSUSD",
 		name:              "USB.US/USD",
 		description:       "US BANCORP",
 		minStartDate:      "2017-11-15",
@@ -5127,8 +5127,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"usdcad": {
-		code:              "usdcad",
+	"USDCAD": {
+		code:              "USDCAD",
 		name:              "USD/CAD",
 		description:       "US Dollar vs Canadian Dollar",
 		minStartDate:      "2003-08-03",
@@ -5136,8 +5136,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1986-01-01",
 		group:             "FX_MAJORS",
 	},
-	"usdchf": {
-		code:              "usdchf",
+	"USDCHF": {
+		code:              "USDCHF",
 		name:              "USD/CHF",
 		description:       "US Dollar vs Swiss Franc",
 		minStartDate:      "2003-05-04",
@@ -5145,8 +5145,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1986-01-01",
 		group:             "FX_MAJORS",
 	},
-	"usdcnh": {
-		code:              "usdcnh",
+	"USDCNH": {
+		code:              "USDCNH",
 		name:              "USD/CNH",
 		description:       "US Dollar vs Offshore Chinese Renminbi",
 		minStartDate:      "2012-06-27",
@@ -5154,8 +5154,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2012-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdczk": {
-		code:              "usdczk",
+	"USDCZK": {
+		code:              "USDCZK",
 		name:              "USD/CZK",
 		description:       "US Dollar vs Czech Koruna",
 		minStartDate:      "2016-01-03",
@@ -5163,8 +5163,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usddkk": {
-		code:              "usddkk",
+	"USDDKK": {
+		code:              "USDDKK",
 		name:              "USD/DKK",
 		description:       "US Dollar vs Danish Krone",
 		minStartDate:      "2003-08-04",
@@ -5172,8 +5172,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdhkd": {
-		code:              "usdhkd",
+	"USDHKD": {
+		code:              "USDHKD",
 		name:              "USD/HKD",
 		description:       "US Dollar vs Hong Kong Dollar",
 		minStartDate:      "2007-03-13",
@@ -5181,8 +5181,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1986-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdhuf": {
-		code:              "usdhuf",
+	"USDHUF": {
+		code:              "USDHUF",
 		name:              "USD/HUF",
 		description:       "US Dollar vs Hungarian Forint",
 		minStartDate:      "2007-03-13",
@@ -5190,8 +5190,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1998-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdils": {
-		code:              "usdils",
+	"USDILS": {
+		code:              "USDILS",
 		name:              "USD/ILS",
 		description:       "US Dollar vs Israeli Shekel",
 		minStartDate:      "2016-12-15",
@@ -5199,8 +5199,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdjpy": {
-		code:              "usdjpy",
+	"USDJPY": {
+		code:              "USDJPY",
 		name:              "USD/JPY",
 		description:       "US Dollar vs Japanese Yen",
 		minStartDate:      "2003-05-04",
@@ -5208,8 +5208,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1986-01-01",
 		group:             "FX_MAJORS",
 	},
-	"usdmxn": {
-		code:              "usdmxn",
+	"USDMXN": {
+		code:              "USDMXN",
 		name:              "USD/MXN",
 		description:       "US Dollar vs Mexican Peso",
 		minStartDate:      "2007-03-13",
@@ -5217,8 +5217,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1995-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdnok": {
-		code:              "usdnok",
+	"USDNOK": {
+		code:              "USDNOK",
 		name:              "USD/NOK",
 		description:       "US Dollar vs Norwegian Krone",
 		minStartDate:      "2003-08-04",
@@ -5226,8 +5226,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdpln": {
-		code:              "usdpln",
+	"USDPLN": {
+		code:              "USDPLN",
 		name:              "USD/PLN",
 		description:       "US Dollar vs Polish Zloty",
 		minStartDate:      "2007-03-13",
@@ -5235,8 +5235,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdron": {
-		code:              "usdron",
+	"USDRON": {
+		code:              "USDRON",
 		name:              "USD/RON",
 		description:       "US Dollar vs Romanian Leu",
 		minStartDate:      "2016-12-18",
@@ -5244,8 +5244,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2016-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdrub": {
-		code:              "usdrub",
+	"USDRUB": {
+		code:              "USDRUB",
 		name:              "USD/RUB",
 		description:       "US Dollar vs Russian Ruble",
 		minStartDate:      "2007-03-13",
@@ -5253,8 +5253,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1999-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdsek": {
-		code:              "usdsek",
+	"USDSEK": {
+		code:              "USDSEK",
 		name:              "USD/SEK",
 		description:       "US Dollar vs Swedish Krona",
 		minStartDate:      "2003-08-04",
@@ -5262,8 +5262,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1991-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdsgd": {
-		code:              "usdsgd",
+	"USDSGD": {
+		code:              "USDSGD",
 		name:              "USD/SGD",
 		description:       "US Dollar vs Singapore Dollar",
 		minStartDate:      "2004-11-16",
@@ -5271,8 +5271,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdthb": {
-		code:              "usdthb",
+	"USDTHB": {
+		code:              "USDTHB",
 		name:              "USD/THB",
 		description:       "US Dollar vs Thai Baht",
 		minStartDate:      "2017-02-13",
@@ -5280,8 +5280,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdtry": {
-		code:              "usdtry",
+	"USDTRY": {
+		code:              "USDTRY",
 		name:              "USD/TRY",
 		description:       "US Dollar vs Turkish Lira",
 		minStartDate:      "2007-03-13",
@@ -5289,8 +5289,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1998-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usdzar": {
-		code:              "usdzar",
+	"USDZAR": {
+		code:              "USDZAR",
 		name:              "USD/ZAR",
 		description:       "US Dollar vs South African Rand",
 		minStartDate:      "1997-10-13",
@@ -5298,8 +5298,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1990-01-01",
 		group:             "FX_CROSSES",
 	},
-	"usoususd": {
-		code:              "usoususd",
+	"USOUSUSD": {
+		code:              "USOUSUSD",
 		name:              "USO.US/USD",
 		description:       "United States Oil",
 		minStartDate:      "2017-01-26",
@@ -5307,8 +5307,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"utxususd": {
-		code:              "utxususd",
+	"UTXUSUSD": {
+		code:              "UTXUSUSD",
 		name:              "UTX.US/USD",
 		description:       "UNITED TECHNOLOGIES CORP",
 		minStartDate:      "2017-11-15",
@@ -5316,8 +5316,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"uugbgbx": {
-		code:              "uugbgbx",
+	"UUGBGBX": {
+		code:              "UUGBGBX",
 		name:              "UU.GB/GBX",
 		description:       "United Utilities Group PLC",
 		minStartDate:      "2016-07-08",
@@ -5325,8 +5325,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"vususd": {
-		code:              "vususd",
+	"VUSUSD": {
+		code:              "VUSUSD",
 		name:              "V.US/USD",
 		description:       "VISA INC-CLASS A SHARES",
 		minStartDate:      "2017-01-19",
@@ -5334,8 +5334,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"valeususd": {
-		code:              "valeususd",
+	"VALEUSUSD": {
+		code:              "VALEUSUSD",
 		name:              "VALE.US/USD",
 		description:       "Vale S.A.",
 		minStartDate:      "2017-01-26",
@@ -5343,8 +5343,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"veaususd": {
-		code:              "veaususd",
+	"VEAUSUSD": {
+		code:              "VEAUSUSD",
 		name:              "VEA.US/USD",
 		description:       "Vanguard FTSE Developed Markets ETF",
 		minStartDate:      "2017-11-15",
@@ -5352,8 +5352,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"vfcususd": {
-		code:              "vfcususd",
+	"VFCUSUSD": {
+		code:              "VFCUSUSD",
 		name:              "VFC.US/USD",
 		description:       "VF CORP",
 		minStartDate:      "2018-02-01",
@@ -5361,8 +5361,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"vgkususd": {
-		code:              "vgkususd",
+	"VGKUSUSD": {
+		code:              "VGKUSUSD",
 		name:              "VGK.US/USD",
 		description:       "Vanguard FTSE Europe ETF",
 		minStartDate:      "2018-02-01",
@@ -5370,8 +5370,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"viabususd": {
-		code:              "viabususd",
+	"VIABUSUSD": {
+		code:              "VIABUSUSD",
 		name:              "VIAB.US/USD",
 		description:       "VIACOM INC-CLASS B",
 		minStartDate:      "2018-02-01",
@@ -5379,8 +5379,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"viefreur": {
-		code:              "viefreur",
+	"VIEFREUR": {
+		code:              "VIEFREUR",
 		name:              "VIE.FR/EUR",
 		description:       "Veolia Environnement SA",
 		minStartDate:      "2016-08-05",
@@ -5388,8 +5388,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"vivfreur": {
-		code:              "vivfreur",
+	"VIVFREUR": {
+		code:              "VIVFREUR",
 		name:              "VIV.FR/EUR",
 		description:       "Vivendi SA",
 		minStartDate:      "2016-08-05",
@@ -5397,8 +5397,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"vkfreur": {
-		code:              "vkfreur",
+	"VKFREUR": {
+		code:              "VKFREUR",
 		name:              "VK.FR/EUR",
 		description:       "Vallourec SA",
 		minStartDate:      "2016-08-05",
@@ -5406,8 +5406,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "France",
 	},
-	"vloususd": {
-		code:              "vloususd",
+	"VLOUSUSD": {
+		code:              "VLOUSUSD",
 		name:              "VLO.US/USD",
 		description:       "VALERO ENERGY CORP",
 		minStartDate:      "2017-11-15",
@@ -5415,8 +5415,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"vmcususd": {
-		code:              "vmcususd",
+	"VMCUSUSD": {
+		code:              "VMCUSUSD",
 		name:              "VMC.US/USD",
 		description:       "VULCAN MATERIALS CO",
 		minStartDate:      "2018-02-01",
@@ -5424,8 +5424,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"vnadeeur": {
-		code:              "vnadeeur",
+	"VNADEEUR": {
+		code:              "VNADEEUR",
 		name:              "VNA.DE/EUR",
 		description:       "Vonovia SE",
 		minStartDate:      "2015-04-14",
@@ -5433,8 +5433,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2015-01-01",
 		group:             "Germany",
 	},
-	"vnqususd": {
-		code:              "vnqususd",
+	"VNQUSUSD": {
+		code:              "VNQUSUSD",
 		name:              "VNQ.US/USD",
 		description:       "Vanguard REIT ETF",
 		minStartDate:      "2017-11-15",
@@ -5442,8 +5442,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"vodgbgbx": {
-		code:              "vodgbgbx",
+	"VODGBGBX": {
+		code:              "VODGBGBX",
 		name:              "VOD.GB/GBX",
 		description:       "Vodafone Group PLC",
 		minStartDate:      "2016-07-07",
@@ -5451,8 +5451,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"voeateur": {
-		code:              "voeateur",
+	"VOEATEUR": {
+		code:              "VOEATEUR",
 		name:              "VOE.AT/EUR",
 		description:       "Voestalpine AG",
 		minStartDate:      "2016-11-04",
@@ -5460,8 +5460,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Austria",
 	},
-	"volvbsesek": {
-		code:              "volvbsesek",
+	"VOLVBSESEK": {
+		code:              "VOLVBSESEK",
 		name:              "VOLVB.SE/SEK",
 		description:       "Volvo AB",
 		minStartDate:      "2016-11-07",
@@ -5469,8 +5469,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Sweden",
 	},
-	"vow3deeur": {
-		code:              "vow3deeur",
+	"VOW3DEEUR": {
+		code:              "VOW3DEEUR",
 		name:              "VOW3.DE/EUR",
 		description:       "Volkswagen AG",
 		minStartDate:      "2015-04-14",
@@ -5478,8 +5478,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Germany",
 	},
-	"vpknleur": {
-		code:              "vpknleur",
+	"VPKNLEUR": {
+		code:              "VPKNLEUR",
 		name:              "VPK.NL/EUR",
 		description:       "Koninklijke Vopak NV",
 		minStartDate:      "2016-11-14",
@@ -5487,8 +5487,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"vrtxususd": {
-		code:              "vrtxususd",
+	"VRTXUSUSD": {
+		code:              "VRTXUSUSD",
 		name:              "VRTX.US/USD",
 		description:       "VERTEX PHARMACEUTICALS INC",
 		minStartDate:      "2017-11-15",
@@ -5496,8 +5496,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"vwsdkdkk": {
-		code:              "vwsdkdkk",
+	"VWSDKDKK": {
+		code:              "VWSDKDKK",
 		name:              "VWS.DK/DKK",
 		description:       "Vestas Wind Systems A/S",
 		minStartDate:      "2016-11-07",
@@ -5505,8 +5505,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Denmark",
 	},
-	"vxxususd": {
-		code:              "vxxususd",
+	"VXXUSUSD": {
+		code:              "VXXUSUSD",
 		name:              "VXX.US/USD",
 		description:       "iPath S&amp;P 500 VIX ST Futures ETN",
 		minStartDate:      "2017-01-26",
@@ -5514,8 +5514,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"vzususd": {
-		code:              "vzususd",
+	"VZUSUSD": {
+		code:              "VZUSUSD",
 		name:              "VZ.US/USD",
 		description:       "VERIZON COMMUNICATIONS INC",
 		minStartDate:      "2017-11-15",
@@ -5523,8 +5523,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"wbaususd": {
-		code:              "wbaususd",
+	"WBAUSUSD": {
+		code:              "WBAUSUSD",
 		name:              "WBA.US/USD",
 		description:       "WALGREENS BOOTS ALLIANCE INC",
 		minStartDate:      "2017-11-15",
@@ -5532,8 +5532,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"wdcususd": {
-		code:              "wdcususd",
+	"WDCUSUSD": {
+		code:              "WDCUSUSD",
 		name:              "WDC.US/USD",
 		description:       "WESTERN DIGITAL CORP",
 		minStartDate:      "2017-11-15",
@@ -5541,8 +5541,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"weirgbgbx": {
-		code:              "weirgbgbx",
+	"WEIRGBGBX": {
+		code:              "WEIRGBGBX",
 		name:              "WEIR.GB/GBX",
 		description:       "Weir Group PLC/The",
 		minStartDate:      "2016-07-08",
@@ -5550,8 +5550,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"wfcususd": {
-		code:              "wfcususd",
+	"WFCUSUSD": {
+		code:              "WFCUSUSD",
 		name:              "WFC.US/USD",
 		description:       "WELLS FARGO &amp; CO",
 		minStartDate:      "2017-01-23",
@@ -5559,8 +5559,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"whrususd": {
-		code:              "whrususd",
+	"WHRUSUSD": {
+		code:              "WHRUSUSD",
 		name:              "WHR.US/USD",
 		description:       "WHIRLPOOL CORP",
 		minStartDate:      "2018-02-01",
@@ -5568,8 +5568,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"wklnleur": {
-		code:              "wklnleur",
+	"WKLNLEUR": {
+		code:              "WKLNLEUR",
 		name:              "WKL.NL/EUR",
 		description:       "Wolters Kluwer NV",
 		minStartDate:      "2016-11-14",
@@ -5577,8 +5577,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "Netherlands",
 	},
-	"wmtususd": {
-		code:              "wmtususd",
+	"WMTUSUSD": {
+		code:              "WMTUSUSD",
 		name:              "WMT.US/USD",
 		description:       "WAL-MART STORES INC",
 		minStartDate:      "2017-11-15",
@@ -5586,8 +5586,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"wosgbgbx": {
-		code:              "wosgbgbx",
+	"WOSGBGBX": {
+		code:              "WOSGBGBX",
 		name:              "WOS.GB/GBX",
 		description:       "Wolseley PLC",
 		minStartDate:      "2016-07-06",
@@ -5595,8 +5595,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"wppgbgbx": {
-		code:              "wppgbgbx",
+	"WPPGBGBX": {
+		code:              "WPPGBGBX",
 		name:              "WPP.GB/GBX",
 		description:       "WPP PLC",
 		minStartDate:      "2016-07-08",
@@ -5604,8 +5604,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"wtbgbgbx": {
-		code:              "wtbgbgbx",
+	"WTBGBGBX": {
+		code:              "WTBGBGBX",
 		name:              "WTB.GB/GBX",
 		description:       "Whitbread PLC",
 		minStartDate:      "2016-07-06",
@@ -5613,8 +5613,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2011-01-01",
 		group:             "UK",
 	},
-	"wynnususd": {
-		code:              "wynnususd",
+	"WYNNUSUSD": {
+		code:              "WYNNUSUSD",
 		name:              "WYNN.US/USD",
 		description:       "WYNN RESORTS LTD",
 		minStartDate:      "2017-11-15",
@@ -5622,8 +5622,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"xususd": {
-		code:              "xususd",
+	"XUSUSD": {
+		code:              "XUSUSD",
 		name:              "X.US/USD",
 		description:       "UNITED STATES STEEL CORP",
 		minStartDate:      "2017-11-15",
@@ -5631,8 +5631,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"xagusd": {
-		code:              "xagusd",
+	"XAGUSD": {
+		code:              "XAGUSD",
 		name:              "XAG/USD",
 		description:       "Spot silver",
 		minStartDate:      "1997-08-13",
@@ -5640,8 +5640,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_METALS",
 	},
-	"xauusd": {
-		code:              "xauusd",
+	"XAUUSD": {
+		code:              "XAUUSD",
 		name:              "XAU/USD",
 		description:       "Spot gold",
 		minStartDate:      "1999-09-01",
@@ -5649,8 +5649,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_METALS",
 	},
-	"xleususd": {
-		code:              "xleususd",
+	"XLEUSUSD": {
+		code:              "XLEUSUSD",
 		name:              "XLE.US/USD",
 		description:       "Energy Select Sector SPDR Fund",
 		minStartDate:      "2017-11-15",
@@ -5658,8 +5658,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xlfususd": {
-		code:              "xlfususd",
+	"XLFUSUSD": {
+		code:              "XLFUSUSD",
 		name:              "XLF.US/USD",
 		description:       "Financial Select Sector SPDR Fund",
 		minStartDate:      "2017-01-23",
@@ -5667,8 +5667,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xliususd": {
-		code:              "xliususd",
+	"XLIUSUSD": {
+		code:              "XLIUSUSD",
 		name:              "XLI.US/USD",
 		description:       "Industrial Select Sector SPDR Fund",
 		minStartDate:      "2017-01-23",
@@ -5676,8 +5676,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xlkususd": {
-		code:              "xlkususd",
+	"XLKUSUSD": {
+		code:              "XLKUSUSD",
 		name:              "XLK.US/USD",
 		description:       "Technology Select Sector SPDR Fund",
 		minStartDate:      "2017-11-15",
@@ -5685,8 +5685,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xlnxususd": {
-		code:              "xlnxususd",
+	"XLNXUSUSD": {
+		code:              "XLNXUSUSD",
 		name:              "XLNX.US/USD",
 		description:       "XILINX INC",
 		minStartDate:      "2018-02-01",
@@ -5694,8 +5694,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"xlpususd": {
-		code:              "xlpususd",
+	"XLPUSUSD": {
+		code:              "XLPUSUSD",
 		name:              "XLP.US/USD",
 		description:       "Consumer Staples Select Sector SPDR Fund",
 		minStartDate:      "2017-01-23",
@@ -5703,8 +5703,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xluususd": {
-		code:              "xluususd",
+	"XLUUSUSD": {
+		code:              "XLUUSUSD",
 		name:              "XLU.US/USD",
 		description:       "Utilities Select Sector SPDR Fund",
 		minStartDate:      "2017-11-15",
@@ -5712,8 +5712,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xlvususd": {
-		code:              "xlvususd",
+	"XLVUSUSD": {
+		code:              "XLVUSUSD",
 		name:              "XLV.US/USD",
 		description:       "Health Care Select Sector SPDR Fund",
 		minStartDate:      "2017-11-15",
@@ -5721,8 +5721,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xlyususd": {
-		code:              "xlyususd",
+	"XLYUSUSD": {
+		code:              "XLYUSUSD",
 		name:              "XLY.US/USD",
 		description:       "Consumer Discretionary Select Sector SPDR Fund",
 		minStartDate:      "2017-11-15",
@@ -5730,8 +5730,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"xomususd": {
-		code:              "xomususd",
+	"XOMUSUSD": {
+		code:              "XOMUSUSD",
 		name:              "XOM.US/USD",
 		description:       "EXXON MOBIL CORP",
 		minStartDate:      "2017-01-19",
@@ -5739,8 +5739,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "US",
 	},
-	"xopususd": {
-		code:              "xopususd",
+	"XOPUSUSD": {
+		code:              "XOPUSUSD",
 		name:              "XOP.US/USD",
 		description:       "SPDR S&amp;P Oil &amp; Gas Explor &amp; Prodtn ETF",
 		minStartDate:      "2017-01-26",
@@ -5748,8 +5748,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2017-01-01",
 		group:             "ETF_CFD_US",
 	},
-	"yumususd": {
-		code:              "yumususd",
+	"YUMUSUSD": {
+		code:              "YUMUSUSD",
 		name:              "YUM.US/USD",
 		description:       "YUM! BRANDS INC",
 		minStartDate:      "2018-02-01",
@@ -5757,8 +5757,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"zarjpy": {
-		code:              "zarjpy",
+	"ZARJPY": {
+		code:              "ZARJPY",
 		name:              "ZAR/JPY",
 		description:       "South African Rand vs Japanese Yen",
 		minStartDate:      "1999-03-03",
@@ -5766,8 +5766,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "1997-01-01",
 		group:             "FX_CROSSES",
 	},
-	"zbhususd": {
-		code:              "zbhususd",
+	"ZBHUSUSD": {
+		code:              "ZBHUSUSD",
 		name:              "ZBH.US/USD",
 		description:       "ZIMMER BIOMET HOLDINGS INC",
 		minStartDate:      "2018-02-01",
@@ -5775,8 +5775,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDateDaily: "2018-01-01",
 		group:             "US",
 	},
-	"abbnchchf": {
-		code:              "abbnchchf",
+	"ABBNCHCHF": {
+		code:              "ABBNCHCHF",
 		name:              "ABBN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5784,8 +5784,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"adenchchf": {
-		code:              "adenchchf",
+	"ADENCHCHF": {
+		code:              "ADENCHCHF",
 		name:              "ADEN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5793,8 +5793,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"baerchchf": {
-		code:              "baerchchf",
+	"BAERCHCHF": {
+		code:              "BAERCHCHF",
 		name:              "BAER.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5802,8 +5802,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"clnchchf": {
-		code:              "clnchchf",
+	"CLNCHCHF": {
+		code:              "CLNCHCHF",
 		name:              "CLN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5811,8 +5811,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"csgnchchf": {
-		code:              "csgnchchf",
+	"CSGNCHCHF": {
+		code:              "CSGNCHCHF",
 		name:              "CSGN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5820,8 +5820,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"givnchchf": {
-		code:              "givnchchf",
+	"GIVNCHCHF": {
+		code:              "GIVNCHCHF",
 		name:              "GIVN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5829,8 +5829,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"kninchchf": {
-		code:              "kninchchf",
+	"KNINCHCHF": {
+		code:              "KNINCHCHF",
 		name:              "KNIN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5838,8 +5838,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-17",
 		minStartDateDaily: "2011-01-01",
 	},
-	"lhnchchf": {
-		code:              "lhnchchf",
+	"LHNCHCHF": {
+		code:              "LHNCHCHF",
 		name:              "LHN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5847,8 +5847,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-17",
 		minStartDateDaily: "2015-01-01",
 	},
-	"lonnchchf": {
-		code:              "lonnchchf",
+	"LONNCHCHF": {
+		code:              "LONNCHCHF",
 		name:              "LONN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5856,8 +5856,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"nesnchchf": {
-		code:              "nesnchchf",
+	"NESNCHCHF": {
+		code:              "NESNCHCHF",
 		name:              "NESN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5865,8 +5865,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"novnchchf": {
-		code:              "novnchchf",
+	"NOVNCHCHF": {
+		code:              "NOVNCHCHF",
 		name:              "NOVN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5874,8 +5874,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-16",
 		minStartDateDaily: "2011-01-01",
 	},
-	"rogchchf": {
-		code:              "rogchchf",
+	"ROGCHCHF": {
+		code:              "ROGCHCHF",
 		name:              "ROG.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5883,8 +5883,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-07-03",
 		minStartDateDaily: "2011-01-01",
 	},
-	"scmnchchf": {
-		code:              "scmnchchf",
+	"SCMNCHCHF": {
+		code:              "SCMNCHCHF",
 		name:              "SCMN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5892,8 +5892,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-07-03",
 		minStartDateDaily: "2011-01-01",
 	},
-	"sgsnchchf": {
-		code:              "sgsnchchf",
+	"SGSNCHCHF": {
+		code:              "SGSNCHCHF",
 		name:              "SGSN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5901,8 +5901,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-08-06",
 		minStartDateDaily: "2011-01-01",
 	},
-	"slhnchchf": {
-		code:              "slhnchchf",
+	"SLHNCHCHF": {
+		code:              "SLHNCHCHF",
 		name:              "SLHN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5910,8 +5910,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-08-06",
 		minStartDateDaily: "2011-01-01",
 	},
-	"soonchchf": {
-		code:              "soonchchf",
+	"SOONCHCHF": {
+		code:              "SOONCHCHF",
 		name:              "SOON.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5919,8 +5919,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-08-07",
 		minStartDateDaily: "2011-01-01",
 	},
-	"soybeancmdusx": {
-		code:              "soybeancmdusx",
+	"SOYBEANCMDUSX": {
+		code:              "SOYBEANCMDUSX",
 		name:              "SOYBEAN.CMD/USX",
 		group:             "CMD_AGRICULTURAL",
 		decimalFactor:     1000,
@@ -5928,8 +5928,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2017-12-01",
 		minStartDateDaily: "2017-01-01",
 	},
-	"srenchchf": {
-		code:              "srenchchf",
+	"SRENCHCHF": {
+		code:              "SRENCHCHF",
 		name:              "SREN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5937,8 +5937,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-08-06",
 		minStartDateDaily: "2011-01-01",
 	},
-	"ubsgchchf": {
-		code:              "ubsgchchf",
+	"UBSGCHCHF": {
+		code:              "UBSGCHCHF",
 		name:              "UBSG.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5946,8 +5946,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-06-15",
 		minStartDateDaily: "2014-01-01",
 	},
-	"uhrchchf": {
-		code:              "uhrchchf",
+	"UHRCHCHF": {
+		code:              "UHRCHCHF",
 		name:              "UHR.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,
@@ -5955,8 +5955,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2015-08-07",
 		minStartDateDaily: "2011-01-01",
 	},
-	"ussc2000idxusd": {
-		code:              "ussc2000idxusd",
+	"USSC2000IDXUSD": {
+		code:              "USSC2000IDXUSD",
 		name:              "USSC2000.IDX/USD",
 		group:             "IDX_AMERICA",
 		decimalFactor:     1000,
@@ -5964,8 +5964,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2018-08-08",
 		minStartDateDaily: "2018-01-01",
 	},
-	"ustbondtrusd": {
-		code:              "ustbondtrusd",
+	"USTBONDTRUSD": {
+		code:              "USTBONDTRUSD",
 		name:              "USTBOND.TR/USD",
 		group:             "BND_CFD",
 		decimalFactor:     1000,
@@ -5973,8 +5973,8 @@ var codeToSymbol = map[string]Metadata{
 		minStartDate:      "2018-01-04",
 		minStartDateDaily: "2017-01-01",
 	},
-	"zurnchchf": {
-		code:              "zurnchchf",
+	"ZURNCHCHF": {
+		code:              "ZURNCHCHF",
 		name:              "ZURN.CH/CHF",
 		group:             "Switzerland",
 		decimalFactor:     1000,

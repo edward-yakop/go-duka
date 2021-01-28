@@ -79,11 +79,11 @@ func main() {
 	flag.Parse()
 
 	if args.Verbose {
-		clog.NewConsole(0, clog.ConsoleConfig{
+		_ = clog.NewConsole(0, clog.ConsoleConfig{
 			Level: clog.LevelTrace,
 		})
 	} else {
-		clog.NewConsole(0, clog.ConsoleConfig{
+		_ = clog.NewConsole(0, clog.ConsoleConfig{
 			Level: clog.LevelInfo,
 		})
 	}
@@ -108,7 +108,7 @@ func main() {
 	}
 
 	fmt.Printf("    Output: %s\n", opt.Folder)
-	fmt.Printf("    Symbol: %s\n", opt.Symbol)
+	fmt.Printf("    Instrument: %s\n", opt.Instrument.Code())
 	fmt.Printf("    Spread: %d\n", opt.Spread)
 	fmt.Printf("      Mode: %d\n", opt.Mode)
 	fmt.Printf(" Timeframe: %s\n", opt.Periods)
@@ -118,6 +118,5 @@ func main() {
 	fmt.Printf("   EndDate: %s\n", opt.End.Format("2006-01-02:15H"))
 
 	defer clog.Stop()
-	app := app.NewApp(opt)
-	app.Execute()
+	_ = app.NewApp(opt).Execute()
 }

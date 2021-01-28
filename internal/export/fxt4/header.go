@@ -2,6 +2,7 @@ package fxt4
 
 import (
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
 	"time"
 
 	"github.com/ed-fx/go-duka/internal/misc"
@@ -112,7 +113,7 @@ type FxtTick struct {
 }
 
 // NewHeader return an predefined FXT header
-func NewHeader(version uint32, symbol string, timeframe, spread, model uint32) *FXTHeader {
+func NewHeader(version uint32, instrument *instrument.Metadata, timeframe, spread, model uint32) *FXTHeader {
 	h := &FXTHeader{
 		Version:      version,
 		Period:       timeframe,
@@ -162,11 +163,12 @@ func NewHeader(version uint32, symbol string, timeframe, spread, model uint32) *
 		FirstBar: 1,
 	}
 
-	misc.ToFixBytes(h.Description[:], "Copyright 2001-2017, MetaQuotes Software Corp.")
-	misc.ToFixBytes(h.ServerName[:], "Beijing MoreU Tech.")
-	misc.ToFixBytes(h.Symbol[:], symbol)
-	misc.ToFixBytes(h.BaseCurrency[:], symbol[:3])
-	misc.ToFixBytes(h.MarginCurrency[:], symbol[:3])
+	symbol := instrument.Code()
+	_, _ = misc.ToFixBytes(h.Description[:], "Copyright 2001-2017, MetaQuotes Software Corp.")
+	_, _ = misc.ToFixBytes(h.ServerName[:], "Beijing MoreU Tech.")
+	_, _ = misc.ToFixBytes(h.Symbol[:], symbol)
+	_, _ = misc.ToFixBytes(h.BaseCurrency[:], symbol[:3])
+	_, _ = misc.ToFixBytes(h.MarginCurrency[:], symbol[:3])
 
 	return h
 }

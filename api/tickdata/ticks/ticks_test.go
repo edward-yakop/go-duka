@@ -1,6 +1,7 @@
 package ticks
 
 import (
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"
@@ -12,7 +13,7 @@ import (
 func TestTick_IncludingWeekendAndGoto(t *testing.T) {
 	start := time.Date(2017, time.January, 6, 21, 0, 0, 0, time.UTC)
 	end := time.Date(2017, time.January, 8, 22, 59, 0, 0, time.UTC)
-	ticks := New("GBPJPY", start, end, createEmptyDir(t))
+	ticks := New(instrument.GetMetadata("GBPJPY"), start, end, createEmptyDir(t))
 
 	var isSkip = true
 	for {

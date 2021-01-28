@@ -8,7 +8,7 @@ import (
 func TestGetMetadata_happyPath(t *testing.T) {
 	m := GetMetadata("EURUSD")
 	assert.NotNil(t, m)
-	assert.Equal(t, "eurusd", m.Code())
+	assert.Equal(t, "EURUSD", m.Code())
 	assert.Equal(t, "EUR/USD", m.Name())
 	assert.Equal(t, "Euro vs US Dollar", m.Description())
 	assert.Equal(t, float64(100000), m.DecimalFactor())

@@ -1,6 +1,7 @@
 package core
 
 import (
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"regexp"
 	"strconv"
@@ -25,7 +26,7 @@ type Timeframe struct {
 	endTimestamp   uint32 // unit second
 	timeframe      uint32 // Period of data aggregation in minutes
 	period         string // M1, M5, M15, M30, H1, H4, D1, W1, MN
-	symbol         string
+	instrument     *instrument.Metadata
 
 	chTicks chan *tickdata.TickData
 	close   chan struct{}
@@ -48,13 +49,13 @@ func ParseTimeframe(period string) (uint32, string) {
 }
 
 // NewTimeframe create an new timeframe
-func NewTimeframe(period, symbol string, out Converter) Converter {
+func NewTimeframe(period string, instrument *instrument.Metadata, out Converter) Converter {
 	min, str := ParseTimeframe(period)
 	tf := &Timeframe{
 		deltaTimestamp: min * 60,
 		timeframe:      min,
 		period:         str,
-		symbol:         symbol,
+		instrument:     instrument,
 		out:            out,
 		chTicks:        make(chan *tickdata.TickData, 1024),
 		close:          make(chan struct{}, 1),
@@ -88,7 +89,7 @@ func (tf *Timeframe) worker() error {
 	barTicks := make([]*tickdata.TickData, 0, maxCap)
 
 	defer func() {
-		log.Info("%s %s convert completed.", tf.symbol, tf.period)
+		log.Info("%s %s convert completed.", tf.instrument.Code(), tf.period)
 		close(tf.close)
 	}()
 
@@ -109,7 +110,7 @@ func (tf *Timeframe) worker() error {
 		if tickSeconds >= tf.endTimestamp {
 			// output one bar data
 			if len(barTicks) > 0 {
-				tf.out.PackTicks(tf.startTimestamp, barTicks[:])
+				_ = tf.out.PackTicks(tf.startTimestamp, barTicks[:])
 				barTicks = barTicks[:0]
 			}
 
@@ -127,7 +128,7 @@ func (tf *Timeframe) worker() error {
 	}
 
 	if len(barTicks) > 0 {
-		tf.out.PackTicks(tf.startTimestamp, barTicks[:])
+		_ = tf.out.PackTicks(tf.startTimestamp, barTicks[:])
 	}
 
 	return nil

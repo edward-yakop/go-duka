@@ -32,7 +32,7 @@ func TestDukaApp(t *testing.T) {
 	}
 
 	fmt.Printf("    Output: %s\n", opt.Folder)
-	fmt.Printf("    Symbol: %s\n", opt.Symbol)
+	fmt.Printf("Instrument: %s\n", opt.Instrument.Code())
 	fmt.Printf("    Spread: %d\n", opt.Spread)
 	fmt.Printf("      Mode: %d\n", opt.Mode)
 	//fmt.Printf(" Timeframe: %d\n", opt.Timeframe)
@@ -43,5 +43,5 @@ func TestDukaApp(t *testing.T) {
 
 	defer clog.Stop()
 	app := NewApp(opt)
-	app.Execute()
+	_ = app.Execute()
 }

@@ -2,6 +2,7 @@ package hst
 
 import (
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
 	"time"
 
 	"github.com/ed-fx/go-duka/internal/misc"
@@ -41,7 +42,7 @@ type BarData struct {
 
 // NewHeader for hst version 401
 //
-func NewHeader(timeframe uint32, symbol string) *Header {
+func NewHeader(timeframe uint32, instrument *instrument.Metadata) *Header {
 	h := &Header{
 		TimeSign: uint32(time.Now().UTC().Unix()),
 		Version:  v401,
@@ -49,8 +50,8 @@ func NewHeader(timeframe uint32, symbol string) *Header {
 		Digits:   5, // Digits, using the default value of HST format
 	}
 
-	misc.ToFixBytes(h.Symbol[:], symbol)
-	misc.ToFixBytes(h.Copyright[:], "##(C)opyright 2017, MetaQuotes Software Corp.")
+	_, _ = misc.ToFixBytes(h.Symbol[:], instrument.Code())
+	_, _ = misc.ToFixBytes(h.Copyright[:], "##(C)opyright 2017, MetaQuotes Software Corp.")
 	return h
 }
 

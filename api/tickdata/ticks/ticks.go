@@ -1,6 +1,7 @@
 package ticks
 
 import (
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/ed-fx/go-duka/internal/bi5"
 	"github.com/pkg/errors"
@@ -9,7 +10,7 @@ import (
 )
 
 type Ticks struct {
-	symbol             string
+	instrument         *instrument.Metadata
 	start              time.Time
 	end                time.Time
 	downloadFolderPath string
@@ -75,7 +76,7 @@ func (t *Ticks) Goto(to time.Time) (isSuccess bool, err error) {
 		if t.ticksDayHour.Equal(currTime) {
 			return t.resetTicksPointer(to)
 		} else {
-			bi := bi5.New(currTime, t.symbol, t.downloadFolderPath)
+			bi := bi5.New(currTime, t.instrument, t.downloadFolderPath)
 
 			// Download might return errors when there's no tick data during weekend or holiday
 			if bi.Download() == nil {
@@ -187,16 +188,16 @@ func (t Ticks) timeToHour(tt time.Time) time.Time {
 var isLogSetup = false
 
 // time are in UTC
-func New(symbol string, start time.Time, end time.Time, downloadFolderPath string) *Ticks {
+func New(instrument *instrument.Metadata, start time.Time, end time.Time, downloadFolderPath string) *Ticks {
 	if !isLogSetup {
 		isLogSetup = true
-		clog.NewConsole(0, clog.ConsoleConfig{
+		_ = clog.NewConsole(0, clog.ConsoleConfig{
 			Level: clog.LevelInfo,
 		})
 	}
 
 	return &Ticks{
-		symbol:             symbol,
+		instrument:         instrument,
 		start:              start,
 		end:                end,
 		downloadFolderPath: downloadFolderPath,

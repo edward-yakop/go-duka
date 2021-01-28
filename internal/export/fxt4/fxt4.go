@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/ed-fx/go-duka/internal/misc"
 	"io"
@@ -27,7 +28,7 @@ var (
 //
 type FxtFile struct {
 	fpath          string
-	symbol         string
+	instrument     *instrument.Metadata
 	model          uint32
 	header         *FXTHeader
 	firstUniBar    *FxtTick
@@ -42,16 +43,16 @@ type FxtFile struct {
 }
 
 // NewFxtFile create an new fxt file instance
-func NewFxtFile(timeframe, spread, model uint32, dest, symbol string) *FxtFile {
-	fn := fmt.Sprintf("%s%d_%d.fxt", symbol, timeframe, model)
+func NewFxtFile(timeframe, spread, model uint32, dest string, instrument *instrument.Metadata) *FxtFile {
+	fn := fmt.Sprintf("%s%d_%d.fxt", instrument.Code(), timeframe, model)
 	fxt := &FxtFile{
-		header:         NewHeader(405, symbol, timeframe, spread, model),
+		header:         NewHeader(405, instrument, timeframe, spread, model),
 		fpath:          filepath.Join(dest, fn),
 		chTicks:        make(chan *FxtTick, 1024),
 		chClose:        make(chan struct{}, 1),
 		deltaTimestamp: timeframe * 60,
 		timeframe:      timeframe,
-		symbol:         symbol,
+		instrument:     instrument,
 		model:          model,
 	}
 
@@ -246,7 +247,7 @@ func DumpFile(fname string, header bool, w io.Writer) {
 		w = os.Stdout
 	}
 	bw := bufio.NewWriter(w)
-	bw.WriteString(fmt.Sprintf("Header: %+v\n", h))
+	_, _ = bw.WriteString(fmt.Sprintf("Header: %+v\n", h))
 	defer bw.Flush()
 
 	if header {
@@ -273,6 +274,6 @@ func DumpFile(fname string, header bool, w io.Writer) {
 			break
 		}
 
-		bw.WriteString(fmt.Sprintf("%s\n", &tick))
+		_, _ = bw.WriteString(fmt.Sprintf("%s\n", &tick))
 	}
 }

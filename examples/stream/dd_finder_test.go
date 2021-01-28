@@ -2,6 +2,7 @@ package stream
 
 import (
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/ed-fx/go-duka/api/tickdata/stream"
 	"github.com/stretchr/testify/assert"
@@ -16,14 +17,14 @@ import (
 func Test_StreamExample_DDFinder(t *testing.T) {
 	loc, _ := time.LoadLocation("EET")
 
-	symbol := "GBPJPY"
+	im := instrument.GetMetadata("GBPJPY")
 	openTime := time.Date(2020, time.November, 3, 17, 0, 0, 0, loc)
 	openPrice := 136.325
 	closeTime := time.Date(2020, time.November, 4, 00, 56, 56, 0, loc)
 	closePrice := 136.725
 
 	openPriceDiff, maxDD, maxPositive, maxDDForMaxPositive, maxPositiveTime, closePriceDiff :=
-		buyDDFinder(t, symbol, openTime, closeTime, openPrice, closePrice)
+		buyDDFinder(t, im, openTime, closeTime, openPrice, closePrice)
 
 	println("Open price diff in [", strconv.Itoa(openPriceDiff), "] points")
 	println("Max DD [", strconv.Itoa(maxDD), "] points")
@@ -42,18 +43,18 @@ func Test_StreamExample_DDFinder(t *testing.T) {
 	assert.Equal(t, 400, profitInPoints)
 }
 
-func buyDDFinder(t *testing.T, symbol string, openTime time.Time, closeTime time.Time, openPrice float64, closePrice float64) (
+func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Time, closeTime time.Time, openPrice float64, closePrice float64) (
 	openPriceDiff int, maxDD int, maxPositive int, maxDDForMaxPositive int, maxPositiveTime time.Time, closePriceDiff int,
 ) {
 	start := openTime.Add(-1 * time.Minute)
 	end := closeTime.Add(time.Minute)
-	stream := stream.New(symbol, start, end, createEmptyDir(t))
+	s := stream.New(instrument, start, end, createEmptyDir(t))
 
 	maxDD = math.MaxInt32
 	openPriceDiff = math.MaxInt32
 	closePriceDiff = math.MaxInt32
 	maxPositive = math.MinInt32
-	stream.EachTick(func(tickTime time.Time, tick *tickdata.TickData, err error) bool {
+	s.EachTick(func(tickTime time.Time, tick *tickdata.TickData, err error) bool {
 		if openTime.Sub(tickTime) > 0 {
 			return true
 		}
@@ -90,7 +91,7 @@ func createEmptyDir(t *testing.T) string {
 		t.FailNow()
 	}
 	t.Cleanup(func() {
-		os.RemoveAll(dir)
+		_ = os.RemoveAll(dir)
 	})
 	return dir
 }

@@ -1,6 +1,7 @@
 package stream
 
 import (
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/ed-fx/go-duka/internal/bi5"
 	"time"
@@ -11,7 +12,7 @@ import (
 type Iterator func(time time.Time, tick *tickdata.TickData, err error) bool
 
 type Stream struct {
-	symbol             string
+	instrument         *instrument.Metadata
 	start              time.Time
 	end                time.Time
 	downloadFolderPath string
@@ -33,7 +34,7 @@ func (s Stream) EachTick(it Iterator) {
 	dEnd := downloadEnd(s.end)
 	var isContinue = true
 	for t := downloadStart(start); t.Before(dEnd) && isContinue; t = t.Add(time.Hour) {
-		bi := bi5.New(t, s.symbol, s.downloadFolderPath)
+		bi := bi5.New(t, s.instrument, s.downloadFolderPath)
 		err := bi.Download()
 		if err != nil && !it(t.In(loc), nil, err) {
 			return
@@ -65,16 +66,16 @@ func downloadEnd(end time.Time) time.Time {
 var isLogSetup = false
 
 // time are in UTC
-func New(symbol string, start time.Time, end time.Time, downloadFolderPath string) *Stream {
+func New(instrument *instrument.Metadata, start time.Time, end time.Time, downloadFolderPath string) *Stream {
 	if !isLogSetup {
 		isLogSetup = true
-		clog.NewConsole(0, clog.ConsoleConfig{
+		_ = clog.NewConsole(0, clog.ConsoleConfig{
 			Level: clog.LevelInfo,
 		})
 	}
 
 	return &Stream{
-		symbol:             symbol,
+		instrument:         instrument,
 		start:              start,
 		end:                end,
 		downloadFolderPath: downloadFolderPath,

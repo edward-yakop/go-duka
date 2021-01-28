@@ -1,6 +1,7 @@
 package stream
 
 import (
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
@@ -13,7 +14,7 @@ import (
 func TestStream_EachTick_AlwaysContinue(t *testing.T) {
 	start := time.Date(2017, time.January, 10, 22, 0, 0, 0, time.UTC)
 	end := start.Add(1 * time.Hour)
-	stream := New("GBPJPY", start, end, createEmptyDir(t))
+	stream := New(instrument.GetMetadata("GBPJPY"), start, end, createEmptyDir(t))
 	isRun := false
 
 	stream.EachTick(func(time time.Time, tick *tickdata.TickData, err error) bool {
@@ -56,7 +57,7 @@ func TestStream_EachTick_OnlyContinueTwice(t *testing.T) {
 
 	start := time.Date(2017, time.January, 10, 22, 0, 0, 0, location)
 	end := start.Add(4 * 24 * time.Hour)
-	stream := New("GBPJPY", start, end, createEmptyDir(t))
+	stream := New(instrument.GetMetadata("GBPJPY"), start, end, createEmptyDir(t))
 
 	isRun := false
 	tickCount := 0

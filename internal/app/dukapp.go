@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	iTickdata "github.com/ed-fx/go-duka/internal/tickdata"
 	"github.com/pkg/errors"
@@ -47,31 +48,32 @@ type DukaApp struct {
 // AppOption download options
 //
 type AppOption struct {
-	Start     time.Time
-	End       time.Time
-	Symbol    string
-	Format    string
-	Folder    string
-	Periods   string
-	Spread    uint32
-	Mode      uint32
-	CsvHeader bool
+	Start      time.Time
+	End        time.Time
+	Instrument *instrument.Metadata
+	Format     string
+	Folder     string
+	Periods    string
+	Spread     uint32
+	Mode       uint32
+	CsvHeader  bool
 }
 
 // ParseOption parse input command line
 //
 func ParseOption(args ArgsList) (*AppOption, error) {
+	metadata := instrument.GetMetadata(args.Symbol)
 	var err error
 	opt := AppOption{
-		CsvHeader: args.Header,
-		Format:    args.Format,
-		Symbol:    strings.ToUpper(args.Symbol),
-		Spread:    uint32(args.Spread),
-		Mode:      uint32(args.Model),
+		CsvHeader:  args.Header,
+		Format:     args.Format,
+		Instrument: metadata,
+		Spread:     uint32(args.Spread),
+		Mode:       uint32(args.Model),
 	}
 
-	if args.Symbol == "" {
-		err = fmt.Errorf("Invalid symbol parameter")
+	if metadata == nil {
+		err = fmt.Errorf("invalid symbol parameter [%s]", args.Symbol)
 		return nil, err
 	}
 	// check format
@@ -139,20 +141,20 @@ func NewOutputs(opt *AppOption) []core.Converter {
 
 		switch opt.Format {
 		case "csv":
-			format = csv.New(opt.Start, opt.End, opt.CsvHeader, opt.Symbol, opt.Folder)
+			format = csv.New(opt.Start, opt.End, opt.CsvHeader, opt.Instrument, opt.Folder)
 			break
 		case "fxt":
-			format = fxt4.NewFxtFile(timeframe, opt.Spread, opt.Mode, opt.Folder, opt.Symbol)
+			format = fxt4.NewFxtFile(timeframe, opt.Spread, opt.Mode, opt.Folder, opt.Instrument)
 			break
 		case "hst":
-			format = hst.NewHST(timeframe, opt.Spread, opt.Symbol, opt.Folder)
+			format = hst.NewHST(timeframe, opt.Spread, opt.Instrument, opt.Folder)
 			break
 		default:
 			log.Error("unsupported format %s.", opt.Format)
 			return nil
 		}
 
-		outs = append(outs, core.NewTimeframe(period, opt.Symbol, format))
+		outs = append(outs, core.NewTimeframe(period, opt.Instrument, format))
 	}
 	return outs
 }
@@ -190,7 +192,7 @@ func (app *DukaApp) Execute() error {
 	// Download by day, 24 hours a day data is downloaded in parallel by 24 goroutines
 	for day := opt.Start; day.Unix() < opt.End.Unix(); day = day.Add(24 * time.Hour) {
 		// Download, parse, store
-		if td, err := iTickdata.FetchDay(opt.Symbol, day, opt.Folder); err != nil {
+		if td, err := iTickdata.FetchDay(opt.Instrument, day, opt.Folder); err != nil {
 			err = errors.Wrap(err, "Failed to fetch ["+day.Format("2006-01-02")+"]")
 			return err
 		} else if err = app.export(td); err != nil {
@@ -204,7 +206,7 @@ func (app *DukaApp) Execute() error {
 		wg.Add(1)
 		go func(o core.Converter) {
 			defer wg.Done()
-			o.Finish()
+			_ = o.Finish()
 		}(output)
 	}
 

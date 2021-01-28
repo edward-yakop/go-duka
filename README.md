@@ -1,6 +1,6 @@
 ## 1 Tick Data Downloader
 
-- Download tick data from [Dukascopy](https://www.dukascopy.com/swiss/english/marketwatch/historical/) 
+- Download tick data from [Dukascopy](https://www.dukascopy.com/swiss/english/marketwatch/historical/)
 - Convert source tick data to CSV/HST/FXT
 
 ### 1.1 Building
@@ -8,11 +8,13 @@
 To build, you need to install go (https://golang.org/)
 
 To build:
+
 ```
 go build
 ```
 
 ### 1.2 Running
+
 Get January (2019) data for EURUSD and convert to FXT/MT4
 
 ```
@@ -25,7 +27,6 @@ Get 2018 data for XAUUSD and convert to FXT, and then to HST
 ./go-duka -symbol EURUSD -format fxt -start "2018-01-01" -end "2018-12-31"
 ./go-duka -symbol EURUSD -format hst -start "2018-01-01" -end "2018-12-31"
 ```
-
 
 ## 2 CSV Format
 
@@ -63,7 +64,7 @@ type Header struct {
 #### 3.2 Bar Data
 
 - Total Bytes : 60
-- **CTM** : Current time in seconds, align with timeframe, 
+- **CTM** : Current time in seconds, align with timeframe,
 
 ``` Golang
 // BarData wrap the bar data inside hst (60 Bytes)
@@ -89,14 +90,14 @@ type BarData struct {
 ```Golang
 // FxtTick data
 type FxtTick struct {
-	BarTimestamp  uint64  //   0  8   Bar datetime, align with timeframe, unit seconds
-	Open          float64 //   8  8
-	High          float64 //  16  8
-	Low           float64 //  24  8
-	Close         float64 //  32  8
-	Volume        uint64  //  40  8   Volume (documentation says it's a double, though it's stored as a long int)
-	TickTimestamp uint32  //  48  4   tick data timestamp in seconds
-	LaunchExpert  uint32  //  52  4   Flag to launch an expert (0 - bar will be modified, but the expert will not be launched).
+BarTimestamp  uint64  //   0  8   Bar datetime, align with timeframe, unit seconds
+Open          float64 //   8  8
+High          float64 //  16  8
+Low           float64 //  24  8
+Close         float64 //  32  8
+Volume        uint64  //  40  8   Volume (documentation says it's a double, though it's stored as a long int)
+TickTimestamp uint32  //  48  4   tick data timestamp in seconds
+LaunchExpert  uint32  //  52  4   Flag to launch an expert (0 - bar will be modified, but the expert will not be launched).
 }
 ```
 
@@ -105,11 +106,10 @@ type FxtTick struct {
 - Total Bytes : 728
 - **Version** : 405 default
 - **Symbol** : forex currency pair
-- **Spread** : fix spread 
+- **Spread** : fix spread
 - **Period** : timeframe, M1|M5|M15|M30|...
 - **ModelType**: model, 0=EveryTick|1=ControlPoints|2=BarOpen
 - **ModelQuality** : 99.9
-
 
 ``` Golang
 // FXTHeader History Files in FXT Format
@@ -209,7 +209,7 @@ start := time.Date(2017, time.January, 10, 22, 0, 0, 0, location)
 end := start.Add(4 * 24 * time.Hour)
 
 // Create new stream that each tick will only be called within start and end boundary
-stream := stream.New("GBPJPY", start, end, createEmptyDir(t)) 
+stream := stream.New(instrument.GetMetadata("GBPJPY"), start, end, createEmptyDir(t)) 
 
 // Stream ticks with the requested parameter
 stream.EachTick(func(time time.Time, tick *tickdata.TickData, err error) bool {
@@ -231,7 +231,7 @@ start := time.Date(2017, time.January, 10, 22, 0, 0, 0, location)
 end := start.Add(4 * 24 * time.Hour)
 
 // Create new ticks that iterate within start and end boundary
-ticks := New("GBPJPY", start, end, createEmptyDir(t))
+ticks := New(instrument.GetMetadata("GBPJPY"), start, end, createEmptyDir(t))
 
 for !ticks.IsCompleted() {
     isSuccess, err := ticks.Next() // Ticks start before start, must start with Next(). 
@@ -243,4 +243,24 @@ for !ticks.IsCompleted() {
     isGotoSucceed, err := ticks.Goto(tick.UTC().Add(time.Hour)) // Skip one hour forward
     tick = ticks.Curr()                                         // tick is now the first tick after an hour later
 }
+```
+
+## 6 Downloader API (From v0.3)
+
+Prepare cache folder before running ticks or stream API.
+
+``` Golang
+d := NewTickDownloader(folder)
+	
+from := time.Date(2021, time.January, 8, 0, 0, 0, 0, time.UTC)
+to := from.Add(time.Hour)
+d.Add(instrument.GetMetadata("EURUSD"), from, to).
+	Add(instrument.GetMetadata("GBPUSD"), from, to)
+
+d.Download(func(instrumentCode string, dayHour time.Time, err error, curr, count int) {
+    // dayHour is the bi5 download
+    // err is the download error. nil if there's none
+    // curr is the current download count
+    // total is the total number of bi5 to download
+})
 ```

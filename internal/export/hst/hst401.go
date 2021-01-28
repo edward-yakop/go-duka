@@ -2,6 +2,7 @@ package hst
 
 import (
 	"fmt"
+	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"math"
 	"os"
@@ -17,27 +18,27 @@ var (
 // HST401 MT4 history data format .hst with version 401
 //
 type HST401 struct {
-	header   *Header
-	dest     string
-	symbol   string
-	spread   uint32
-	timefame uint32
-	barCount int64
-	chBars   chan *BarData
-	chClose  chan struct{}
+	header     *Header
+	dest       string
+	instrument *instrument.Metadata
+	spread     uint32
+	timefame   uint32
+	barCount   int64
+	chBars     chan *BarData
+	chClose    chan struct{}
 }
 
 // NewHST create a HST convertor
 //
-func NewHST(timefame, spread uint32, symbol, dest string) *HST401 {
+func NewHST(timefame, spread uint32, instrument *instrument.Metadata, dest string) *HST401 {
 	hst := &HST401{
-		header:   NewHeader(timefame, symbol),
-		dest:     dest,
-		symbol:   symbol,
-		spread:   spread,
-		timefame: timefame,
-		chBars:   make(chan *BarData, 128),
-		chClose:  make(chan struct{}, 1),
+		header:     NewHeader(timefame, instrument),
+		dest:       dest,
+		instrument: instrument,
+		spread:     spread,
+		timefame:   timefame,
+		chBars:     make(chan *BarData, 128),
+		chClose:    make(chan struct{}, 1),
 	}
 
 	go hst.worker()
@@ -47,7 +48,7 @@ func NewHST(timefame, spread uint32, symbol, dest string) *HST401 {
 // worker goroutine which flust data to disk
 //
 func (h *HST401) worker() error {
-	fname := fmt.Sprintf("%s%d.hst", h.symbol, h.timefame)
+	fname := fmt.Sprintf("%s%d.hst", h.instrument.Code(), h.timefame)
 	fpath := filepath.Join(h.dest, fname)
 
 	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
@@ -57,7 +58,7 @@ func (h *HST401) worker() error {
 	}
 
 	defer func() {
-		f.Close()
+		_ = f.Close()
 		close(h.chClose)
 		log.Info("M%d Saved Bar: %d.", h.timefame, h.barCount)
 	}()

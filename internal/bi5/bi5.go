@@ -3,14 +3,12 @@ package bi5
 import (
 	"bytes"
 	"encoding/binary"
-	"fmt"
 	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/ed-fx/go-duka/internal/misc"
 	"github.com/pkg/errors"
 	"io"
-	"net/http"
 	"os"
-	"path/filepath"
 	"strconv"
 	"time"
 
@@ -30,35 +28,33 @@ const (
 type Bi5 struct {
 	dayHour        time.Time
 	endDayHour     time.Time
-	symbol         string
 	metadata       *instrument.Metadata
 	targetFilePath string
 	save           bool
+	downloader     *Downloader
 }
 
 func (b Bi5) DayHour() time.Time {
 	return b.dayHour
 }
 
-func (b Bi5) Symbol() string {
-	return b.symbol
+func (b Bi5) InstrumentCode() string {
+	return b.metadata.Code()
 }
 
 // New create an bi5 saver
-func New(dayHour time.Time, symbol, downloadFolderPath string) *Bi5 {
-	y, m, d := dayHour.UTC().Date()
-
-	biFilePath := filepath.FromSlash(fmt.Sprintf("%s/download/%s/%04d/%02d/%02d/%02dh_ticks.%s", downloadFolderPath, symbol, y, m, d, dayHour.Hour(), ext))
-	metadata := instrument.GetMetadata(symbol)
+func New(dayHour time.Time, metadata *instrument.Metadata, downloadFolderPath string) *Bi5 {
+	dayHour = dayHour.UTC()
+	y, m, d := dayHour.Date()
 
 	beginHour := time.Date(y, m, d, dayHour.Hour(), 0, 0, 0, time.UTC)
 	endHour := beginHour.Add(time.Hour).Add(-1)
 	return &Bi5{
-		targetFilePath: biFilePath,
+		targetFilePath: BiFilePath(downloadFolderPath, metadata.Code(), y, int(m), d, dayHour.Hour()),
 		dayHour:        beginHour,
 		endDayHour:     endHour,
-		symbol:         symbol,
 		metadata:       metadata,
+		downloader:     NewDownloader(downloadFolderPath),
 	}
 }
 
@@ -170,70 +166,11 @@ func (b Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*tickd
 
 // Download from dukascopy
 func (b Bi5) Download() error {
-	if b.isDownloaded() {
-		return nil
-	}
-
-	year, month, day := b.dayHour.UTC().Date()
-	link := fmt.Sprintf(core.DukaTmplURL, b.symbol, year, month-1, day, b.dayHour.Hour())
-
-	var httpStatusCode int
-	httpStatusCode, filesize, err := httpDownload.Download(link, b.targetFilePath)
-	if err != nil {
-		return errors.Wrap(err, "Failed to download tick data for ["+b.symbolAndTime()+"]")
-	}
-
-	if httpStatusCode == http.StatusNotFound {
-		notFound := b.targetFilePath + ".notFound"
-		err = b.createFile(notFound)
-		if err != nil {
-			err = errors.Wrap(err, "Failed to create tick data ["+b.symbolAndTime()+"] not found file")
-			return err
-		}
-	}
-
-	if filesize == 0 {
-		err = os.Rename(b.targetFilePath, b.targetFilePath+".empty")
-		if err != nil {
-			return errors.Wrap(err, "Failed to create tick data ["+b.symbolAndTime()+"] empty file")
-		}
-	}
-
-	return nil
-}
-
-func (b Bi5) isDownloaded() bool {
-	return b.isFileExists(b.targetFilePath) ||
-		b.isFileExists(b.targetFilePath+".empty") ||
-		b.isFileExists(b.targetFilePath+".notFound")
-}
-
-func (b Bi5) isFileExists(path string) bool {
-	_, err := os.Stat(path)
-	return err == nil || os.IsExist(err)
-}
-
-func (b Bi5) symbolAndTime() string {
-	return b.symbol + ": " + b.dayHour.Format("2006-01-02:15H")
-}
-
-func (b Bi5) createFile(path string) error {
-	// Create dir if not exists
-	dir := filepath.Dir(path)
-	if err := os.MkdirAll(dir, 0755); err != nil {
-		err = errors.Wrap(err, "Create folder ["+dir+"] failed")
-		return err
-	}
-
-	emptyFile, err := os.Create(path)
-	if err == nil {
-		defer emptyFile.Close()
-	}
-	return err
+	return b.downloader.Download(b.InstrumentCode(), b.dayHour)
 }
 
 func (b Bi5) EachTick(it tickdata.TickIterator) {
-	if !b.isFileExists(b.targetFilePath) {
+	if !misc.IsFileExists(b.targetFilePath) {
 		return
 	}
 
@@ -267,7 +204,7 @@ func (b Bi5) EachTick(it tickdata.TickIterator) {
 		if bytesCount != TICK_BYTES || err != nil {
 			err = errors.Wrap(err, "LZMA decode failed: ["+strconv.Itoa(bytesCount)+"] for file ["+b.targetFilePath+"]")
 		} else {
-			tick, err = b.decodeTickData(bytesArr[:], b.symbol, b.dayHour)
+			tick, err = b.decodeTickData(bytesArr[:], b.InstrumentCode(), b.dayHour)
 			if err != nil {
 				err = errors.Wrap(err, "Decode tick data failed for file ["+b.targetFilePath+"]")
 			}
