@@ -9,3 +9,7 @@ func ToHour(t time.Time) time.Time {
 func ToHourUTC(t time.Time) time.Time {
 	return ToHour(t).UTC()
 }
+
+func TimeToDayString(t time.Time) string {
+	return t.Format("2006-01-02")
+}

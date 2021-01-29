@@ -116,11 +116,11 @@ func ParseOption(args ArgsList) (*AppOption, error) {
 }
 
 func handleTimeArguments(args ArgsList, opt *AppOption) (err error) {
-	if opt.Start, err = time.ParseInLocation("2006-01-02", args.Start, time.UTC); err != nil {
+	if opt.Start, err = parseDateArgument(args.Start); err != nil {
 		err = errors.Wrap(err, "invalid start parameter")
 		return
 	}
-	if opt.End, err = time.ParseInLocation("2006-01-02", args.End, time.UTC); err != nil {
+	if opt.End, err = parseDateArgument(args.End); err != nil {
 		err = fmt.Errorf("invalid end parameter")
 		return
 	}
@@ -129,6 +129,10 @@ func handleTimeArguments(args ArgsList, opt *AppOption) (err error) {
 		return
 	}
 	return
+}
+
+func parseDateArgument(dateString string) (time.Time, error) {
+	return time.ParseInLocation("2006-01-02", dateString, time.UTC)
 }
 
 // NewOutputs create timeframe instance
@@ -193,10 +197,10 @@ func (app *DukaApp) Execute() error {
 	for day := opt.Start; day.Unix() < opt.End.Unix(); day = day.Add(24 * time.Hour) {
 		// Download, parse, store
 		if td, err := iTickdata.FetchDay(opt.Instrument, day, opt.Folder); err != nil {
-			err = errors.Wrap(err, "Failed to fetch ["+day.Format("2006-01-02")+"]")
+			err = errors.Wrap(err, "Failed to fetch ["+misc.TimeToDayString(day)+"]")
 			return err
 		} else if err = app.export(td); err != nil {
-			err = errors.Wrap(err, "Failed to export ["+day.Format("2006-01-02")+"]")
+			err = errors.Wrap(err, "Failed to export ["+misc.TimeToDayString(day)+"]")
 		}
 	}
 

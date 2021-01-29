@@ -67,13 +67,15 @@ func (c *CsvDump) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) err
 	return nil
 }
 
+const dayFormat = "2006-01-02"
+
 // worker goroutine which flust data to disk
 //
 func (c *CsvDump) worker() error {
 	fname := fmt.Sprintf("%s-%s-%s.%s",
 		c.instrument.Code(),
-		c.day.Format("2006-01-02"),
-		c.end.Format("2006-01-02"),
+		c.day.Format(dayFormat),
+		c.end.Format(dayFormat),
 		ext)
 
 	fpath := filepath.Join(c.dest, fname)
