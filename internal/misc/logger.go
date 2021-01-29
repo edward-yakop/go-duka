@@ -33,36 +33,28 @@ type logPrefix struct {
 }
 
 func (l *logPrefix) Trace(format string, v ...interface{}) {
-	if l.prefix != "" {
-		format = fmt.Sprintf("[%s] %s", l.prefix, format)
+	log.Trace(l.format(format), v...)
+}
+
+func (l *logPrefix) format(format string) string {
+	if l.prefix == "" {
+		return format
 	}
-	log.Trace(format, v...)
+	return fmt.Sprintf("[%s] %s", l.prefix, format)
 }
 
 func (l *logPrefix) Info(format string, v ...interface{}) {
-	if l.prefix != "" {
-		format = fmt.Sprintf("[%s] %s", l.prefix, format)
-	}
-	log.Info(format, v...)
+	log.Info(l.format(format), v...)
 }
 
 func (l *logPrefix) Warn(format string, v ...interface{}) {
-	if l.prefix != "" {
-		format = fmt.Sprintf("[%s] %s", l.prefix, format)
-	}
-	log.Warn(format, v...)
+	log.Warn(l.format(format), v...)
 }
 
 func (l *logPrefix) Error(format string, v ...interface{}) {
-	if l.prefix != "" {
-		format = fmt.Sprintf("[%s] %s", l.prefix, format)
-	}
-	log.ErrorDepth(l.skip, format, v...)
+	log.ErrorDepth(l.skip, l.format(format), v...)
 }
 
 func (l *logPrefix) Fatal(format string, v ...interface{}) {
-	if l.prefix != "" {
-		format = fmt.Sprintf("[%s] %s", l.prefix, format)
-	}
-	log.FatalDepth(l.skip, format, v...)
+	log.FatalDepth(l.skip, l.format(format), v...)
 }
