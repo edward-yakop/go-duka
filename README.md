@@ -1,3 +1,5 @@
+![Go](https://github.com/ed-fx/go-duka/workflows/Go/badge.svg)
+
 ## 1 Tick Data Downloader
 
 - Download tick data from [Dukascopy](https://www.dukascopy.com/swiss/english/marketwatch/historical/)
