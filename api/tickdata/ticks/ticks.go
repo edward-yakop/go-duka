@@ -4,6 +4,7 @@ import (
 	"github.com/ed-fx/go-duka/api/instrument"
 	"github.com/ed-fx/go-duka/api/tickdata"
 	"github.com/ed-fx/go-duka/internal/bi5"
+	"github.com/ed-fx/go-duka/internal/misc"
 	"github.com/pkg/errors"
 	"time"
 	"unknwon.dev/clog/v2"
@@ -22,19 +23,19 @@ type Ticks struct {
 	isCompleted  bool
 }
 
-func (t Ticks) Start() time.Time {
+func (t *Ticks) Start() time.Time {
 	return t.start
 }
 
-func (t Ticks) End() time.Time {
+func (t *Ticks) End() time.Time {
 	return t.end
 }
 
-func (t Ticks) Current() *tickdata.TickData {
+func (t *Ticks) Current() *tickdata.TickData {
 	return t.currTick
 }
 
-func (t Ticks) IsCompleted() bool {
+func (t *Ticks) IsCompleted() bool {
 	return t.isCompleted
 }
 
@@ -72,7 +73,7 @@ func (t *Ticks) Goto(to time.Time) (isSuccess bool, err error) {
 
 	to = to.In(time.UTC) // To ease debugging
 	t.isCompleted = false
-	for currTime := t.timeToHour(to); currTime.Before(t.end); currTime = currTime.Add(time.Hour) {
+	for currTime := misc.ToHourUTC(to); currTime.Before(t.end); currTime = currTime.Add(time.Hour) {
 		if t.ticksDayHour.Equal(currTime) {
 			return t.resetTicksPointer(to)
 		} else {
@@ -105,15 +106,15 @@ func (t *Ticks) complete() {
 	t.currTick = nil
 }
 
-func (t Ticks) nextDownloadHour() time.Time {
+func (t *Ticks) nextDownloadHour() time.Time {
 	var next time.Time
 	if t.currTick == nil {
-		next = t.start.UTC()
+		next = t.start
 	} else {
 		next = t.currTick.UTC().Add(time.Hour)
 	}
 
-	return time.Date(next.Year(), next.Month(), next.Day(), next.Hour(), 0, 0, 0, time.UTC)
+	return misc.ToHourUTC(next)
 }
 
 func (t *Ticks) seek(target time.Time) {
@@ -133,7 +134,7 @@ func (t *Ticks) seek(target time.Time) {
 	t.currTick = t.ticks[i]
 }
 
-func (t Ticks) resetTicksPointer(to time.Time) (bool, error) {
+func (t *Ticks) resetTicksPointer(to time.Time) (bool, error) {
 	if t.currTick == nil { // If beginning of hour
 		return t.Next()
 	}
@@ -174,15 +175,11 @@ func (t Ticks) resetTicksPointer(to time.Time) (bool, error) {
 	}
 }
 
-func (t Ticks) prevTick() *tickdata.TickData {
+func (t *Ticks) prevTick() *tickdata.TickData {
 	if t.ticksIdx == 0 {
 		return nil
 	}
 	return t.ticks[t.ticksIdx-1]
-}
-
-func (t Ticks) timeToHour(tt time.Time) time.Time {
-	return time.Date(tt.Year(), tt.Month(), tt.Day(), tt.Hour(), 0, 0, 0, tt.Location()).UTC()
 }
 
 var isLogSetup = false

@@ -22,9 +22,7 @@ func TestDownloader(t *testing.T) {
 	d.Add(instrument.GetMetadata("EURUSD"), from, to).
 		Add(instrument.GetMetadata("GBPUSD"), from, to)
 
-	d.Download(func(instrumentCode string, dayHour time.Time, err error, curr, count int) {
-
-	})
+	d.Download(nil)
 
 	fileExists(t, bi5.BiFilePathTime(folder, "EURUSD", from))
 	fileExists(t, bi5.BiFilePathTime(folder, "EURUSD", to))

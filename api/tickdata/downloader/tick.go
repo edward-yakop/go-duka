@@ -48,6 +48,7 @@ func (h hours) Size() int {
 }
 
 var doNothingListener DownloadListener = func(symbol string, dayHour time.Time, err error, curr, count int) {
+	// Do nothing. This is a substitution when listener is passed as nil in Download
 }
 
 func (h *hours) Download(downloader *bi5.Downloader, symbol string, progress, count int, listener DownloadListener) int {
