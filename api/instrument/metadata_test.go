@@ -19,6 +19,18 @@ func TestGetMetadata_blank(t *testing.T) {
 	assert.Nil(t, m)
 }
 
+func TestGetMetadataByName_happyPath(t *testing.T) {
+	m := GetMetadataByName("A.US/USD")
+	assert.NotNil(t, m)
+	assert.Equal(t, "AUSUSD", m.Code())
+	assert.Equal(t, "AGILENT TECHNOLOGIES INC", m.Description())
+}
+
+func TestGetMetadataByName_blank(t *testing.T) {
+	m := GetMetadataByName("NOT_EXISTENT")
+	assert.Nil(t, m)
+}
+
 func TestMetadata_PriceToString(t *testing.T) {
 	m := GetMetadata("EURUSD")
 	assert.Equal(t, "1.22464", m.PriceToString(1.22464))

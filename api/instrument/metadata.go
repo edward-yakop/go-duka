@@ -61,14 +61,31 @@ func (m *Metadata) PriceToString(price float64) string {
 //
 // Returns [nil] if not found
 func GetMetadata(code string) *Metadata {
-	symbol, ok := codeToSymbol[strings.ToUpper(code)]
+	instrument, ok := codeToInstrument[strings.ToUpper(code)]
 	if ok {
-		return &symbol
+		return &instrument
 	}
 	return nil
 }
 
-var codeToSymbol = map[string]Metadata{
+var nameToInstrument map[string]Metadata = nil
+
+func GetMetadataByName(name string) *Metadata {
+	if nameToInstrument == nil {
+		nameToInstrument = make(map[string]Metadata)
+		for _, metadata := range codeToInstrument {
+			nameToInstrument[metadata.name] = metadata
+		}
+	}
+
+	instrument, ok := nameToInstrument[name]
+	if ok {
+		return &instrument
+	}
+	return nil
+}
+
+var codeToInstrument = map[string]Metadata{
 	"AUSUSD": {
 		code:              "AUSUSD",
 		name:              "A.US/USD",
