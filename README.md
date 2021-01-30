@@ -1,4 +1,5 @@
 ![Go](https://github.com/ed-fx/go-duka/workflows/Go/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ed-fx_go-duka&metric=alert_status)](https://sonarcloud.io/dashboard?id=ed-fx_go-duka)
 
 ## 1 Tick Data Downloader
 
