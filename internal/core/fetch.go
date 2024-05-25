@@ -1,14 +1,8 @@
 package core
 
 import (
-	"fmt"
-	"github.com/pkg/errors"
-	"io"
-	"io/ioutil"
+	"github.com/go-resty/resty/v2"
 	"log/slog"
-	"net/http"
-	"os"
-	"path/filepath"
 	"time"
 )
 
@@ -19,98 +13,46 @@ const (
 )
 
 type HTTPDownload struct {
-	client *http.Client
+	client *resty.Client
 }
 
 func NewDownloader() Downloader {
 	return &HTTPDownload{
-		client: &http.Client{Timeout: 5 * time.Minute},
+		client: resty.New().
+			SetRetryCount(retryTimes).
+			SetRetryWaitTime(5 * time.Second),
 	}
 }
 
 func (h HTTPDownload) Download(URL string, toFilePath string) (httpStatusCode int, filesize int64, err error) {
-	var resp *http.Response
-	for retry := 0; retry < retryTimes; retry++ {
-		resp, err = h.client.Get(URL)
-		if err != nil {
-			slog.Error("Download failed",
-				slog.Int("retry", retry),
-				slog.String("url", URL),
-				slog.Any("error", err),
-			)
+	slog.Debug(
+		"about to download",
+		slog.String("url", URL),
+		slog.String("targetFilePath", toFilePath),
+	)
 
-			h.delay()
+	resp, getErr := h.client.R().
+		SetOutput(toFilePath).
+		Get(URL)
 
-			continue
-		}
-		defer resp.Body.Close()
+	if getErr != nil {
+		err = getErr
+		slog.Error("Download failed",
+			slog.String("url", URL),
+			slog.Any("error", err),
+		)
 
-		httpStatusCode = resp.StatusCode
-		if httpStatusCode != http.StatusOK {
-			if httpStatusCode == http.StatusNotFound {
-				// 404
-				break
-			}
-
-			slog.Error("Download  failed",
-				slog.Int("retry", retry),
-				slog.String("url", URL),
-				slog.Int("httpStatusCode", httpStatusCode),
-				slog.String("status", resp.Status),
-				slog.Any("error", err),
-			)
-
-			err = fmt.Errorf("http error %d:%s", resp.StatusCode, resp.Status)
-			h.delay()
-
-			continue
-		}
-
-		filesize, err = h.saveBodyToDisk(resp.Body, toFilePath)
 		return
 	}
 
-	return
-}
+	httpStatusCode = resp.StatusCode()
+	filesize = resp.Size()
+	slog.Debug(
+		"download complete",
+		slog.String("url", URL),
+		slog.String("targetFilePath", toFilePath),
+		slog.Duration("duration", resp.Time()),
+	)
 
-func (h HTTPDownload) delay() {
-	time.Sleep(5 * time.Second)
-}
-
-func (h HTTPDownload) saveBodyToDisk(body io.ReadCloser, path string) (filesize int64, err error) {
-	tempFile, err := ioutil.TempFile(os.TempDir(), "go-duka.download.*.temp")
-	if err != nil {
-		return 0, errors.New("Failed to create temp file for download")
-	}
-	tempFileName := tempFile.Name()
-	defer func() {
-		if err != nil {
-			_ = tempFile.Close()
-			_ = os.Remove(tempFileName)
-		}
-	}()
-
-	filesize, err = io.Copy(tempFile, body)
-	if err != nil {
-		err = errors.Wrap(err, "Saving tick data ["+tempFileName+"] Failed")
-		return
-	}
-
-	dir := filepath.Dir(path)
-	err = os.MkdirAll(dir, 0755)
-	if err != nil {
-		err = errors.Wrap(err, "Create folder ["+dir+"] failed")
-		return
-	}
-
-	err = tempFile.Close()
-	if err != nil {
-		err = errors.Wrap(err, "Failed to close tick data ["+tempFileName+"] file")
-		return
-	}
-	err = os.Rename(tempFileName, path)
-	if err != nil {
-		err = errors.Wrap(err, "Failed to move tick data to ["+path+"]")
-	}
 	return
 }

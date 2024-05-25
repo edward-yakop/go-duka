@@ -3,12 +3,12 @@ package instrument
 import (
 	"encoding/json"
 	"fmt"
-	"io"
+	"github.com/go-resty/resty/v2"
 	"log/slog"
 	"math"
-	"net/http"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -56,22 +56,34 @@ func (m *Metadata) PriceToString(price float64) string {
 	return fmt.Sprintf(m.priceFormat, price)
 }
 
-var codeToInstrument map[string]*Metadata = nil
-var nameToInstrument map[string]*Metadata = nil
+var codeToInstrument = map[string]*Metadata{}
+var nameToInstrument = map[string]*Metadata{}
+
+var s sync.RWMutex
 
 // GetMetadata returns instrument with requested code.
 // Returns nil if not found
 func GetMetadata(code string) *Metadata {
-	LoadMetadataFromJson()
-	return codeToInstrument[strings.ToUpper(code)]
+	LoadMetadataFromJson(false)
+
+	s.RLock()
+	r := codeToInstrument[strings.ToUpper(code)]
+	s.RUnlock()
+
+	return r
 }
 
 func GetMetadataByName(name string) *Metadata {
-	LoadMetadataFromJson()
-	return nameToInstrument[name]
+	LoadMetadataFromJson(false)
+
+	s.RLock()
+	r := nameToInstrument[name]
+	s.RUnlock()
+
+	return r
 }
 
-type InstrumentJson struct {
+type Instrument struct {
 	Name                       string    `json:"name"`
 	Description                string    `json:"description"`
 	DecimalFactor              int       `json:"decimalFactor"`
@@ -83,42 +95,62 @@ type InstrumentJson struct {
 
 var URL = "https://raw.githubusercontent.com/Leo4815162342/dukascopy-node/master/src/utils/instrument-meta-data/generated/instrument-meta-data.json"
 
-func LoadMetadataFromJson() {
-	if codeToInstrument != nil {
+func LoadMetadataFromJson(isForce bool) {
+	if len(codeToInstrument) > 0 && !isForce {
 		return
 	}
 
-	codeToInstrument = map[string]*Metadata{}
-	nameToInstrument = map[string]*Metadata{}
+	resp, getErr := resty.New().R().
+		SetDoNotParseResponse(true).
+		Get(URL)
 
-	resp, err := http.Get(URL)
-	if err != nil {
-		slog.Warn("Failed to retrieve dukas instrument from [%s]", URL)
-
-		return
-	}
-
-	defer func(Body io.ReadCloser) {
-		_ = Body.Close()
-	}(resp.Body)
-
-	var m map[string]InstrumentJson
-	if unmarshalErr := json.NewDecoder(resp.Body).Decode(&m); unmarshalErr != nil {
-		slog.Error(
-			"failed to unmarshal instrument file",
+	if getErr != nil {
+		slog.Warn(
+			"Failed to retrieve dukas instrument",
 			slog.String("url", URL),
-			slog.Any("error", err),
+			slog.Any("error", getErr),
 		)
+
+		return
 	}
 
-	for instrumentCode, instrument := range m {
-		metadata := jsonToMetadata(instrumentCode, instrument)
-		codeToInstrument[metadata.Code()] = metadata
-		nameToInstrument[metadata.Name()] = metadata
+	if resp.IsError() {
+		statusCode := resp.RawResponse.StatusCode
+		slog.Error(
+			"failed to retrieve metadata",
+			slog.Int("httpStatusCode", statusCode),
+			slog.String("rawResponse", string(resp.Body())),
+		)
+
+		return
 	}
+
+	tCodeToInstrument := map[string]*Metadata{}
+	tNameToInstrument := map[string]*Metadata{}
+
+	instruments := map[string]Instrument{}
+	if unmarshalErr := json.NewDecoder(resp.RawBody()).Decode(&instruments); unmarshalErr != nil {
+		slog.Error(
+			"failed to unmarshal dukas instrument",
+			slog.Any("error", unmarshalErr),
+			slog.String("url", URL),
+		)
+
+		return
+	}
+	for instrumentCode, instrument := range instruments {
+		metadata := jsonToMetadata(instrumentCode, instrument)
+		tCodeToInstrument[metadata.Code()] = metadata
+		tNameToInstrument[metadata.Name()] = metadata
+	}
+
+	s.Lock()
+	codeToInstrument = tCodeToInstrument
+	nameToInstrument = tNameToInstrument
+	s.Unlock()
 }
 
-func jsonToMetadata(code string, instrument InstrumentJson) *Metadata {
+func jsonToMetadata(code string, instrument Instrument) *Metadata {
 	return &Metadata{
 		code:              strings.ToUpper(code),
 		name:              instrument.Name,

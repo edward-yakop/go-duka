@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/edward-yakop/go-duka/internal/core"
 	"github.com/edward-yakop/go-duka/internal/misc"
+	"github.com/go-resty/resty/v2"
 	"github.com/pkg/errors"
 	"net/http"
 	"os"
@@ -12,6 +13,7 @@ import (
 )
 
 type Downloader struct {
+	client *resty.Client
 	folder string
 }
 
@@ -31,10 +33,10 @@ func (d Downloader) Download(instrumentCode string, t time.Time) error {
 		return nil
 	}
 
-	link := fmt.Sprintf(core.DukaTmplURL, instrumentCode, year, month-1, day, hour)
+	url := fmt.Sprintf(core.DukaTmplURL, instrumentCode, year, month-1, day, hour)
 
 	var httpStatusCode int
-	httpStatusCode, filesize, err := httpDownload.Download(link, targetFilePath)
+	httpStatusCode, filesize, err := httpDownload.Download(url, targetFilePath)
 	if err != nil {
 		symbolTime := d.symbolAndTime(instrumentCode, dayHour)
 		return errors.Wrap(err, "Failed to download tick data for ["+symbolTime+"]")

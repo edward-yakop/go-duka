@@ -6,7 +6,8 @@ import (
 	"github.com/edward-yakop/go-duka/api/tickdata"
 	"github.com/edward-yakop/go-duka/api/tickdata/stream"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
+	"github.com/stretchr/testify/require"
+	"log/slog"
 	"math"
 	"os"
 	"strconv"
@@ -15,6 +16,17 @@ import (
 )
 
 func Test_StreamExample_DDFinder(t *testing.T) {
+	slog.SetDefault(
+		slog.New(
+			slog.NewTextHandler(
+				os.Stdout,
+				&slog.HandlerOptions{
+					Level: slog.LevelDebug,
+				},
+			),
+		),
+	)
+
 	loc, _ := time.LoadLocation("EET")
 
 	im := instrument.GetMetadata("GBPJPY")
@@ -26,21 +38,21 @@ func Test_StreamExample_DDFinder(t *testing.T) {
 	openPriceDiff, maxDD, maxPositive, maxDDForMaxPositive, maxPositiveTime, closePriceDiff :=
 		buyDDFinder(t, im, openTime, closeTime, openPrice, closePrice)
 
-	println("Open price diff in [", strconv.Itoa(openPriceDiff), "] points")
-	println("Max DD [", strconv.Itoa(maxDD), "] points")
-	println("Max Positive [", strconv.Itoa(maxPositive), "] points")
-	println("Max Positive Time [", fmtTime(maxPositiveTime), "] Duration [", fmtDuration(maxPositiveTime.Sub(openTime)), "]")
-	println("Max DD for Max Positive [", strconv.Itoa(maxDDForMaxPositive), "] points")
-	println("Close price diff in [", strconv.Itoa(closePriceDiff), "] points")
+	t.Log("Open price diff in [", strconv.Itoa(openPriceDiff), "] points")
+	t.Log("Max DD [", strconv.Itoa(maxDD), "] points")
+	t.Log("Max Positive [", strconv.Itoa(maxPositive), "] points")
+	t.Log("Max Positive Time [", fmtTime(maxPositiveTime), "] Duration [", fmtDuration(maxPositiveTime.Sub(openTime)), "]")
+	t.Log("Max DD for Max Positive [", strconv.Itoa(maxDDForMaxPositive), "] points")
+	t.Log("Close price diff in [", strconv.Itoa(closePriceDiff), "] points")
 	profitInPoints := int(math.Round((closePrice - openPrice) * 1000))
-	println("Profit [", strconv.Itoa(profitInPoints), "] points Duration [", fmtDuration(closeTime.Sub(openTime)), "]")
+	t.Log("Profit [", strconv.Itoa(profitInPoints), "] points Duration [", fmtDuration(closeTime.Sub(openTime)), "]")
 
 	// Asserts
-	assert.Equal(t, 0, openPriceDiff)
-	assert.Equal(t, -240, maxDD)
-	assert.Equal(t, 392, maxPositive)
-	assert.Equal(t, -240, maxDDForMaxPositive)
-	assert.Equal(t, 400, profitInPoints)
+	assert.Equal(t, 0, openPriceDiff, "openPriceDiff")
+	assert.Equal(t, -240, maxDD, "maxDD")
+	assert.Equal(t, 392, maxPositive, "maxPositive")
+	assert.Equal(t, -240, maxDDForMaxPositive, "maxDDForMaxPositive")
+	assert.Equal(t, 400, profitInPoints, "profitInPoints")
 }
 
 func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Time, closeTime time.Time, openPrice float64, closePrice float64) (
@@ -60,7 +72,7 @@ func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Ti
 		}
 
 		if openPriceDiff == math.MaxInt32 {
-			printTick(" open", tickTime, tick)
+			logTick(t, " open", tickTime, tick)
 			openPriceDiff = int(math.Round((openPrice - tick.Ask) * 1000))
 		}
 
@@ -75,7 +87,7 @@ func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Ti
 		}
 
 		if closeTime.Sub(tickTime) <= 0 && closePriceDiff == math.MaxInt32 {
-			printTick("close", tickTime, tick)
+			logTick(t, "close", tickTime, tick)
 			closePriceDiff = int(math.Round((tick.Bid - closePrice) * 1000))
 			return false
 		}
@@ -86,21 +98,27 @@ func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Ti
 }
 
 func createEmptyDir(t *testing.T) string {
-	dir, err := ioutil.TempDir(".", "test")
+	dir, err := os.MkdirTemp(".", "test")
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
 	t.Cleanup(func() {
-		_ = os.RemoveAll(dir)
+		require.NoError(t, os.RemoveAll(dir), "remove temporary dir failed")
 	})
 	return dir
 }
 
-func printTick(op string, tickTime time.Time, tick *tickdata.TickData) {
-	println(op,
-		"date [", fmtTime(tickTime), "] timestamp [", tick.Timestamp,
-		"] ask [", fmtPrice(tick.Ask), "] bid [", fmtPrice(tick.Bid), "]",
-	)
+func logTick(t *testing.T, op string, tickTime time.Time, tick *tickdata.TickData) {
+	if tick == nil {
+		return
+	}
+
+	t.Helper()
+	timestamp := tick.Timestamp
+	ask := tick.Ask
+	bid := tick.Bid
+
+	t.Logf("%s date [%s] timestamp [%d], ask [%.3f] bid [%.3f]", op, fmtTime(tickTime), timestamp, ask, bid)
 }
 
 func fmtDuration(d time.Duration) string {
@@ -115,8 +133,4 @@ func fmtDuration(d time.Duration) string {
 
 func fmtTime(tickTime time.Time) string {
 	return tickTime.Format("2006-01-02 15:04:05")
-}
-
-func fmtPrice(p float64) string {
-	return fmt.Sprintf("%.3f", p)
 }
