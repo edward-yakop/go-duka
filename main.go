@@ -3,12 +3,13 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/ed-fx/go-duka/internal/app"
+	"github.com/edward-yakop/go-duka/internal/app"
+	"log/slog"
+	"os"
 	"path/filepath"
 	"time"
 
-	"github.com/ed-fx/go-duka/internal/export/fxt4"
-	"unknwon.dev/clog/v2"
+	"github.com/edward-yakop/go-duka/internal/export/fxt4"
 )
 
 func init() {
@@ -79,13 +80,19 @@ func main() {
 	flag.Parse()
 
 	if args.Verbose {
-		_ = clog.NewConsole(0, clog.ConsoleConfig{
-			Level: clog.LevelTrace,
-		})
+		slog.SetDefault(slog.New(
+			slog.NewTextHandler(
+				os.Stdout,
+				&slog.HandlerOptions{Level: slog.LevelDebug},
+			),
+		))
 	} else {
-		_ = clog.NewConsole(0, clog.ConsoleConfig{
-			Level: clog.LevelInfo,
-		})
+		slog.SetDefault(slog.New(
+			slog.NewTextHandler(
+				os.Stdout,
+				&slog.HandlerOptions{Level: slog.LevelInfo},
+			),
+		))
 	}
 
 	if args.Dump != "" {
@@ -117,6 +124,5 @@ func main() {
 	fmt.Printf(" StartDate: %s\n", opt.Start.Format("2006-01-02:15H"))
 	fmt.Printf("   EndDate: %s\n", opt.End.Format("2006-01-02:15H"))
 
-	defer clog.Stop()
 	_ = app.NewApp(opt).Execute()
 }

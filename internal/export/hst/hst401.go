@@ -2,21 +2,15 @@ package hst
 
 import (
 	"fmt"
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
+	"log/slog"
 	"math"
 	"os"
 	"path/filepath"
-
-	"github.com/ed-fx/go-duka/internal/misc"
-)
-
-var (
-	log = misc.NewLogger("HST", 3)
 )
 
 // HST401 MT4 history data format .hst with version 401
-//
 type HST401 struct {
 	header     *Header
 	dest       string
@@ -29,7 +23,6 @@ type HST401 struct {
 }
 
 // NewHST create a HST convertor
-//
 func NewHST(timefame, spread uint32, instrument *instrument.Metadata, dest string) *HST401 {
 	hst := &HST401{
 		header:     NewHeader(timefame, instrument),
@@ -46,54 +39,81 @@ func NewHST(timefame, spread uint32, instrument *instrument.Metadata, dest strin
 }
 
 // worker goroutine which flust data to disk
-//
 func (h *HST401) worker() error {
 	fname := fmt.Sprintf("%s%d.hst", h.instrument.Code(), h.timefame)
 	fpath := filepath.Join(h.dest, fname)
 
 	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
 	if err != nil {
-		log.Error("Failed to create file %s, error %v.", fpath, err)
+		slog.Error(
+			"Failed to create file",
+			slog.String("path", fpath),
+			slog.Any("error", err),
+		)
+
 		return err
 	}
 
 	defer func() {
 		_ = f.Close()
 		close(h.chClose)
-		log.Info("M%d Saved Bar: %d.", h.timefame, h.barCount)
+
+		slog.Info("Saved Bar",
+			slog.Uint64("timeframe", uint64(h.timefame)),
+			slog.Int64("barcount", h.barCount),
+		)
 	}()
 
 	// write HST header
 	var bs []byte
 
 	if bs, err = h.header.ToBytes(); err != nil {
-		log.Error("Pack HST Header (%v) failed: %v.", h.header, err)
+		slog.Error(
+			"Pack HST Header failed",
+			slog.Any("header", h.header),
+			slog.Any("error", err),
+		)
+
 		return err
 	}
 	if _, err = f.Write(bs[:]); err != nil {
-		log.Error("Write HST Header (%v) failed: %v.", h.header, err)
+		slog.Error("Write HST Header failed",
+			slog.Any("header", h.header),
+			slog.Any("error", err),
+		)
+
 		return err
 	}
 
 	for bar := range h.chBars {
 		if bs, err = bar.ToBytes(); err == nil {
 			if _, err = f.Write(bs[:]); err != nil {
-				log.Error("Write BarData(%v) failed: %v.", bar, err)
+				slog.Error(
+					"Write Bardata failed",
+					slog.Any("bar", bar),
+					slog.Any("error", err),
+				)
 			}
 		} else {
-			log.Error("Pack BarData(%v) failed: %v.", bar, err)
+			slog.Error("Pack BarData failed",
+				slog.Any("error", err),
+				slog.Any("bar", bar),
+			)
+
 			continue
 		}
 	}
 
 	if err != nil {
-		log.Warn("HST worker return with %v.", err)
+		slog.Warn(
+			"HST worker return with",
+			slog.Any("error", err),
+		)
 	}
 	return err
 }
 
 // PackTicks aggregate ticks with timeframe
-//
 func (h *HST401) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) error {
 	// Transform universal bar list to binary bar data (60 Bytes per bar)
 	if len(ticks) == 0 {
@@ -129,7 +149,6 @@ func (h *HST401) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) erro
 }
 
 // Finish HST file convert
-//
 func (h *HST401) Finish() error {
 	close(h.chBars)
 	<-h.chClose

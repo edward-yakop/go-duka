@@ -1,7 +1,7 @@
 package ticks
 
 import (
-	"github.com/ed-fx/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/instrument"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"

@@ -5,22 +5,17 @@ import (
 	"github.com/pkg/errors"
 	"io"
 	"io/ioutil"
+	"log/slog"
 	"net/http"
 	"os"
 	"path/filepath"
 	"time"
-
-	"github.com/ed-fx/go-duka/internal/misc"
 )
 
 const (
 	// "https://datafeed.dukascopy.com/datafeed/{currency}/{year}/{month:02d}/{day:02d}/{hour:02d}h_ticks.bi5"
 	DukaTmplURL = "https://datafeed.dukascopy.com/datafeed/%s/%04d/%02d/%02d/%02dh_ticks.bi5"
 	retryTimes  = 5
-)
-
-var (
-	log = misc.NewLogger("Duka", 2)
 )
 
 type HTTPDownload struct {
@@ -38,7 +33,12 @@ func (h HTTPDownload) Download(URL string, toFilePath string) (httpStatusCode in
 	for retry := 0; retry < retryTimes; retry++ {
 		resp, err = h.client.Get(URL)
 		if err != nil {
-			log.Error("[%d] Download %s failed: %v.", retry, URL, err)
+			slog.Error("Download failed",
+				slog.Int("retry", retry),
+				slog.String("url", URL),
+				slog.Any("error", err),
+			)
+
 			h.delay()
 
 			continue
@@ -52,9 +52,17 @@ func (h HTTPDownload) Download(URL string, toFilePath string) (httpStatusCode in
 				break
 			}
 
-			log.Trace("[%d] Download %s failed %d:%s. Retrying", retry, URL, httpStatusCode, resp.Status)
+			slog.Error("Download  failed",
+				slog.Int("retry", retry),
+				slog.String("url", URL),
+				slog.Int("httpStatusCode", httpStatusCode),
+				slog.String("status", resp.Status),
+				slog.Any("error", err),
+			)
+
 			err = fmt.Errorf("http error %d:%s", resp.StatusCode, resp.Status)
 			h.delay()
+
 			continue
 		}
 

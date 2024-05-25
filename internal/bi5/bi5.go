@@ -3,16 +3,16 @@ package bi5
 import (
 	"bytes"
 	"encoding/binary"
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
-	"github.com/ed-fx/go-duka/internal/misc"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/internal/misc"
 	"github.com/pkg/errors"
 	"io"
 	"os"
 	"strconv"
 	"time"
 
-	"github.com/ed-fx/go-duka/internal/core"
+	"github.com/edward-yakop/go-duka/internal/core"
 	"github.com/ulikunitz/xz/lzma"
 )
 
@@ -130,9 +130,8 @@ func (b Bi5) sanitizeTo(to time.Time, location *time.Location) (time.Time, error
 // decodeTickData from input data bytes array.
 // the valid data array should be at size `TICK_BYTES`.
 //
-//  struck.unpack(!IIIff)
-//  date, ask / point, bid / point, round(volume_ask * 100000), round(volume_bid * 100000)
-//
+//	struck.unpack(!IIIff)
+//	date, ask / point, bid / point, round(volume_ask * 100000), round(volume_bid * 100000)
 func (b Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*tickdata.TickData, error) {
 	raw := struct {
 		TimeMs    int32 // millisecond offset of current hour

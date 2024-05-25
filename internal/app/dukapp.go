@@ -2,25 +2,25 @@ package app
 
 import (
 	"fmt"
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
-	iTickdata "github.com/ed-fx/go-duka/internal/tickdata"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
+	iTickdata "github.com/edward-yakop/go-duka/internal/tickdata"
 	"github.com/pkg/errors"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
 	"time"
 
-	"github.com/ed-fx/go-duka/internal/core"
-	"github.com/ed-fx/go-duka/internal/export/csv"
-	"github.com/ed-fx/go-duka/internal/export/fxt4"
-	"github.com/ed-fx/go-duka/internal/export/hst"
-	"github.com/ed-fx/go-duka/internal/misc"
+	"github.com/edward-yakop/go-duka/internal/core"
+	"github.com/edward-yakop/go-duka/internal/export/csv"
+	"github.com/edward-yakop/go-duka/internal/export/fxt4"
+	"github.com/edward-yakop/go-duka/internal/export/hst"
+	"github.com/edward-yakop/go-duka/internal/misc"
 )
 
 var (
-	log             = misc.NewLogger("App", 2)
 	supportsFormats = []string{"csv", "fxt", "hst"}
 )
 
@@ -39,14 +39,12 @@ type ArgsList struct {
 }
 
 // DukaApp used to download source tick data
-//
 type DukaApp struct {
 	option  AppOption
 	outputs []core.Converter
 }
 
 // AppOption download options
-//
 type AppOption struct {
 	Start      time.Time
 	End        time.Time
@@ -60,7 +58,6 @@ type AppOption struct {
 }
 
 // ParseOption parse input command line
-//
 func ParseOption(args ArgsList) (*AppOption, error) {
 	metadata := instrument.GetMetadata(args.Symbol)
 	var err error
@@ -136,7 +133,6 @@ func parseDateArgument(dateString string) (time.Time, error) {
 }
 
 // NewOutputs create timeframe instance
-//
 func NewOutputs(opt *AppOption) []core.Converter {
 	outs := make([]core.Converter, 0)
 	for _, period := range strings.Split(opt.Periods, ",") {
@@ -154,7 +150,8 @@ func NewOutputs(opt *AppOption) []core.Converter {
 			format = hst.NewHST(timeframe, opt.Spread, opt.Instrument, opt.Folder)
 			break
 		default:
-			log.Error("unsupported format %s.", opt.Format)
+			slog.Error("unsupported format", slog.String("format", opt.Format))
+
 			return nil
 		}
 
@@ -164,7 +161,6 @@ func NewOutputs(opt *AppOption) []core.Converter {
 }
 
 // NewApp create an application instance by input arguments
-//
 func NewApp(opt *AppOption) *DukaApp {
 	return &DukaApp{
 		option:  *opt,
@@ -173,7 +169,6 @@ func NewApp(opt *AppOption) *DukaApp {
 }
 
 // Execute download source bi5 tick data from dukascopy
-//
 func (app *DukaApp) Execute() error {
 	var (
 		opt       = app.option
@@ -181,14 +176,16 @@ func (app *DukaApp) Execute() error {
 	)
 
 	if len(app.outputs) < 1 {
-		log.Error("No valid output format")
+		slog.Error("No valid output format")
+
 		return errors.New("no valid output format")
 	}
 
 	// Create an output directory
 	if _, err := os.Stat(opt.Folder); os.IsNotExist(err) {
 		if err = os.MkdirAll(opt.Folder, 0770); err != nil {
-			log.Error("Create folder (%s) failed: %v.", opt.Folder, err)
+			slog.Error("Create folder failed", slog.String("folder", opt.Folder), slog.Any("error", err))
+
 			return err
 		}
 	}
@@ -215,7 +212,8 @@ func (app *DukaApp) Execute() error {
 	}
 
 	wg.Wait()
-	log.Info("Time cost: %v.", time.Since(startTime))
+	slog.Info("Time cost", slog.Duration("duration", time.Since(startTime)))
+
 	return nil
 }
 
@@ -225,7 +223,11 @@ func (app *DukaApp) export(td tickdata.Day) error {
 	dayTicks := make([]*tickdata.TickData, 0, 2048)
 	td.EachDay(func(ticks []*tickdata.TickData, err error) bool {
 		if err != nil {
-			log.Error("Decode bi5 %s: %s failed: %v.", td.Symbol(), day.Format("2006-01-02:15H"), err)
+			slog.Error("Decode bi5 failed",
+				slog.String("symbol", td.Symbol()),
+				slog.String("date", day.Format("2006-01-02:15H")),
+				slog.Any("error", err),
+			)
 		} else {
 			dayTicks = append(dayTicks, ticks...)
 		}

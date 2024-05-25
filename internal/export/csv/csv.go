@@ -3,18 +3,16 @@ package csv
 import (
 	"encoding/csv"
 	"fmt"
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"time"
-
-	"github.com/ed-fx/go-duka/internal/misc"
 )
 
 var (
 	ext       = "CSV"
-	log       = misc.NewLogger("CSV", 3)
 	csvHeader = []string{"time", "ask", "bid", "ask_volume", "bid_volume"}
 )
 
@@ -43,11 +41,11 @@ func New(start, end time.Time, header bool, instrument *instrument.Metadata, des
 	}
 
 	go csvDump.worker()
+
 	return csvDump
 }
 
 // Finish complete csv file writing
-//
 func (c *CsvDump) Finish() error {
 	close(c.chTicks)
 	<-c.chClose
@@ -55,7 +53,6 @@ func (c *CsvDump) Finish() error {
 }
 
 // PackTicks handle ticks data
-//
 func (c *CsvDump) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) error {
 	for _, tick := range ticks {
 		select {
@@ -70,7 +67,6 @@ func (c *CsvDump) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) err
 const dayFormat = "2006-01-02"
 
 // worker goroutine which flust data to disk
-//
 func (c *CsvDump) worker() error {
 	fname := fmt.Sprintf("%s-%s-%s.%s",
 		c.instrument.Code(),
@@ -81,14 +77,15 @@ func (c *CsvDump) worker() error {
 	fpath := filepath.Join(c.dest, fname)
 	f, err := os.OpenFile(fpath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0666)
 	if err != nil {
-		log.Error("Failed to create file %s, error %v.", fpath, err)
+		slog.Error("Failed to create file %s, error %v.", fpath, err)
+
 		return err
 	}
 
 	defer func() {
 		_ = f.Close()
 		close(c.chClose)
-		log.Info("Saved Ticks: %d.", c.tickCount)
+		slog.Info("Saved Ticks: %d.", c.tickCount)
 	}()
 
 	csvw := csv.NewWriter(f)
@@ -103,7 +100,11 @@ func (c *CsvDump) worker() error {
 	for tick := range c.chTicks {
 		row := c.toRow(tick)
 		if err = csvw.Write(row); err != nil {
-			log.Error("Write csv %s failed: %v.", fpath, err)
+			slog.Error(
+				"Write csv failed",
+				slog.Any("error", err),
+				slog.String("path", fpath),
+			)
 			break
 		}
 	}

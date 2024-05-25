@@ -1,9 +1,9 @@
 package tickdata
 
 import (
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
-	"github.com/ed-fx/go-duka/internal/bi5"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/internal/bi5"
 	"github.com/pkg/errors"
 	"sort"
 	"sync"

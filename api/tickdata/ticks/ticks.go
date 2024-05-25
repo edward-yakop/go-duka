@@ -1,13 +1,12 @@
 package ticks
 
 import (
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
-	"github.com/ed-fx/go-duka/internal/bi5"
-	"github.com/ed-fx/go-duka/internal/misc"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/internal/bi5"
+	"github.com/edward-yakop/go-duka/internal/misc"
 	"github.com/pkg/errors"
 	"time"
-	"unknwon.dev/clog/v2"
 )
 
 type Ticks struct {
@@ -186,13 +185,6 @@ var isLogSetup = false
 
 // time are in UTC
 func New(instrument *instrument.Metadata, start time.Time, end time.Time, downloadFolderPath string) *Ticks {
-	if !isLogSetup {
-		isLogSetup = true
-		_ = clog.NewConsole(0, clog.ConsoleConfig{
-			Level: clog.LevelInfo,
-		})
-	}
-
 	return &Ticks{
 		instrument:         instrument,
 		start:              start,

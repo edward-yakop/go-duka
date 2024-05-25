@@ -2,10 +2,11 @@ package hst
 
 import (
 	"fmt"
-	"github.com/ed-fx/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"log/slog"
 	"time"
 
-	"github.com/ed-fx/go-duka/internal/misc"
+	"github.com/edward-yakop/go-duka/internal/misc"
 )
 
 const (
@@ -15,7 +16,6 @@ const (
 )
 
 // Header structure for hst version 401 (148 bytes).
-//
 type Header struct {
 	Version   uint32     //   0    4   HST version (401)
 	Copyright [64]byte   //   4   64   Copyright info
@@ -28,7 +28,6 @@ type Header struct {
 }
 
 // BarData wrap the bar data inside hst (60 Bytes)
-//
 type BarData struct {
 	CTM        uint64  //   0   8   current time in seconds, MQL4 datetime
 	Open       float64 //   8   8   OHLCV
@@ -41,7 +40,6 @@ type BarData struct {
 }
 
 // NewHeader for hst version 401
-//
 func NewHeader(timeframe uint32, instrument *instrument.Metadata) *Header {
 	h := &Header{
 		TimeSign: uint32(time.Now().UTC().Unix()),
@@ -56,23 +54,27 @@ func NewHeader(timeframe uint32, instrument *instrument.Metadata) *Header {
 }
 
 // ToBytes convert header to fix bytes array
-//
 func (h *Header) ToBytes() ([]byte, error) {
 	bs, err := misc.PackLittleEndian(headerBytes, h)
 	if err != nil {
-		log.Error("Failed to convert HST header to bytes array. Error %v.", err)
-		return make([]byte, 0), err
+		slog.Error("Failed to convert HST header to bytes array", slog.Any("error", err))
+
+		return []byte{}, err
 	}
+
 	return bs, err
 }
 
 // ToBytes convert bar data to fix bytes array
-//
 func (b *BarData) ToBytes() ([]byte, error) {
 	bs, err := misc.PackLittleEndian(barBytes, b)
 	if err != nil {
-		log.Error("Failed to convert HST Bar data to bytes array. Error %v.", err)
-		return make([]byte, 0), err
+		slog.Error(
+			"Failed to convert HST Bar data to bytes array",
+			slog.Any("error", err),
+		)
+
+		return []byte{}, err
 	}
 	return bs, err
 }

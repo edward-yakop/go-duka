@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"os"
 	"testing"
-
-	"unknwon.dev/clog/v2"
 )
 
 func TestDukaApp(t *testing.T) {
@@ -41,7 +39,6 @@ func TestDukaApp(t *testing.T) {
 	fmt.Printf(" StartDate: %s\n", opt.Start.Format("2006-01-02:15H"))
 	fmt.Printf("   EndDate: %s\n", opt.End.Format("2006-01-02:15H"))
 
-	defer clog.Stop()
 	app := NewApp(opt)
 	_ = app.Execute()
 }

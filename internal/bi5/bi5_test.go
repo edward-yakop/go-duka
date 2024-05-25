@@ -1,10 +1,9 @@
 package bi5
 
 import (
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
 	"os"
 	"testing"
 	"time"
@@ -43,10 +42,11 @@ func testDownloadAndTicks(t *testing.T, from time.Time, to time.Time, expectedFi
 }
 
 func createEmptyDir(t *testing.T) string {
-	dir, err := ioutil.TempDir(".", "test")
+	dir, err := os.MkdirTemp(".", "test")
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		_ = os.RemoveAll(dir)
 	})
+
 	return dir
 }

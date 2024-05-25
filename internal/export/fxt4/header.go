@@ -2,10 +2,11 @@ package fxt4
 
 import (
 	"fmt"
-	"github.com/ed-fx/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"log/slog"
 	"time"
 
-	"github.com/ed-fx/go-duka/internal/misc"
+	"github.com/edward-yakop/go-duka/internal/misc"
 )
 
 var (
@@ -100,7 +101,6 @@ type FXTHeader struct {
 }
 
 // FxtTick ...
-//
 type FxtTick struct {
 	BarTimestamp  uint64  //   0  8   Bar datetime, align with timeframe, unit seconds
 	Open          float64 //   8  8
@@ -176,8 +176,9 @@ func NewHeader(version uint32, instrument *instrument.Metadata, timeframe, sprea
 func (h *FXTHeader) ToBytes() ([]byte, error) {
 	bs, err := misc.PackLittleEndian(headerSize, h)
 	if err != nil {
-		log.Error("Failed to convert FXT header to bytes array. Error %v.", err)
-		return make([]byte, 0), err
+		slog.Error("Failed to convert FXT header to bytes array", slog.Any("error", err))
+
+		return []byte{}, err
 	}
 	return bs, err
 }
@@ -185,8 +186,9 @@ func (h *FXTHeader) ToBytes() ([]byte, error) {
 func (t *FxtTick) ToBytes() ([]byte, error) {
 	bs, err := misc.PackLittleEndian(tickSize, t)
 	if err != nil {
-		log.Error("Failed to convert FXT tick to bytes array. Error %v.", err)
-		return make([]byte, 0), err
+		slog.Error("Failed to convert FXT tick to bytes array", slog.Any("error", err))
+
+		return []byte{}, err
 	}
 	return bs, err
 }

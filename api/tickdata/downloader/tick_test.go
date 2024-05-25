@@ -1,9 +1,9 @@
 package downloader
 
 import (
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/internal/bi5"
-	"github.com/ed-fx/go-duka/internal/misc"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/internal/bi5"
+	"github.com/edward-yakop/go-duka/internal/misc"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"

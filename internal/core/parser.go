@@ -1,7 +1,7 @@
 package core
 
 import (
-	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/api/tickdata"
 	"io"
 )
 

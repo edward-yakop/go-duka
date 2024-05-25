@@ -1,8 +1,8 @@
 package stream
 
 import (
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"os"

@@ -3,12 +3,13 @@ package instrument
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"log/slog"
 	"math"
 	"net/http"
 	"strconv"
 	"strings"
 	"time"
-	log "unknwon.dev/clog/v2"
 )
 
 // This file is a port of https://github.com/Leo4815162342/dukascopy-tools/blob/master/packages/dukascopy-node/src/config/instruments-metadata.ts
@@ -58,16 +59,15 @@ func (m *Metadata) PriceToString(price float64) string {
 var codeToInstrument map[string]*Metadata = nil
 var nameToInstrument map[string]*Metadata = nil
 
-// Returns instrument with requested code.
-//
-// Returns [nil] if not found
+// GetMetadata returns instrument with requested code.
+// Returns nil if not found
 func GetMetadata(code string) *Metadata {
-	loadMetadataFromJson()
+	LoadMetadataFromJson()
 	return codeToInstrument[strings.ToUpper(code)]
 }
 
 func GetMetadataByName(name string) *Metadata {
-	loadMetadataFromJson()
+	LoadMetadataFromJson()
 	return nameToInstrument[name]
 }
 
@@ -81,24 +81,36 @@ type InstrumentJson struct {
 	StartYearForDailyCandles   time.Time `json:"startYearForDailyCandles"`
 }
 
-func loadMetadataFromJson() {
+var URL = "https://raw.githubusercontent.com/Leo4815162342/dukascopy-node/master/src/utils/instrument-meta-data/generated/instrument-meta-data.json"
+
+func LoadMetadataFromJson() {
 	if codeToInstrument != nil {
 		return
 	}
 
-	codeToInstrument = make(map[string]*Metadata)
-	nameToInstrument = make(map[string]*Metadata)
+	codeToInstrument = map[string]*Metadata{}
+	nameToInstrument = map[string]*Metadata{}
 
-	const url = "https://raw.githubusercontent.com/Leo4815162342/dukascopy-tools/master/packages/dukascopy-node/src/utils/instrument-meta-data/generated/instrument-meta-data.json"
-	resp, err := http.Get(url)
+	resp, err := http.Get(URL)
 	if err != nil {
-		log.Warn("Failed to retrieve dukas instrument from [" + url + "]")
+		slog.Warn("Failed to retrieve dukas instrument from [%s]", URL)
+
+		return
 	}
 
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
 
 	var m map[string]InstrumentJson
-	json.NewDecoder(resp.Body).Decode(&m)
+	if unmarshalErr := json.NewDecoder(resp.Body).Decode(&m); unmarshalErr != nil {
+		slog.Error(
+			"failed to unmarshal instrument file",
+			slog.String("url", URL),
+			slog.Any("error", err),
+		)
+	}
+
 	for instrumentCode, instrument := range m {
 		metadata := jsonToMetadata(instrumentCode, instrument)
 		codeToInstrument[metadata.Code()] = metadata

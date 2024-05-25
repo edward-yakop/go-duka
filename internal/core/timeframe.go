@@ -1,8 +1,9 @@
 package core
 
 import (
-	"github.com/ed-fx/go-duka/api/instrument"
-	"github.com/ed-fx/go-duka/api/tickdata"
+	"github.com/edward-yakop/go-duka/api/instrument"
+	"github.com/edward-yakop/go-duka/api/tickdata"
+	"log/slog"
 	"regexp"
 	"strconv"
 )
@@ -19,7 +20,6 @@ var (
 )
 
 // Timeframe wrapper of tick data in timeframe like: M1, M5, M15, M30, H1, H4, D1, W1, MN
-//
 type Timeframe struct {
 	deltaTimestamp uint32 // unit second
 	startTimestamp uint32 // unit second
@@ -34,7 +34,6 @@ type Timeframe struct {
 }
 
 // ParseTimeframe from input string
-//
 func ParseTimeframe(period string) (uint32, string) {
 	// M15 => [M15 M 15]
 	if ss := TimeframeRegx.FindStringSubmatch(period); len(ss) == 3 {
@@ -89,7 +88,11 @@ func (tf *Timeframe) worker() error {
 	barTicks := make([]*tickdata.TickData, 0, maxCap)
 
 	defer func() {
-		log.Info("%s %s convert completed.", tf.instrument.Code(), tf.period)
+		slog.Info("conversion completed.",
+			slog.String("instrument", tf.instrument.Code()),
+			slog.String("period", tf.period),
+		)
+
 		close(tf.close)
 	}()
 

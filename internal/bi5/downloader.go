@@ -2,8 +2,8 @@ package bi5
 
 import (
 	"fmt"
-	"github.com/ed-fx/go-duka/internal/core"
-	"github.com/ed-fx/go-duka/internal/misc"
+	"github.com/edward-yakop/go-duka/internal/core"
+	"github.com/edward-yakop/go-duka/internal/misc"
 	"github.com/pkg/errors"
 	"net/http"
 	"os"
@@ -76,12 +76,16 @@ func (d Downloader) createFile(path string) error {
 	dir := filepath.Dir(path)
 	if err := os.MkdirAll(dir, 0755); err != nil {
 		err = errors.Wrap(err, "Create folder ["+dir+"] failed")
+
 		return err
 	}
 
 	emptyFile, err := os.Create(path)
 	if err == nil {
-		defer emptyFile.Close()
+		defer func(emptyFile *os.File) {
+			_ = emptyFile.Close()
+		}(emptyFile)
 	}
+
 	return err
 }
