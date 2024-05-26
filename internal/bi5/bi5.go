@@ -1,6 +1,7 @@
 package bi5
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/binary"
 	"github.com/edward-yakop/go-duka/api/instrument"
@@ -9,7 +10,6 @@ import (
 	"github.com/pkg/errors"
 	"io"
 	"os"
-	"strconv"
 	"time"
 
 	"github.com/edward-yakop/go-duka/internal/core"
@@ -133,34 +133,48 @@ func (b Bi5) sanitizeTo(to time.Time, location *time.Location) (time.Time, error
 //	struck.unpack(!IIIff)
 //	date, ask / point, bid / point, round(volume_ask * 100000), round(volume_bid * 100000)
 func (b Bi5) decodeTickData(data []byte, symbol string, timeH time.Time) (*tickdata.TickData, error) {
-	raw := struct {
-		TimeMs    int32 // millisecond offset of current hour
-		Ask       int32
-		Bid       int32
-		VolumeAsk float32
-		VolumeBid float32
-	}{}
-
 	if len(data) != TICK_BYTES {
 		return nil, errors.New("invalid length for tick data")
 	}
 
+	var err error
+	var timeMs, ask, bid int32
+	var volumeAsk, volumeBid float32
+
 	buf := bytes.NewBuffer(data)
-	if err := binary.Read(buf, binary.BigEndian, &raw); err != nil {
-		return nil, err
-	}
+	timeMs, err = read[int32](err, buf, "time")
+	ask, err = read[int32](err, buf, "ask")
+	bid, err = read[int32](err, buf, "bid")
+	volumeAsk, err = read[float32](err, buf, "volumeAsk")
+	volumeBid, err = read[float32](err, buf, "volumeBid")
 
 	var point = b.metadata.DecimalFactor()
+
 	t := tickdata.TickData{
 		Symbol:    symbol,
-		Timestamp: timeH.Unix()*1000 + int64(raw.TimeMs), //timeH.Add(time.Duration(raw.TimeMs) * time.Millisecond),
-		Ask:       float64(raw.Ask) / point,
-		Bid:       float64(raw.Bid) / point,
-		VolumeAsk: float64(raw.VolumeAsk),
-		VolumeBid: float64(raw.VolumeBid),
+		Timestamp: timeH.Unix()*1000 + int64(timeMs), //timeH.Add(time.Duration(raw.TimeMs) * time.Millisecond),
+		Ask:       float64(ask) / point,
+		Bid:       float64(bid) / point,
+		VolumeAsk: float64(volumeAsk),
+		VolumeBid: float64(volumeBid),
 	}
 
 	return &t, nil
+}
+
+func read[T any](existingErr error, buf *bytes.Buffer, field string) (r T, err error) {
+	if existingErr != nil {
+		err = existingErr
+
+		return
+	}
+
+	err = binary.Read(buf, binary.BigEndian, &r)
+	if err != nil {
+		err = errors.Wrapf(err, "failed to read field [%s]", field)
+	}
+
+	return r, err
 }
 
 // Download from dukascopy
@@ -180,12 +194,13 @@ func (b Bi5) EachTick(it tickdata.TickIterator) {
 		return
 	}
 
-	defer f.Close()
+	defer func(f *os.File) { _ = f.Close() }(f)
 
-	reader, err := lzma.NewReader(f)
-	if err != nil {
-		err = errors.Wrap(err, "Failed to create file reader")
+	reader, lzmaErr := lzma.NewReader(bufio.NewReader(f))
+	if lzmaErr != nil {
+		err = errors.Wrapf(err, "failed to create file [%s] reader", b.targetFilePath)
 		it(nil, err)
+
 		return
 	}
 
@@ -197,15 +212,16 @@ func (b Bi5) EachTick(it tickdata.TickIterator) {
 		bytesCount, err = reader.Read(bytesArr[:])
 		if err == io.EOF {
 			err = nil
+
 			break
 		}
 
 		if bytesCount != TICK_BYTES || err != nil {
-			err = errors.Wrap(err, "LZMA decode failed: ["+strconv.Itoa(bytesCount)+"] for file ["+b.targetFilePath+"]")
+			err = errors.Wrapf(err, "LZMA decode failed: [%d] for file [%s]", bytesCount, b.targetFilePath)
 		} else {
 			tick, err = b.decodeTickData(bytesArr[:], b.InstrumentCode(), b.dayHour)
 			if err != nil {
-				err = errors.Wrap(err, "Decode tick data failed for file ["+b.targetFilePath+"]")
+				err = errors.Wrapf(err, "decode tick data failed for file [%s]", b.targetFilePath)
 			}
 		}
 

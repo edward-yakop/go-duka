@@ -1,6 +1,7 @@
 package csv
 
 import (
+	"bufio"
 	"encoding/csv"
 	"fmt"
 	"github.com/edward-yakop/go-duka/api/instrument"
@@ -66,7 +67,7 @@ func (c *CsvDump) PackTicks(barTimestamp uint32, ticks []*tickdata.TickData) err
 
 const dayFormat = "2006-01-02"
 
-// worker goroutine which flust data to disk
+// worker goroutine which flush data to disk
 func (c *CsvDump) worker() error {
 	fname := fmt.Sprintf("%s-%s-%s.%s",
 		c.instrument.Code(),
@@ -88,7 +89,7 @@ func (c *CsvDump) worker() error {
 		slog.Info("Saved Ticks: %d.", c.tickCount)
 	}()
 
-	csvw := csv.NewWriter(f)
+	csvw := csv.NewWriter(bufio.NewWriter(f))
 	defer csvw.Flush()
 
 	// write header

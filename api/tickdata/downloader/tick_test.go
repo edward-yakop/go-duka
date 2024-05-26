@@ -5,7 +5,6 @@ import (
 	"github.com/edward-yakop/go-duka/internal/bi5"
 	"github.com/edward-yakop/go-duka/internal/misc"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
 	"os"
 	"testing"
 	"time"
@@ -31,11 +30,11 @@ func TestDownloader(t *testing.T) {
 }
 
 func fileExists(t *testing.T, filePath string) {
-	assert.True(t, misc.IsFileExists(filePath))
+	assert.Truef(t, misc.IsFileExists(filePath), "file path %s exists", filePath)
 }
 
 func createEmptyDir(t *testing.T) string {
-	dir, err := ioutil.TempDir(".", "test")
+	dir, err := os.MkdirTemp(".", "test")
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		_ = os.RemoveAll(dir)

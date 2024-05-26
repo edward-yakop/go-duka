@@ -5,27 +5,17 @@ import (
 	"github.com/edward-yakop/go-duka/api/instrument"
 	"github.com/edward-yakop/go-duka/api/tickdata"
 	"github.com/edward-yakop/go-duka/api/tickdata/stream"
+	"github.com/edward-yakop/go-duka/internal/misc"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
 	"log/slog"
 	"math"
-	"os"
 	"strconv"
 	"testing"
 	"time"
 )
 
 func Test_StreamExample_DDFinder(t *testing.T) {
-	slog.SetDefault(
-		slog.New(
-			slog.NewTextHandler(
-				os.Stdout,
-				&slog.HandlerOptions{
-					Level: slog.LevelDebug,
-				},
-			),
-		),
-	)
+	misc.SetDefaultLog(slog.LevelDebug)
 
 	loc, _ := time.LoadLocation("EET")
 
@@ -60,7 +50,7 @@ func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Ti
 ) {
 	start := openTime.Add(-1 * time.Minute)
 	end := closeTime.Add(time.Minute)
-	s := stream.New(instrument, start, end, createEmptyDir(t))
+	s := stream.New(instrument, start, end, ".")
 
 	maxDD = math.MaxInt32
 	openPriceDiff = math.MaxInt32
@@ -72,7 +62,7 @@ func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Ti
 		}
 
 		if openPriceDiff == math.MaxInt32 {
-			logTick(t, " open", tickTime, tick)
+			logTick(t, "open", tickTime, tick)
 			openPriceDiff = int(math.Round((openPrice - tick.Ask) * 1000))
 		}
 
@@ -95,17 +85,6 @@ func buyDDFinder(t *testing.T, instrument *instrument.Metadata, openTime time.Ti
 		return true
 	})
 	return openPriceDiff, maxDD, maxPositive, maxDDForMaxPositive, maxPositiveTime, closePriceDiff
-}
-
-func createEmptyDir(t *testing.T) string {
-	dir, err := os.MkdirTemp(".", "test")
-	if !assert.NoError(t, err) {
-		t.FailNow()
-	}
-	t.Cleanup(func() {
-		require.NoError(t, os.RemoveAll(dir), "remove temporary dir failed")
-	})
-	return dir
 }
 
 func logTick(t *testing.T, op string, tickTime time.Time, tick *tickdata.TickData) {
