@@ -40,6 +40,9 @@ func (s Stream) EachTick(it Iterator) {
 		}
 
 		bi.EachTick(func(tick *tickdata.TickData, err error) bool {
+			if tick == nil {
+				return true
+			}
 			tickTime := tick.TimeInLocation(loc)
 			if (start.Equal(tickTime) || start.Before(tickTime)) &&
 				(end.Equal(tickTime) || end.After(tickTime)) {
