@@ -25,35 +25,83 @@ type Metadata struct {
 	priceFormat string
 }
 
-func (m Metadata) Code() string {
+func (m *Metadata) Code() string {
+	if m == nil {
+		return ""
+	}
+
 	return m.code
 }
 
-func (m Metadata) Name() string {
+func (m *Metadata) Name() string {
+	if m == nil {
+		return ""
+	}
+
 	return m.name
 }
 
-func (m Metadata) Description() string {
+func (m *Metadata) Description() string {
+	if m == nil {
+		return ""
+	}
+
 	return m.description
 }
 
-func (m Metadata) MinStartDate() time.Time {
+func (m *Metadata) MinStartDate() time.Time {
+	if m == nil {
+		return time.Time{}
+	}
+
 	return m.minStartDate
 }
 
-func (m Metadata) DecimalFactor() float64 {
+func (m *Metadata) DecimalFactor() float64 {
+	if m == nil {
+		return 0
+	}
+
 	return m.decimalFactor
 }
 
-func (m Metadata) MinStartDateDaily() time.Time {
+func (m *Metadata) MinStartDateDaily() time.Time {
+	if m == nil {
+		return time.Time{}
+	}
+
 	return m.minStartDateDaily
 }
 
 func (m *Metadata) PriceToString(price float64) string {
+	if m == nil {
+		return ""
+	}
+
 	if len(m.priceFormat) == 0 {
 		m.priceFormat = "%." + strconv.Itoa(int(math.Log10(m.decimalFactor))) + "f"
 	}
+
 	return fmt.Sprintf(m.priceFormat, price)
+}
+
+func (m *Metadata) DiffInPips(openPrice, closePrice string) string {
+	if m == nil {
+		return ""
+	}
+
+	op, opErr := strconv.ParseFloat(openPrice, 64)
+	cp, cpErr := strconv.ParseFloat(closePrice, 64)
+	if opErr != nil || cpErr != nil {
+		return ""
+	}
+
+	o := int(op * m.decimalFactor)
+	c := int(cp * m.decimalFactor)
+
+	diff := c - o
+
+	return strconv.Itoa(diff)
 }
 
 var codeToInstrument = map[string]*Metadata{}

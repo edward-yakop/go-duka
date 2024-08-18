@@ -37,3 +37,9 @@ func TestMetadata_PriceToString(t *testing.T) {
 	assert.Equal(t, "1.00000", m.PriceToString(1))
 	assert.Equal(t, "1.01000", m.PriceToString(1.01))
 }
+
+func TestMetadata_DiffInPips(t *testing.T) {
+	gold := GetMetadata("XAUUSD")
+	diff := gold.DiffInPips("2352.68", "2354.90")
+	assert.Equal(t, "222", diff, "diff")
+}

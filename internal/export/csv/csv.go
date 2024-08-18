@@ -86,7 +86,7 @@ func (c *CsvDump) worker() error {
 	defer func() {
 		_ = f.Close()
 		close(c.chClose)
-		slog.Info("Saved Ticks: %d.", c.tickCount)
+		slog.Info(fmt.Sprintf("Saved Ticks: %d", c.tickCount))
 	}()
 
 	csvw := csv.NewWriter(bufio.NewWriter(f))
